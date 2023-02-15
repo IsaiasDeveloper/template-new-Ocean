@@ -423,6 +423,225 @@ header {
 
 /* End of Emphasis section */
 
+/* All Categories section */
+.teachingSection {
+  width: 100%;
+  padding: 50px 0;
+  background-color: var(--iceColor);
+}
+.teachingContainer {
+  max-width: 1000px;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.allCategoriesTextBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+}
+.allCategoriesBar {
+  border: none;
+  width: 120px;
+  height: 3px;
+  margin-bottom: 12px;
+  background-color: var(--primary);
+}
+.teachingTitle {
+  color: var(--blackColor);
+  font-size: 30px;
+  margin: 0;
+  text-align: center;
+}
+.teachingSubTitle {
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-top: 2px;
+  font-weight: bold;
+  font-size: 13px;
+  margin-bottom: 30px;
+}
+.inputBox {
+  max-width: 329px;
+  width: 90%;
+  height: auto;
+  position: relative;
+}
+
+#courseName {
+  border: 1px solid #bdc0c3;
+  width: 100%;
+  margin: 0 auto 5px;
+  border-radius: 20px;
+  height: 30px;
+  padding-left: 40px;
+  color: var(--grayColor);
+  background-color: var(--whiteColor);
+}
+.textWarn {
+  text-align: center;
+  font-size: 12px;
+  color: var(--secundary);
+  font-weight: bold;
+  margin: 0 auto;
+  display: none;
+}
+.backToStartBtn {
+  margin: 15px auto 0;
+  color: var(--whiteColor);
+  background-color: var(--primary);
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 20px;
+  padding: 4px 15px;
+  font-weight: bold;
+  border-radius: 15px;
+  cursor: pointer;
+  display: none;
+}
+
+.seachInputIcon {
+  position: absolute;
+  font-size: 15px;
+  top: 8px;
+  left: 15px;
+  color: var(--grayColor);
+  cursor: pointer;
+}
+.allCourseForCategory {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  column-gap: 20px;
+  row-gap: 25px;
+  margin-bottom: 25px;
+  margin-top: 30px;
+}
+.allCourseForCategory .boxOfEachCategory {
+  max-width: 234px;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: flex-start;
+  background-color: var(--whiteColor);
+  box-shadow: 0px 2px 20px 6px #0000003b;
+  overflow: hidden;
+  border-radius: 15px;
+}
+.allCourseForCategory .boxFromImg {
+  width: 100%;
+  height: 74%;
+  overflow: hidden;
+}
+.allCourseForCategory .imageBox {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center center;
+  transition: 01.2s;
+  cursor: pointer;
+}
+.allCourseForCategory .imageBox:hover {
+  transform: scale(1.1);
+}
+
+.allCourseForCategory .textsBox {
+  width: 84%;
+  height: 25%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* position: relative;
+     z-index: 1;*/
+}
+.allCourseForCategory .categoryTitle {
+  color: var(--blackColor);
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+.allCourseForCategory .NumberOfCourses {
+  margin: 15px auto 7px 0;
+  font-size: 13px;
+  color: var(--secundary);
+  font-weight: bold;
+}
+.allCourseForCategory .categoryInfo {
+  color: var(--blackColor);
+  font-size: 13px;
+  margin: 0;
+  font-weight: 500;
+}
+.allCourseForCategory .lastBoxCategory {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 14%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.allCourseForCategory .categoryBar {
+  width: 100%;
+  height: 1px;
+  margin-top: 0px;
+  margin-right: auto;
+  margin-bottom: 5px;
+  margin-left: auto;
+  border: none;
+  background-color: var(--cardsBarColor);
+}
+.allCourseForCategory .categoryLink {
+  font-size: 13px;
+  text-align: center;
+  font-weight: bold;
+  color: var(--primary);
+  text-transform: uppercase;
+  margin: 3px auto;
+  text-decoration: none;
+}
+.allCourseForCategory .categoryLink:hover {
+  text-decoration: underline;
+}
+.allCourseForCategory .categoryLink:active {
+  opacity: 0.8;
+}
+.allCourseForCategory .infoText {
+  text-align: center;
+  color: var(--primary);
+  font-size: 20px;
+}
+.teachingContainer .showMoreCourses {
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--primary);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.teachingContainer .showMoreCourses:hover {
+  text-decoration: underline;
+}
+.teachingContainer .showMoreCourses:active {
+  opacity: 0.8;
+}
+/* End of All Categories section */
+
 /* Footer Section */
 footer {
   width: 100%;
@@ -618,6 +837,13 @@ footer {
   }
   /* End Testimonials section  */
 }
+@media (max-width: 1106px) {
+  /* All Categories section */
+  .allCategoriesTextBox {
+    align-items: center;
+  }
+  /* End of All Categories section */
+}
 @media (max-width: 992px) {
   /* Navbar */
   .menuMobileBtn {
@@ -749,6 +975,18 @@ footer {
     height: auto;
   }
   /* End of Emphasis section  */
+
+  /* All Categories section */
+  .teachingSection {
+    padding: 0;
+  }
+  .teachingContainer {
+    padding-top: 25px;
+    padding-bottom: 20px;
+    border-right: 1px solid var(--cardsBarColor);
+    border-left: 1px solid var(--cardsBarColor);
+  }
+  /* End of All Categories section */
 }
 
 @media (max-width: 576px) {
@@ -787,6 +1025,14 @@ footer {
     font-size: 13px;
   }
   /* End of Emphasis section  */
+
+  /* All Categories section */
+  .allCourseForCategory .boxOfEachCategory {
+    max-width: 185px;
+    width: 100%;
+    height: 245px;
+  }
+  /* End of All Categories section */
 
   /* Footer Section */
   .footerTextBox {
