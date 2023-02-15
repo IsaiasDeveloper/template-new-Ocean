@@ -426,7 +426,7 @@ header {
 /* All Categories section */
 .teachingSection {
   width: 100%;
-  padding: 50px 0;
+  padding: 50px 0 110px;
   background-color: var(--iceColor);
 }
 .teachingContainer {
@@ -492,7 +492,7 @@ header {
   display: none;
 }
 .backToStartBtn {
-  margin: 15px auto 0;
+  margin: 15px auto 0 0;
   color: var(--whiteColor);
   background-color: var(--primary);
   text-align: center;
@@ -633,6 +633,7 @@ header {
   color: var(--primary);
   text-decoration: underline;
   cursor: pointer;
+  margin-bottom: 15px;
 }
 .teachingContainer .showMoreCourses:hover {
   text-decoration: underline;
@@ -641,6 +642,116 @@ header {
   opacity: 0.8;
 }
 /* End of All Categories section */
+
+/* Why Choose Us section */
+.whyChooseUsSection {
+  width: 100%;
+  background-color: var(--primary);
+  padding: 0 0 70px;
+}
+.containerWhyChooseUs {
+  max-width: 1000px;
+  width: 90%;
+  margin: auto;
+  background-color: var(--primary);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.whyChooseUsTextImg {
+  width: 100%;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+}
+.whyChooseUsTexts {
+  max-width: 300px;
+  width: 97%;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  color: var(--whiteColor);
+}
+.whyChooseUSBar {
+  width: 120px;
+  height: 3px;
+  border: none;
+  background-color: var(--whiteColor);
+  margin-bottom: 15px;
+}
+.whyChooseUsTitle {
+  font-size: 35px;
+  font-weight: bold;
+}
+/* .instituteName {
+  text-transform: uppercase;
+} */
+.whyChooseUsImg {
+  display: flex;
+  justify-content: end;
+  align-items: end;
+  margin-top: -120px;
+  padding-right: 103px;
+}
+.whyChooseUsImg img {
+  width: 261px;
+}
+.whyChooseUsCardsBox {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 20px;
+  row-gap: 30px;
+}
+.whyChooseUsCards {
+  max-width: 319px;
+  width: 80%;
+  min-height: 260px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+  background-color: var(--whiteColor);
+  border-radius: 15px;
+  row-gap: 20px;
+  padding: 20px;
+  margin-top: -1px;
+}
+.whyChooseUsCardsTextsContent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  row-gap: 10px;
+}
+.whyChooseUsCardsTitle {
+  font-size: 17px;
+  font-weight: bold;
+  color: var(--primary);
+}
+.whyChooseUsCardsText {
+  font-size: 13px;
+  color: var(--blackColor);
+}
+.whyChooseUsBtnBox {
+  font-size: 15px;
+  color: var(--secundary);
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+.whyChooseUsBtnBox:hover {
+  text-decoration: underline;
+}
+.whyChooseUsBtnBox:active {
+  opacity: 0.8;
+}
+/* End of Why Choose Us section */
 
 /* Footer Section */
 footer {
@@ -842,6 +953,9 @@ footer {
   .allCategoriesTextBox {
     align-items: center;
   }
+  .backToStartBtn {
+    margin: 15px auto 0;
+  }
   /* End of All Categories section */
 }
 @media (max-width: 992px) {
@@ -987,6 +1101,39 @@ footer {
     border-left: 1px solid var(--cardsBarColor);
   }
   /* End of All Categories section */
+  /* Why Choose Us section */
+  .whyChooseUsSection {
+    background-color: var(--whiteColor);
+    padding-bottom: 0;
+  }
+  .containerWhyChooseUs {
+    padding-bottom: 70px;
+  }
+  .whyChooseUsTexts {
+    max-width: 100%;
+    align-items: center;
+    height: auto;
+    padding: 60px 0 35px;
+  }
+  .whyChooseUsTitle {
+    text-align: center;
+  }
+  .whyChooseUsImg {
+    display: none;
+  }
+  .whyChooseUsCards {
+    max-width: 470px;
+  }
+  .whyChooseUsCardsTitle {
+    font-size: 20px;
+  }
+  .whyChooseUsCardsText {
+    font-size: 15px;
+  }
+  .whyChooseUsBtnBox {
+    font-size: 16px;
+  }
+  /* End of Why Choose Us section */
 }
 
 @media (max-width: 576px) {
@@ -1030,9 +1177,18 @@ footer {
   .allCourseForCategory .boxOfEachCategory {
     max-width: 185px;
     width: 100%;
-    height: 245px;
+    height: 275px;
+  }
+  .allCourseForCategory .textsBox {
+    height: 30%;
   }
   /* End of All Categories section */
+  /* Why Choose Us section */
+  .whyChooseUsCardsTitle {
+    font-size: 19px;
+  }
+
+  /* End of Why Choose Us section */
 
   /* Footer Section */
   .footerTextBox {

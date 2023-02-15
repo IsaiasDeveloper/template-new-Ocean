@@ -574,8 +574,11 @@ function getEventHeaderSlide() {
 function getTestimonials(json) {
   console.log(json);
   try {
+    // Why Choose Us section
+    let instituteName = document.querySelector('.instituteName');
+    instituteName.innerHTML = json.PortalEducacional || json.pageTitle;
+    // End of Why Choose Us section
     let testimoniesSection = document.querySelector('.emphasisSection');
-
     let testimoniesBox = document.querySelector('.emphasisSlide-list');
     let emphasisList = document.querySelectorAll(
       '[data-slide="emphasis-slide-item"]'
@@ -673,7 +676,7 @@ function slideEvents() {
       const emphasisSlideItem = emphasisSlideItems[indice_emphasis];
       const emphasisSlideWidth = emphasisSlideItem.clientWidth;
       const windowEmphasisWidth = document.body.clientWidth;
-      const marginEmphasis = (windowEmphasisWidth - emphasisSlideWidth) / 6;
+      const marginEmphasis = (windowEmphasisWidth - emphasisSlideWidth) / 2;
       const emphasisPosition =
         marginEmphasis - indice_emphasis * emphasisSlideWidth;
       return emphasisPosition;
@@ -1383,6 +1386,30 @@ function fecthSeachCourse(seachName) {
   }
 }
 // End of All Categories section
+
+// Why Choose Us section
+//Note: The title code for this session is between lines 577 and 580 of this file
+//Cards links
+let onlineClassLink = Array.prototype.slice.call(
+  document.querySelectorAll('.whyChooseUsBtnBox')
+);
+for (let i = 0; i < pageLinksList.length; i++) {
+  if (pageLinksList[i].page === 'Quem Somos') {
+    onlineClassLink[0].setAttribute(
+      'href',
+      `${initUrl}/pages/${pageLinksList[i].id}/Quem Somos`
+    );
+  }
+}
+for (let i = 0; i < pageLinksList.length; i++) {
+  if (pageLinksList[i].page === 'Nossos Cursos') {
+    onlineClassLink[1].setAttribute(
+      'href',
+      `${initUrl}/pages/${pageLinksList[i].id}/Nossos Cursos`
+    );
+  }
+}
+// End of Why Choose Us section
 
 // Footer Section
 const logoFooterBox = document.querySelector('.footerEnd');
