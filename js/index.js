@@ -10,10 +10,23 @@ let menuInfo = '/api/getJson.aspx?type=menu';
 // let initUrl = 'https://euestudo.com.vc'; //No Grape devo Comentar essa variável //https://espg.com.br/
 let initUrl = 'https://catalogo.drmeducacao.com.br'; //No Grape devo Comentar essa variável //
 // let initUrl = 'https://espg.com.br'; //No Grape devo Comentar essa variável //
-// let initUrl = 'https://faculdadesucesso.edu.br'; //Tem 3 depoimentos
-// let initUrl = 'https://uniflor.edu.br'; //Tem 9 depoimentos
+// let initUrl = 'https://faculdadesucesso.edu.br'; //Tem 3 emphasis
+// let initUrl = 'https://uniflor.edu.br'; //Tem 9 emphasis
 // let initUrl = 'http://facigma.edu.br'; // SÓ ESSE ESTÁ DANDO ERRO! //
 // let initUrl = 'https://reboucasdigital.com.br'; // SÓ ESSE ESTÁ DANDO ERRO! //
+
+const pageLinksList = [
+  { page: 'Home', id: '111111' },
+  { page: 'Nossos Cursos', id: '222222' },
+  { page: 'Quem Somos', id: '333333' },
+  { page: 'Como Funciona', id: '44444' },
+  { page: 'Contato', id: '55555' },
+  { page: 'Curso', id: '66666' },
+  { page: 'Política de Privacidade', id: '777777' },
+  { page: 'Termos de Uso', id: '88888' },
+  { page: 'Registre-se', id: '99999' },
+  { page: 'Login', id: '101010' },
+];
 
 // Navbar
 //Create all menu informations
@@ -22,19 +35,30 @@ function fetchJsonNavbarLinks() {
     fetch(`${initUrl}${menuInfo}`)
       .then((resposta) => resposta.json())
       .then((json) => {
-        getLogo(json);
+        createNavBarInfo(json);
+        getFooterInfo(json);
       });
   } catch (e) {
     console.warn(e);
   }
 }
-function getLogo(json) {
+function createNavBarInfo(json) {
   try {
-    let logoBox = document.querySelector('.navbarImg');
+    let navbarImgBox = document.querySelector('.navbarImg');
     //Logo image
+    let logoSite = json.logo;
+    let linkToLogo = document.createElement('a');
+    for (let i = 0; i < pageLinksList.length; i++) {
+      if (pageLinksList[i].page === 'Home') {
+        let homePageId = pageLinksList[i].id;
+        linkToLogo.setAttribute('href', `${initUrl}/pages/${homePageId}/Home`);
+      }
+    }
+    navbarImgBox.appendChild(linkToLogo);
     let logoImg = document.createElement('img');
-    logoImg.setAttribute('src', `${initUrl}${json.logo}`);
-    logoBox.appendChild(logoImg);
+    logoImg.setAttribute('src', `${initUrl + logoSite}`);
+    logoImg.setAttribute('alt', 'Logo image');
+    linkToLogo.appendChild(logoImg);
   } catch (e) {
     console.warn(e);
   }
@@ -84,6 +108,46 @@ try {
 } catch (er) {
   console.warn(er);
 }
+//Create navbar link
+const navbarLinks = Array.prototype.slice.call(
+  document.querySelectorAll('.itemsMenuNavbar a')
+);
+try {
+  for (let i = 0; i < pageLinksList.length; i++) {
+    for (let e = 0; e < navbarLinks.length; e++) {
+      if (pageLinksList[i].page === navbarLinks[e].textContent) {
+        let pageId = pageLinksList[i].id;
+        let links = navbarLinks[e].textContent.replace(' ', '-');
+        navbarLinks[e].setAttribute(
+          'href',
+          `${initUrl}/pages/${pageId}/${links}`
+        );
+      }
+    }
+  }
+} catch (e) {
+  console.warn(e);
+}
+//Login button
+let coletaLeadLogin = document.querySelector('.coletaLeadLogin');
+for (let i = 0; i < pageLinksList.length; i++) {
+  if (pageLinksList[i].page === 'Login') {
+    coletaLeadLogin.setAttribute(
+      'href',
+      `${initUrl}/pages/${pageLinksList[i].id}/Login`
+    );
+  }
+}
+//Register button
+let registerNavbarBtn = document.querySelector('.registerNavbarBtn');
+for (let i = 0; i < pageLinksList.length; i++) {
+  if (pageLinksList[i].page === 'Registre-se') {
+    registerNavbarBtn.setAttribute(
+      'href',
+      `${initUrl}/pages/${pageLinksList[i].id}/Registre-se`
+    );
+  }
+}
 // End of Navbar
 
 //Header section
@@ -93,6 +157,8 @@ function fetchMenuInfo() {
       .then((resposta) => resposta.json())
       .then((json) => {
         getHeaderSlide(json);
+        getSocialMediaFooter(json);
+        getTestimonials(json);
       });
   } catch (e) {
     console.warn(e);
@@ -502,7 +568,495 @@ function getEventHeaderSlide() {
     console.warn(e);
   }
 }
-//Header section
+// End of Header section
+
+// Emphasis section
+function getTestimonials(json) {
+  console.log(json);
+  try {
+    let testimoniesSection = document.querySelector('.emphasisSection');
+
+    let testimoniesBox = document.querySelector('.emphasisSlide-list');
+    let emphasisList = document.querySelectorAll(
+      '[data-slide="emphasis-slide-item"]'
+    );
+
+    // if (json.PortalEducacional)
+    if (json.featuredCourses.courses) {
+      let count = -1;
+      for (let i = 0; i < json.featuredCourses.courses.length; i++) {
+        let courseId = json.featuredCourses.courses[i].id;
+        count++;
+        //Eacth testimonies
+        let testimoniesBoxes = document.createElement('div');
+        testimoniesBoxes.classList.add('emphasisSlide-item');
+        testimoniesBoxes.dataset.slide = 'emphasis-slide-item';
+        testimoniesBoxes.dataset.indice_emphasis = emphasisList.length + count;
+        testimoniesBoxes.addEventListener('click', () => {
+          for (let x = 0; x < pageLinksList.length; x++) {
+            if (pageLinksList[x].page === 'Curso') {
+              window.location.href = `${initUrl}/pages/${pageLinksList[x].id}/Detalhe Curso?courseId=${courseId}`;
+            }
+          }
+        });
+        testimoniesBox.appendChild(testimoniesBoxes);
+        //Testimonies content
+        let courseImg = document.createElement('img');
+        courseImg.setAttribute(
+          'src',
+          `${initUrl}${json.featuredCourses.courses[i].img}`
+        );
+        courseImg.setAttribute('alt', 'Course image');
+        courseImg.classList.add('emphasisSlide-content');
+        testimoniesBoxes.appendChild(courseImg);
+
+        //Course name
+        let authorName = document.createElement('p');
+        authorName.classList.add('emphasisCourseName');
+        authorName.innerHTML = json.featuredCourses.courses[i].title;
+        testimoniesBoxes.appendChild(authorName);
+        //Course
+        let courseName = document.createElement('p');
+        courseName.classList.add('emphasisCourseType');
+        courseName.innerHTML = json.featuredCourses.courses[i].author;
+        testimoniesBoxes.appendChild(courseName);
+      }
+    } else if (json.featuredCourses.courses) {
+      testimoniesSection.style.display = 'none';
+      console.log('Não há emphasis de alunos');
+    }
+    slideEvents();
+  } catch (e) {
+    console.warn(e);
+  }
+}
+function slideEvents() {
+  try {
+    const emphasisSlideWrapper = document.querySelector(
+      '[data-slide="emphasisSlide-wrapper"]'
+    );
+    const emphasisSlideList = document.querySelector(
+      '[data-slide="emphasis-slide-list"]'
+    );
+    const emphasisPreviousBtn = document.querySelector(
+      '[data-slide="emphasis-previous-btn"]'
+    );
+    const emphasisNextBtn = document.querySelector(
+      '[data-slide="emphasis-next-btn"]'
+    );
+    const emphasisControlsWapper = document.querySelector(
+      '[data-slide="emphasis-slide-controls-wrapper"]'
+    );
+    let emphasisSlideItems = document.querySelectorAll(
+      '[data-slide="emphasis-slide-item"]'
+    );
+    let emphasisControlButtons;
+    let emphasisSlideInterval;
+
+    const emphasisState = {
+      emphasisStartingPoint: 0,
+      emphasisSavedPosition: 0,
+      emphasisCurrentPoint: 0,
+      emphasisMovement: 0,
+      currentEmphasisSlideIndex: 0,
+      emphasisAutoPlay: true,
+      emphasisTimeInterval: 0,
+    };
+
+    //Mudar slides
+    function translateEmphasisSlide({ emphasisPosition }) {
+      emphasisState.emphasisSavedPosition = emphasisPosition;
+      emphasisSlideList.style.transform = `translateX(${emphasisPosition}px)`;
+    }
+
+    function getCenterEmphasisPosition({ indice_emphasis }) {
+      const emphasisSlideItem = emphasisSlideItems[indice_emphasis];
+      const emphasisSlideWidth = emphasisSlideItem.clientWidth;
+      const windowEmphasisWidth = document.body.clientWidth;
+      const marginEmphasis = (windowEmphasisWidth - emphasisSlideWidth) / 6;
+      const emphasisPosition =
+        marginEmphasis - indice_emphasis * emphasisSlideWidth;
+      return emphasisPosition;
+    }
+
+    function setVisibleEmphasisSlide({ indice_emphasis, animateEmphasis }) {
+      if (
+        indice_emphasis === 0 ||
+        indice_emphasis === emphasisSlideItems.length - 1
+      ) {
+        indice_emphasis = emphasisState.currentEmphasisSlideIndex;
+      }
+      const emphasisPosition = getCenterEmphasisPosition({ indice_emphasis });
+      emphasisState.currentEmphasisSlideIndex = indice_emphasis;
+      emphasisSlideList.style.transition =
+        animateEmphasis === true ? 'transform 1s' : 'none';
+      activeEmphasisControlButton({ indice_emphasis });
+      translateEmphasisSlide({ emphasisPosition: emphasisPosition });
+    }
+
+    function nextEmphasisSlide() {
+      setVisibleEmphasisSlide({
+        indice_emphasis: emphasisState.currentEmphasisSlideIndex + 1,
+        animateEmphasis: true,
+      });
+    }
+
+    function previousEmphasisSlide() {
+      setVisibleEmphasisSlide({
+        indice_emphasis: emphasisState.currentEmphasisSlideIndex - 1,
+        animateEmphasis: true,
+      });
+    }
+
+    function createEmphasisControlButtons() {
+      emphasisSlideItems.forEach(function () {
+        const emphasisControlButton = document.createElement('button');
+        emphasisControlButton.classList.add('emphasisSlide-control-button');
+        emphasisControlButton.classList.add('fas');
+        emphasisControlButton.classList.add('fa-circle');
+        emphasisControlButton.dataset.slide = 'emphasis-control-btn';
+        emphasisControlsWapper.append(emphasisControlButton);
+      });
+    }
+
+    function activeEmphasisControlButton({ indice_emphasis }) {
+      const emphasisSlideItem = emphasisSlideItems[indice_emphasis];
+      const dataindice_emphasis = Number(
+        emphasisSlideItem.dataset.indice_emphasis
+      );
+      const emphasisControlButton = emphasisControlButtons[dataindice_emphasis];
+      emphasisControlButtons.forEach(function (emphasisControlButtonItem) {
+        emphasisControlButtonItem.classList.remove('activeEmphasisSlideItem');
+      });
+      if (emphasisControlButton)
+        emphasisControlButton.classList.add('activeEmphasisSlideItem');
+    }
+
+    function createEmphasisSlideClone() {
+      const firstEmphasisSlide = emphasisSlideItems[0].cloneNode(true);
+      firstEmphasisSlide.classList.add('emphasisSlide-cloned');
+      firstEmphasisSlide.dataset.indice_emphasis = emphasisSlideItems.length;
+
+      const secundEmphasisSlide = emphasisSlideItems[1].cloneNode(true);
+      secundEmphasisSlide.classList.add('emphasisSlide-cloned');
+      secundEmphasisSlide.dataset.indice_emphasis =
+        emphasisSlideItems.length + 1;
+
+      const lastEmphasisSlide =
+        emphasisSlideItems[emphasisSlideItems.length - 1].cloneNode(true);
+      lastEmphasisSlide.classList.add('emphasisSlide-cloned');
+      lastEmphasisSlide.dataset.indice_emphasis = -1;
+
+      const penultimateEmphasisSlide =
+        emphasisSlideItems[emphasisSlideItems.length - 2].cloneNode(true);
+      penultimateEmphasisSlide.classList.add('emphasisSlide-cloned');
+      penultimateEmphasisSlide.dataset.indice_emphasis = -2;
+
+      //Criar no final da lista
+      emphasisSlideList.append(firstEmphasisSlide);
+      emphasisSlideList.append(secundEmphasisSlide);
+      //Criar no início da lista
+      emphasisSlideList.prepend(lastEmphasisSlide);
+      emphasisSlideList.prepend(penultimateEmphasisSlide);
+
+      emphasisSlideItems = document.querySelectorAll(
+        '[data-slide="emphasis-slide-item"]'
+      );
+    }
+
+    //Apertar
+    function onEmphasisMouseDown(evento, indice_emphasis) {
+      const emphasisSlideItem = evento.currentTarget;
+      emphasisState.emphasisStartingPoint = evento.clientX;
+      emphasisState.emphasisCurrentPoint =
+        emphasisState.emphasisStartingPoint -
+        emphasisState.emphasisSavedPosition;
+      emphasisState.diaDiaCurrentSlideindice_emphasis = indice_emphasis;
+      emphasisSlideList.style.transition = 'none';
+      emphasisSlideItem.addEventListener('mousemove', onEmphasisMouseMove);
+    }
+    //Evento de mover mouse
+    function onEmphasisMouseMove(evento, indice_emphasis) {
+      emphasisState.emphasisMovement =
+        evento.clientX - emphasisState.emphasisStartingPoint;
+      const emphasisPosition =
+        evento.clientX - emphasisState.emphasisCurrentPoint;
+      translateEmphasisSlide({ emphasisPosition });
+    }
+    //Soltar
+    function noEmphasisMouseUp(evento) {
+      const pointsToMoveEmphasis = evento.type.includes('touch') ? 50 : 150;
+      // console.log(evento.type);
+      const emphasisSlideItem = evento.currentTarget;
+      if (emphasisState.emphasisMovement < -pointsToMoveEmphasis) {
+        nextEmphasisSlide();
+      } else if (emphasisState.emphasisMovement > pointsToMoveEmphasis) {
+        previousEmphasisSlide();
+      } else {
+        setVisibleEmphasisSlide({
+          indice_emphasis: emphasisState.currentEmphasisSlideIndex,
+          animateEmphasis: true,
+        });
+      }
+
+      emphasisSlideItem.removeEventListener('mousemove', onEmphasisMouseMove);
+    }
+
+    function onEmphasisTouchStart(evento, indice_emphasis) {
+      evento.clientX = evento.touches[0].clientX;
+      onEmphasisMouseDown(evento, indice_emphasis);
+      const emphasisSlideItem = evento.currentTarget;
+      emphasisSlideItem.addEventListener('touchmove', onEmphasisTouchMove);
+    }
+
+    function onEmphasisTouchMove(evento) {
+      evento.clientX = evento.touches[0].clientX;
+      onEmphasisMouseMove(evento);
+    }
+    function onEmphasisTouchEnd(evento) {
+      noEmphasisMouseUp(evento);
+      const emphasisSlideItem = evento.currentTarget;
+      emphasisSlideItem.removeEventListener('touchmove', onEmphasisTouchMove);
+    }
+
+    function onEmphasisControlButtonClick(indice_emphasis) {
+      setVisibleEmphasisSlide({
+        indice_emphasis: indice_emphasis + 2,
+        animateEmphasis: true,
+      });
+    }
+
+    function onEmphasisSlideListTransitionEnd() {
+      const emphasisSlideItem =
+        emphasisSlideItems[emphasisState.currentEmphasisSlideIndex];
+
+      if (
+        emphasisSlideItem.classList.contains('emphasisSlide-cloned') &&
+        Number(emphasisSlideItem.dataset.indice_emphasis) > 0
+      ) {
+        setVisibleEmphasisSlide({ indice_emphasis: 2, animateEmphasis: false });
+      }
+      if (
+        emphasisSlideItem.classList.contains('emphasisSlide-cloned') &&
+        Number(emphasisSlideItem.dataset.indice_emphasis) < 0
+      ) {
+        setVisibleEmphasisSlide({
+          indice_emphasis: emphasisSlideItems.length - 3,
+          animateEmphasis: false,
+        });
+      }
+    }
+
+    function setEmphasisAutoPlay() {
+      if (emphasisState.emphasisAutoPlay) {
+        emphasisSlideInterval = setInterval(function () {
+          setVisibleEmphasisSlide({
+            indice_emphasis: emphasisState.currentEmphasisSlideIndex + 1,
+            animateEmphasis: true,
+          });
+        }, emphasisState.emphasisTimeInterval);
+      }
+    }
+
+    function setEmphasisListeners() {
+      emphasisControlButtons = document.querySelectorAll(
+        '[data-slide="emphasis-control-btn"]'
+      );
+      emphasisSlideItems = document.querySelectorAll(
+        '[data-slide="emphasis-slide-item"]'
+      );
+
+      //Adicionar evento nos indicatons
+      emphasisControlButtons.forEach(function (
+        emphasisControlButton,
+        indice_emphasis
+      ) {
+        emphasisControlButton.addEventListener('click', function (evento) {
+          onEmphasisControlButtonClick(indice_emphasis);
+        });
+      });
+
+      //Eventos do mouse
+      emphasisSlideItems.forEach(function (emphasisSlideItem, indice_emphasis) {
+        //Arrastar
+        emphasisSlideItem.addEventListener('dragstart', function (evento) {
+          evento.preventDefault();
+        });
+        //Apertar
+        emphasisSlideItem.addEventListener('mousedown', function (evento) {
+          onEmphasisMouseDown(evento, indice_emphasis);
+        }),
+          //Soltar no mobile
+          emphasisSlideItem.addEventListener('mouseup', noEmphasisMouseUp);
+
+        //Apertar no mobile
+        emphasisSlideItem.addEventListener('touchstart', function (evento) {
+          onEmphasisTouchStart(evento, indice_emphasis);
+        }),
+          //Soltar
+          emphasisSlideItem.addEventListener('touchend', onEmphasisTouchEnd);
+      });
+
+      emphasisNextBtn.addEventListener('click', nextEmphasisSlide);
+      emphasisPreviousBtn.addEventListener('click', previousEmphasisSlide);
+
+      //Evento para voltar o slide de forma que o usuário não perceba
+      emphasisSlideList.addEventListener(
+        'transitionend',
+        onEmphasisSlideListTransitionEnd
+      );
+      emphasisSlideWrapper.addEventListener('mouseenter', function () {
+        clearInterval(emphasisSlideInterval);
+      });
+      emphasisSlideWrapper.addEventListener('mouseleave', function () {
+        setEmphasisAutoPlay();
+      });
+
+      //Manter posicionamento padrão
+      let emphasisResizeTimeOut;
+      window.addEventListener('resize', function () {
+        clearTimeout(emphasisResizeTimeOut);
+        emphasisResizeTimeOut = setTimeout(function () {
+          setVisibleEmphasisSlide({
+            indice_emphasis: emphasisState.currentEmphasisSlideIndex,
+            animateEmphasis: true,
+          });
+        }, 500);
+      });
+    }
+
+    function initEmphasisSlider({
+      startAtindice_emphasis = 0,
+      emphasisAutoPlay = true,
+      emphasisTimeInterval = 3000,
+    }) {
+      emphasisState.emphasisAutoPlay = emphasisAutoPlay;
+      emphasisState.emphasisTimeInterval = emphasisTimeInterval;
+      createEmphasisControlButtons();
+      createEmphasisSlideClone();
+      setEmphasisListeners();
+      setVisibleEmphasisSlide({
+        indice_emphasis: startAtindice_emphasis + 2,
+        animateEmphasis: true,
+      });
+      setEmphasisAutoPlay();
+    }
+
+    initEmphasisSlider({
+      emphasisAutoPlay: true,
+      startAtindice_emphasis: 0,
+      emphasisTimeInterval: 4000,
+    });
+  } catch (e) {
+    console.warn(e);
+  }
+}
+// End of Emphasis section
+
+// Footer Section
+const logoFooterBox = document.querySelector('.footerEnd');
+const socialMediaBox = document.querySelector('.footerSocialMediaIconBox');
+const footerInfoBox = document.querySelector('.footerInfoBox');
+
+let footerLinkBox = document.createElement('div');
+footerLinkBox.classList.add('linksCreatedJs');
+footerInfoBox.appendChild(footerLinkBox);
+let infoBoxLeftFooter = document.createElement('div');
+infoBoxLeftFooter.classList.add('infoBoxLeftFooter');
+footerLinkBox.appendChild(infoBoxLeftFooter);
+
+serviceBox = document.createElement('div');
+serviceBox.classList.add('serviceBox');
+footerLinkBox.appendChild(serviceBox);
+//Politic link
+let footerPolicyLinks = document.createElement('a');
+footerPolicyLinks.innerText = 'Política e Privacidade';
+for (let i = 0; i < pageLinksList.length; i++) {
+  if (pageLinksList[i].page === 'Política de Privacidade') {
+    footerPolicyLinks.setAttribute(
+      'href',
+      `${initUrl}/pages/${pageLinksList[i].id}/Política de Privacidade`
+    );
+  }
+}
+footerPolicyLinks.classList.add('OurCoursesLinks');
+serviceBox.appendChild(footerPolicyLinks);
+//Use terms link
+let footerUseTermsLink = document.createElement('a');
+footerUseTermsLink.innerText = 'Termos de Uso';
+for (let i = 0; i < pageLinksList.length; i++) {
+  if (pageLinksList[i].page === 'Termos de Uso') {
+    footerUseTermsLink.setAttribute(
+      'href',
+      `${initUrl}/pages/${pageLinksList[i].id}/Termos de Uso`
+    );
+  }
+}
+footerUseTermsLink.classList.add('OurCoursesLinks');
+serviceBox.appendChild(footerUseTermsLink);
+//navbarLinks
+try {
+  for (let i = 0; i < pageLinksList.length; i++) {
+    for (let e = 0; e < navbarLinks.length; e++) {
+      if (pageLinksList[i].page === navbarLinks[e].textContent) {
+        let pageId = pageLinksList[i].id;
+        let links = navbarLinks[e].textContent;
+        let modifiedLink = links.replace(' ', '-');
+        let navBarCopy = document.createElement('a');
+        navBarCopy.innerHTML = links;
+        navBarCopy.setAttribute(
+          'href',
+          `${initUrl}/pages/${pageId}/${modifiedLink}`
+        );
+        infoBoxLeftFooter.appendChild(navBarCopy);
+      }
+    }
+  }
+} catch (e) {
+  console.warn(e);
+}
+
+//Footer logo
+function getFooterInfo(json) {
+  try {
+    let logoSite = json.logo;
+    let linkToLogo = document.createElement('a');
+    for (let i = 0; i < pageLinksList.length; i++) {
+      if (pageLinksList[i].page === 'Home') {
+        let homePageId = pageLinksList[i].id;
+        linkToLogo.setAttribute('href', `${initUrl}/pages/${homePageId}/Home`);
+      }
+    }
+    logoFooterBox.prepend(linkToLogo);
+    let logoImg = document.createElement('img');
+    logoImg.setAttribute('src', `${initUrl + logoSite}`);
+    logoImg.setAttribute('alt', 'Logo image');
+    linkToLogo.appendChild(logoImg);
+  } catch (e) {
+    console.warn(e);
+  }
+}
+
+function getSocialMediaFooter(json) {
+  try {
+    let howManySocialMedia = json.socialMedias.links.length;
+    for (let i = 0; i <= howManySocialMedia; i++) {
+      let socailMediaName = json.socialMedias.links[i].icon;
+      let socialMediaLink = document.createElement('a');
+      socialMediaLink.setAttribute('href', json.socialMedias.links[i].href);
+      socialMediaLink.setAttribute('target', '_blank');
+      let socialMediaIcon = document.createElement('i');
+      socialMediaIcon.classList.add('fa-brands');
+      socialMediaIcon.classList.add(`fa-${socailMediaName}`);
+      socialMediaLink.appendChild(socialMediaIcon);
+      socialMediaBox.appendChild(socialMediaLink);
+    }
+  } catch (e) {
+    console.warn(e);
+  }
+}
+// End Footer Section
+
 //Call functions
 fetchJsonNavbarLinks();
 fetchMenuInfo();
