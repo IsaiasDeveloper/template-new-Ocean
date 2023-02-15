@@ -240,8 +240,6 @@ header {
 /* Emphasis section */
 .emphasisSection {
   width: 100%;
-  /* margin: -1px 0;
-  padding: 50px 0 70px 0;*/
   background-color: var(--primary);
 }
 .containerEmphasis {
@@ -272,26 +270,36 @@ header {
   background-color: var(--whiteColor);
   margin-bottom: 15px;
 }
-.emphasisTitle {
-  font-size: 30px;
-}
-.slideDepoimentos-wrapper {
-  width: 100%;
-  height: auto;
-}
-.depoimentosSlide-wrapper {
+.slideEmphasisNextPrevBtnBox {
   position: absolute;
   width: 100%;
-  top: 60px;
   display: flex;
   align-items: center;
   justify-content: end;
 }
-.depoimentosSlide-button:nth-child(1) {
-  margin-right: 20px;
+.emphasisSlide-button {
+  color: #fff;
+  background-color: transparent;
+  font-size: 25px;
+  /* position: absolute; */
+  z-index: 1;
+  cursor: pointer;
+  border: none;
+  border-radius: 50%;
+  padding: 8px 12px;
+  /* margin-top: -35px; */
 }
-
-.depoimentosSlide-button {
+.emphasisSlide-previous {
+  left: 290px;
+  /* background-color: var(--transparentdarkColor); */
+  padding: 8px 12px;
+}
+.emphasisSlide-next {
+  right: 290px;
+  /* background-color: var(--transparentdarkColor); */
+  padding: 8px 12px;
+}
+.emphasisSlide-button {
   color: var(--primary);
   background-color: var(--whiteColor);
   border-radius: 50%;
@@ -300,17 +308,316 @@ header {
   cursor: pointer;
   transition: 0.4s;
 }
-.depoimentosSlide-button:hover {
+.emphasisSlide-button:nth-child(1) {
+  margin-right: 20px;
+}
+
+.emphasisSlide-button:hover {
   transform: scale(1.05);
 }
-.depoimentosSlide-button:active {
+.emphasisSlide-button:active {
   color: var(--whiteColor);
   border: 1px solid #fff;
   background-color: var(--primary);
 }
+.emphasisTitle {
+  font-size: 30px;
+}
+.slideEmphasis-wrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+.emphasisSlide-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.emphasisSlide-list {
+  display: flex;
+}
+.emphasisSlide-list .emphasisSlide-item {
+  flex-shrink: 0;
+  max-width: 350px;
+  width: 80%;
+  height: 200px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: start;
+  margin: 15px 0 0 15px;
+  padding: 15px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 15px;
+}
+.emphasisSlide-list .emphasisSlide-content {
+  background-size: cover;
+  background-position: center center;
+  position: absolute;
+  /* z-index: -1; */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transition: 0.8s;
+}
+
+.emphasisSlide-list .emphasisSlide-content:hover {
+  transform: scale(1.1);
+}
+.emphasisSlide-list .enlargeImage {
+  transform: scale(1.1);
+}
+.emphasisSlide-list .contentTextBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: auto;
+  row-gap: 5px;
+}
+
+.emphasisSlide-list .emphasisCourseName {
+  font-size: 13px;
+  color: var(--whiteColor);
+  font-weight: bold;
+  margin-bottom: 2px;
+  text-align: left;
+  z-index: 1;
+}
+.emphasisSlide-list .emphasisCourseType {
+  text-align: left;
+  font-size: 12px;
+  color: var(--whiteColor);
+  z-index: 1;
+}
+
+.emphasisSlide-controls {
+  display: none;
+  margin: 20px auto 0;
+}
+/* Criar esse no JS ↓*/
+.emphasisSlide-controls .emphasisSlide-control-button {
+  background-color: transparent;
+  color: transparent;
+  font-size: 10px;
+  margin: 0 5px;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  padding: 0;
+  margin-bottom: 30px;
+}
+.emphasisSlide-controls .emphasisSlide-control-button.activeEmphasisSlideItem {
+  color: var(--whiteColor);
+  background-color: var(--whiteColor);
+  border-radius: 50%;
+}
+/* Criar esse no JS ↑*/
+
 /* End of Emphasis section */
 
-/* Media Query */
+/* Footer Section */
+footer {
+  width: 100%;
+  padding: 60px 0 20px;
+  color: var(--blackColor);
+  background-color: var(--whiteColor);
+}
+.footerContainer {
+  max-width: 1000px;
+  width: 90%;
+  margin: auto;
+  display: block;
+  text-align: center;
+}
+.footerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 40px;
+}
+.footerTextBox {
+  /* linksCreatedJs */
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+.footerInfoBox {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  row-gap: 5px;
+}
+.OurCoursesFooterBox,
+.footerRegristrationBox {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  row-gap: 10px;
+}
+.footerTextTitle {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 0;
+}
+.footerInfoBox .OurCoursesLinks,
+.OurCoursesFooterBox .OurCoursesLinks {
+  text-decoration: none;
+  color: var(--blackFont);
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.8s;
+  cursor: pointer;
+  text-align: justify;
+}
+.footerInfoBox .OurCoursesLinks:hover {
+  color: var(--primary);
+}
+.footerInfoBox .OurCoursesLinks:active,
+.OurCoursesFooterBox .OurCoursesLinks:active {
+  opacity: 0.9;
+}
+
+.footerInfoBox .linksCreatedJs {
+  display: flex;
+  align-items: start;
+  width: 100%;
+  row-gap: 10px;
+}
+.footerInfoBox .infoBoxLeftFooter {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 47%;
+  row-gap: 10px;
+}
+.footerInfoBox .serviceBox {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 51%;
+  row-gap: 10px;
+}
+
+.OurCoursesFooterBox a,
+.footerInfoBox a,
+.footerRegristrationBox a,
+.linksCreatedJs span a,
+.footerInfoBox a {
+  text-decoration: none;
+  color: var(--blackColor);
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.8s;
+}
+.linksCreatedJs span a:hover,
+.OurCoursesFooterBox a:hover,
+.footerInfoBox a:hover,
+.footerRegristrationBox a:hover {
+  color: var(--primary);
+}
+
+.footerSocialMediaIconBox {
+  width: 40%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: start;
+}
+.footerSocialMediaIconBox a {
+  text-decoration: none;
+}
+
+.footerSocialMediaIconBox i {
+  font-size: 25px;
+  color: var(--blackColor);
+  border: 1px solid #000;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.8s;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 10px;
+}
+.footerSocialMediaIconBox i:hover {
+  transform: scale(1.2);
+}
+.footerSocialMediaIconBox i:active {
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+.footerBar {
+  border: none;
+  width: 100%;
+  height: 2px;
+  background-color: var(--blackColor);
+}
+.footerEnd {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 20px;
+}
+.footerEnd .footerLogo {
+  width: 232px;
+}
+.FooterEndUniMais {
+  width: 220px;
+}
+.FooterEndDZM {
+  width: 120px;
+}
+/* End Footer Section */
+
+/*
+              Media Query
+*/
+@media (max-width: 1800px) {
+  /* Testimonials section  */
+  .emphasisSlide-previous {
+    left: 225px;
+  }
+  .emphasisSlide-next {
+    right: 225px;
+  }
+  /* End Testimonials section  */
+}
+@media (max-width: 1600px) {
+  /* Testimonials section  */
+  .emphasisSlide-previous {
+    left: 115px;
+  }
+  .emphasisSlide-next {
+    right: 115px;
+  }
+  /* End Testimonials section  */
+}
+@media (max-width: 1400px) {
+  /* Testimonials section  */
+  .emphasisSlide-previous {
+    left: 35px;
+  }
+  .emphasisSlide-next {
+    right: 35px;
+  }
+  /* End Testimonials section  */
+}
 @media (max-width: 992px) {
   /* Navbar */
   .menuMobileBtn {
@@ -369,6 +676,22 @@ header {
   .containerNavbar i {
     display: block;
   }
+  /* End of Navbar */
+
+  /* Footer Section */
+  .footerHeader {
+    flex-direction: column;
+    row-gap: 30px;
+  }
+  .footerTextBox {
+    width: 100%;
+  }
+  .footerSocialMediaIconBox {
+    max-width: 450px;
+    width: 100%;
+    margin: auto;
+  }
+  /* End Footer Section */
 }
 
 @media (max-width: 768px) {
@@ -387,7 +710,9 @@ header {
   .slide-list-header .mobile-image-header {
     display: block;
     width: 90%;
+    height: 494px;
     margin: auto;
+    object-fit: none;
   }
   /* Header */
 
@@ -398,7 +723,7 @@ header {
   }
   .containerEmphasis {
     position: static;
-    height: 370px;
+    height: 445px;
   }
   .emphasisTextBox {
     align-items: center;
@@ -406,25 +731,22 @@ header {
   .emphasisTitle {
     text-align: center;
   }
-  .slideDepoimentos-wrapper {
+  .testimonialsSection {
+    padding: 50px 0 50px;
+  }
+  .slideEmphasisNextPrevBtnBox {
+    top: auto;
+    bottom: 25px;
+    left: 0;
+    height: 50px;
+    justify-content: center;
+  }
+  .slideEmphasis-wrapper {
     position: absolute;
     left: 0;
-    right: 0;
-    bottom: 85px;
-  }
-  .depoimentosSlide-button:nth-child(2) {
-    margin-left: 10px;
-  }
-  .depoimentosSlide-wrapper {
-    right: 0;
-    width: 100%;
-    bottom: 15px;
+    bottom: 99px;
     top: auto;
-    height: 50px;
-    flex-wrap: wrap;
-    /* column-gap: 20px; */
-    justify-content: center;
-    align-items: center;
+    height: auto;
   }
   /* End of Emphasis section  */
 }
@@ -433,6 +755,9 @@ header {
   /* Header */
   .slide-controls-header {
     margin-top: -28px;
+  }
+  .slide-list-header .mobile-image-header {
+    margin-bottom: -7px;
   }
   .slide-controls-header .slide-control-button-header {
     width: 15px;
@@ -448,14 +773,49 @@ header {
   .slide-nav-previous-header {
     left: 10px;
   }
+
   /* End Header */
 
   /* Emphasis section  */
   .containerEmphasis {
-    height: 410px;
+    height: 450px;
   }
   .emphasisTitle {
     font-family: 23px;
   }
+  .teachingContainer .blueClassicBtn {
+    font-size: 13px;
+  }
   /* End of Emphasis section  */
+
+  /* Footer Section */
+  .footerTextBox {
+    flex-direction: column;
+    row-gap: 20px;
+  }
+  .OurCoursesFooterBox,
+  .footerInfoBox,
+  .footerRegristrationBox {
+    width: 100%;
+    align-items: center;
+  }
+  .footerInfoBox .linksCreatedJs {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .footerInfoBox .infoBoxLeftFooter,
+  .footerInfoBox .serviceBox {
+    align-items: center;
+  }
+  .footerSocialMediaIconBox i {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+  .FooterEndUniMais {
+    width: 170px;
+  }
+
+  /* End Footer Section */
 }
