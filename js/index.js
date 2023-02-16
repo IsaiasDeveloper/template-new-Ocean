@@ -28,6 +28,9 @@ const pageLinksList = [
   { page: 'Login', id: '101010' },
 ];
 
+console.log('jQuery version: ' + jQuery.fn.jquery);
+console.log('Slick version: ' + $.fn.slick.version);
+
 // Navbar
 //Create all menu informations
 function fetchJsonNavbarLinks() {
@@ -1418,6 +1421,170 @@ for (let i = 0; i < pageLinksList.length; i++) {
   }
 }
 // End of Why Choose Us section
+
+// Discover Packages section
+// $(document).ready(function () {
+//   if ($(window).width() <= 992) {
+//     $('.discoverPackages-wrapper').slick({
+//       slidesToShow: 2,
+//       slidesToScroll: 1,
+//       arrows: true,
+//       dots: false,
+//     });
+//   }
+// });
+
+// slickdemos usage settings wordpress get it now
+// ads via Carbon
+// Get 10 Free Images From Adobe Stock. Start Now.
+// ADS VIA CARBON
+// Features
+// Fully responsive. Scales with its container.
+// Separate settings per breakpoint
+// Uses CSS3 when available. Fully functional when not.
+// Swipe enabled. Or disabled, if you prefer.
+// Desktop mouse dragging
+// Infinite looping.
+// Fully accessible with arrow key navigation
+// Add, remove, filter & unfilter slides
+// Autoplay, dots, arrows, callbacks, etc...
+// Single Item
+
+// $('.single-item').slick();
+
+// // Multiple Items
+
+// $('.multiple-items').slick({
+//   infinite: true,
+//   slidesToShow: 3,
+//   slidesToScroll: 3
+// });
+
+// Responsive Display
+
+// $('.discoverPackages-wrapper').slick({
+//   dots: true,
+//   infinite: true,
+//   speed: 800,
+//   slidesToShow: 4,
+//   slidesToScroll: 4,
+//   responsive: [
+//     {
+//       breakpoint: 1200,
+//       settings: 'unslick',
+//     },
+//     {
+//       breakpoint: 992,
+//       settings: {
+//         slidesToShow: 3,
+//         slidesToScroll: 3,
+//         infinite: true,
+//         dots: true,
+//       },
+//     },
+//     {
+//       breakpoint: 768,
+//       settings: {
+//         slidesToShow: 2,
+//         slidesToScroll: 2,
+//       },
+//     },
+//     {
+//       breakpoint: 576,
+//       settings: {
+//         slidesToShow: 2,
+//         slidesToScroll: 2,
+//       },
+//     },
+//     // You can unslick at a given breakpoint now by adding:
+//     // settings: "unslick"
+//     // instead of a settings object
+//   ],
+// });
+
+$(document).ready(function () {
+  var $slickElement = $('.discoverPackages-wrapper');
+  if ($(window).width() < 992) {
+    $slickElement.slick({
+      dots: false,
+      infinite: true,
+      arrows: true,
+      speed: 800,
+      slidesToShow: 4,
+      slidesToScroll: 4,
+      responsive: [
+        {
+          breakpoint: 992,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            infinite: true,
+            dots: false,
+          },
+        },
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 1,
+          },
+        },
+        {
+          breakpoint: 576,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1,
+          },
+        },
+      ],
+    });
+  } else {
+    $slickElement.slick('unslick');
+  }
+});
+
+$(window).resize(function () {
+  var $slickElement = $('.discoverPackages-wrapper');
+  if ($(window).width() >= 992) {
+    $slickElement.slick('unslick');
+  } else {
+    $slickElement.slick({
+      dots: false,
+      infinite: true,
+      arrows: true,
+      speed: 800,
+      slidesToShow: 4,
+      slidesToScroll: 4,
+      responsive: [
+        {
+          breakpoint: 992,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            infinite: true,
+            dots: false,
+          },
+        },
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 1,
+          },
+        },
+        {
+          breakpoint: 576,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1,
+          },
+        },
+      ],
+    });
+  }
+});
+
+// End of Discover Packages section
 
 // Footer Section
 const logoFooterBox = document.querySelector('.footerEnd');
