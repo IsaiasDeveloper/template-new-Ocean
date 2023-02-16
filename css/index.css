@@ -753,6 +753,124 @@ header {
 }
 /* End of Why Choose Us section */
 
+/* Right Choice section */
+.rightChoiceSection {
+  width: 100%;
+  padding: 70px 0;
+  background-color: var(--whiteColor);
+  display: block;
+  text-align: center;
+}
+.rightChoiceContainer {
+  max-width: 1000px;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+}
+.rigthChoiceHeader {
+  width: 100%;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  margin-bottom: 70px;
+}
+.rightChoiceHeaderTexts {
+  width: 48%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  color: var(--blackColor);
+}
+.rightChoiceHeaderBar {
+  border: none;
+  width: 120px;
+  height: 3px;
+  background-color: var(--primary);
+  margin-bottom: 15px;
+}
+.rightChoiceHeaderTitle {
+  max-width: 364px;
+  width: 100%;
+  text-align: left;
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+.rightChoiceHeaderContent {
+  text-align: left;
+  font-size: 16px;
+  max-width: 408px;
+  width: 100%;
+}
+.rightChoiceHeaderImg {
+  width: 48%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+.rightChoiceHeaderImg img {
+  width: 90%;
+  height: 300px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+.rightChoiceFooter {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.rightChoiceFooterTitle {
+  color: var(--blackColor);
+  font-size: 30px;
+  margin-bottom: 25px;
+  max-width: 575px;
+  width: 90%;
+  text-align: center;
+}
+.rightChoiceFooterBoxes {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  justify-content: center;
+  column-gap: 20px;
+  row-gap: 30px;
+  color: var(--primary);
+}
+.rightChoiceFooterBox {
+  max-width: 230px;
+  width: 95%;
+  min-height: 140px;
+  height: auto;
+  margin: 0 auto;
+  border-left: 2px solid #22d2b3;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  padding-left: 20px;
+}
+.rightChoiceFooterBoxTitle {
+  font-size: 40px;
+  font-weight: bold;
+}
+.rightChoiceFooterBoxTitle span,
+.righrFooterBoxUnit {
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 10px;
+}
+.rightChoiceFooterBoxContent {
+  margin-top: 12px;
+  text-align: left;
+}
+/* End of Right Choice section */
+
 /* Footer Section */
 footer {
   width: 100%;
@@ -1097,8 +1215,8 @@ footer {
   .teachingContainer {
     padding-top: 25px;
     padding-bottom: 20px;
-    border-right: 1px solid var(--cardsBarColor);
-    border-left: 1px solid var(--cardsBarColor);
+    border-right: 1px solid #bdc0c3;
+    border-left: 1px solid #bdc0c3;
   }
   /* End of All Categories section */
   /* Why Choose Us section */
@@ -1134,6 +1252,41 @@ footer {
     font-size: 16px;
   }
   /* End of Why Choose Us section */
+
+  /* Right Choice section */
+  .rightChoiceSection {
+    padding: 0;
+  }
+  .rightChoiceContainer {
+    padding: 70px 0;
+    border-right: 1px solid #bdc0c3;
+    border-left: 1px solid #bdc0c3;
+  }
+  .rigthChoiceHeader {
+    flex-direction: column;
+    align-items: center;
+  }
+  .rightChoiceHeaderTexts {
+    width: 100%;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+  .rightChoiceHeaderTitle,
+  .rightChoiceHeaderContent {
+    text-align: center;
+  }
+
+  .rightChoiceHeaderImg {
+    width: 95%;
+    justify-content: center;
+  }
+  .rightChoiceHeaderImg img {
+    border-radius: 0;
+    max-width: 450px;
+    width: 90%;
+  }
+
+  /* End of Right Choice section */
 }
 
 @media (max-width: 576px) {
@@ -1189,6 +1342,38 @@ footer {
   }
 
   /* End of Why Choose Us section */
+
+  /* Right Choice section */
+  .rigthChoiceHeader {
+    flex-direction: column;
+    align-items: center;
+  }
+  .rightChoiceHeaderTexts {
+    width: 100%;
+    align-items: center;
+    margin-bottom: 40px;
+  }
+  .rightChoiceHeaderContent {
+    text-align: center;
+  }
+  .rightChoiceHeaderImg {
+    width: 95%;
+    justify-content: center;
+  }
+  .rightChoiceHeaderImg img {
+    border-radius: 0;
+  }
+  .rightChoiceFooterBoxes {
+    width: 90%;
+    column-gap: 0;
+  }
+
+  .rightChoiceFooterBox {
+    max-width: 190px;
+    padding-left: 10px;
+  }
+
+  /* End of Right Choice section */
 
   /* Footer Section */
   .footerTextBox {
