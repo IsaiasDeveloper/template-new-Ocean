@@ -578,6 +578,14 @@ function getTestimonials(json) {
     let instituteName = document.querySelector('.instituteName');
     instituteName.innerHTML = json.PortalEducacional || json.pageTitle;
     // End of Why Choose Us section
+    // Right Choice section
+    let rightChoiceInstituteName = document.querySelectorAll(
+      '.rightChoiceHeaderTexts span'
+    );
+    rightChoiceInstituteName.forEach(
+      (e) => (e.innerHTML = json.PortalEducacional || json.pageTitle)
+    );
+    // End of Right Choice section
     let testimoniesSection = document.querySelector('.emphasisSection');
     let testimoniesBox = document.querySelector('.emphasisSlide-list');
     let emphasisList = document.querySelectorAll(
