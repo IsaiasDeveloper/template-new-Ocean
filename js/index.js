@@ -28,9 +28,6 @@ const pageLinksList = [
   { page: 'Login', id: '101010' },
 ];
 
-console.log('jQuery version: ' + jQuery.fn.jquery);
-console.log('Slick version: ' + $.fn.slick.version);
-
 // Navbar
 //Create all menu informations
 function fetchJsonNavbarLinks() {
@@ -161,7 +158,8 @@ function fetchMenuInfo() {
       .then((json) => {
         getHeaderSlide(json);
         getSocialMediaFooter(json);
-        getTestimonials(json);
+        getEmphasis(json);
+        getDiscoverPackages(json);
       });
   } catch (e) {
     console.warn(e);
@@ -574,8 +572,8 @@ function getEventHeaderSlide() {
 // End of Header section
 
 // Emphasis section
-function getTestimonials(json) {
-  console.log(json);
+function getEmphasis(json) {
+  // console.log(json);
   try {
     // Why Choose Us section
     let instituteName = document.querySelector('.instituteName');
@@ -589,8 +587,8 @@ function getTestimonials(json) {
       (e) => (e.innerHTML = json.PortalEducacional || json.pageTitle)
     );
     // End of Right Choice section
-    let testimoniesSection = document.querySelector('.emphasisSection');
-    let testimoniesBox = document.querySelector('.emphasisSlide-list');
+    let discoverPackagesSection = document.querySelector('.emphasisSection');
+    let discoverPackagesBox = document.querySelector('.emphasisSlide-list');
     let emphasisList = document.querySelectorAll(
       '[data-slide="emphasis-slide-item"]'
     );
@@ -602,18 +600,19 @@ function getTestimonials(json) {
         let courseId = json.featuredCourses.courses[i].id;
         count++;
         //Eacth testimonies
-        let testimoniesBoxes = document.createElement('div');
-        testimoniesBoxes.classList.add('emphasisSlide-item');
-        testimoniesBoxes.dataset.slide = 'emphasis-slide-item';
-        testimoniesBoxes.dataset.indice_emphasis = emphasisList.length + count;
-        testimoniesBoxes.addEventListener('click', () => {
+        let discoverPackagesBoxes = document.createElement('div');
+        discoverPackagesBoxes.classList.add('emphasisSlide-item');
+        discoverPackagesBoxes.dataset.slide = 'emphasis-slide-item';
+        discoverPackagesBoxes.dataset.indice_emphasis =
+          emphasisList.length + count;
+        discoverPackagesBoxes.addEventListener('click', () => {
           for (let x = 0; x < pageLinksList.length; x++) {
             if (pageLinksList[x].page === 'Curso') {
               window.location.href = `${initUrl}/pages/${pageLinksList[x].id}/Detalhe Curso?courseId=${courseId}`;
             }
           }
         });
-        testimoniesBox.appendChild(testimoniesBoxes);
+        discoverPackagesBox.appendChild(discoverPackagesBoxes);
         //Testimonies content
         let courseImg = document.createElement('img');
         courseImg.setAttribute(
@@ -622,21 +621,21 @@ function getTestimonials(json) {
         );
         courseImg.setAttribute('alt', 'Course image');
         courseImg.classList.add('emphasisSlide-content');
-        testimoniesBoxes.appendChild(courseImg);
+        discoverPackagesBoxes.appendChild(courseImg);
 
         //Course name
         let authorName = document.createElement('p');
         authorName.classList.add('emphasisCourseName');
         authorName.innerHTML = json.featuredCourses.courses[i].title;
-        testimoniesBoxes.appendChild(authorName);
+        discoverPackagesBoxes.appendChild(authorName);
         //Course
         let courseName = document.createElement('p');
         courseName.classList.add('emphasisCourseType');
         courseName.innerHTML = json.featuredCourses.courses[i].author;
-        testimoniesBoxes.appendChild(courseName);
+        discoverPackagesBoxes.appendChild(courseName);
       }
     } else if (json.featuredCourses.courses) {
-      testimoniesSection.style.display = 'none';
+      discoverPackagesSection.style.display = 'none';
       console.log('Não há emphasis de alunos');
     }
     slideEvents();
@@ -684,10 +683,12 @@ function slideEvents() {
     }
 
     function getCenterEmphasisPosition({ indice_emphasis }) {
+      let windowSize = window.innerWidth;
+      let newMargin = (windowSize - 400) / 2;
       const emphasisSlideItem = emphasisSlideItems[indice_emphasis];
       const emphasisSlideWidth = emphasisSlideItem.clientWidth;
       const windowEmphasisWidth = document.body.clientWidth;
-      const marginEmphasis = (windowEmphasisWidth - emphasisSlideWidth) / 2;
+      const marginEmphasis = newMargin; // (windowEmphasisWidth - emphasisSlideWidth) / 2;
       const emphasisPosition =
         marginEmphasis - indice_emphasis * emphasisSlideWidth;
       return emphasisPosition;
@@ -1423,168 +1424,449 @@ for (let i = 0; i < pageLinksList.length; i++) {
 // End of Why Choose Us section
 
 // Discover Packages section
-// $(document).ready(function () {
-//   if ($(window).width() <= 992) {
-//     $('.discoverPackages-wrapper').slick({
-//       slidesToShow: 2,
-//       slidesToScroll: 1,
-//       arrows: true,
-//       dots: false,
-//     });
-//   }
-// });
 
-// slickdemos usage settings wordpress get it now
-// ads via Carbon
-// Get 10 Free Images From Adobe Stock. Start Now.
-// ADS VIA CARBON
-// Features
-// Fully responsive. Scales with its container.
-// Separate settings per breakpoint
-// Uses CSS3 when available. Fully functional when not.
-// Swipe enabled. Or disabled, if you prefer.
-// Desktop mouse dragging
-// Infinite looping.
-// Fully accessible with arrow key navigation
-// Add, remove, filter & unfilter slides
-// Autoplay, dots, arrows, callbacks, etc...
-// Single Item
+function getDiscoverPackages(json) {
+  console.log(json);
+  try {
+    let discoverPackagesSection = document.querySelector(
+      '.discoverPackagesSection'
+    );
+    // let institutionName = document.querySelector('.instituteName');
+    let discoverPackagesBox = document.querySelector('.discoverPackages-list');
+    let discoverPackagesList = document.querySelectorAll(
+      '[data-slide="desc-packages-slide-item"]'
+    );
+    let sizeStoreCoursesList = json.store.courses.length;
+    if (json.store.courses) {
+      let count = -1;
+      for (let i = 0; i < json.store.courses.length; i++) {
+        count++;
+        //Eacth testimonies json.store.course
+        let discoverPackagesBoxes = document.createElement('div');
+        discoverPackagesBoxes.classList.add('discoverPackages-item');
+        discoverPackagesBoxes.dataset.slide = 'desc-packages-slide-item';
+        discoverPackagesBoxes.dataset.idx_disc =
+          discoverPackagesList.length + count;
+        discoverPackagesBox.appendChild(discoverPackagesBoxes);
+        //Testimonies content
+        let contents = document.createElement('div');
+        contents.classList.add('discoverPackages-content');
+        discoverPackagesBoxes.appendChild(contents);
+        //Image box
+        let imageCardBox = document.createElement('div');
+        imageCardBox.classList.add('imageCardBox');
+        contents.appendChild(imageCardBox);
+        //Card image
+        let cardImage = document.createElement('div');
+        cardImage.classList.add('cardImage');
+        cardImage.style.backgroundImage = `url(${initUrl}${json.store.courses[i].img})`;
+        imageCardBox.appendChild(cardImage);
+        cardImage.addEventListener('click', () => {
+          window.location.href = json.store.courses[i].link;
+        });
+        //Text and button box
+        let contentTextBox = document.createElement('div');
+        contentTextBox.classList.add('contentTextBox');
+        contents.appendChild(contentTextBox);
+        //Texts box
+        let textsBox = document.createElement('div');
+        textsBox.classList.add('textsBox');
+        contentTextBox.appendChild(textsBox);
+        //Testimonies text
+        let discPackagesTextCard = document.createElement('p');
+        discPackagesTextCard.classList.add('txtDiscoverPackagesCard');
+        discPackagesTextCard.innerHTML = json.store.courses[i].title;
+        textsBox.appendChild(discPackagesTextCard);
+        //Author name
+        let authorName = document.createElement('p');
+        authorName.classList.add('packageNameCard');
+        authorName.innerHTML = json.store.courses[i].author;
+        textsBox.appendChild(authorName);
 
-// $('.single-item').slick();
+        //Link box
+        let linkBox = document.createElement('div');
+        linkBox.classList.add('linkBox');
+        contentTextBox.appendChild(linkBox);
+        //Link
+        let link = document.createElement('a');
+        link.classList.add('linkDiscoverPackagesCard');
+        link.setAttribute('href', json.store.courses[i].link);
+        link.innerHTML = json.store.courses[i].button + ' →';
+        linkBox.appendChild(link);
+      }
+    } else if (!json.store.courses) {
+      discoverPackagesSection.style.display = 'none';
+      // console.log('Não há discPackages de alunos');
+    }
 
-// // Multiple Items
-
-// $('.multiple-items').slick({
-//   infinite: true,
-//   slidesToShow: 3,
-//   slidesToScroll: 3
-// });
-
-// Responsive Display
-
-// $('.discoverPackages-wrapper').slick({
-//   dots: true,
-//   infinite: true,
-//   speed: 800,
-//   slidesToShow: 4,
-//   slidesToScroll: 4,
-//   responsive: [
-//     {
-//       breakpoint: 1200,
-//       settings: 'unslick',
-//     },
-//     {
-//       breakpoint: 992,
-//       settings: {
-//         slidesToShow: 3,
-//         slidesToScroll: 3,
-//         infinite: true,
-//         dots: true,
-//       },
-//     },
-//     {
-//       breakpoint: 768,
-//       settings: {
-//         slidesToShow: 2,
-//         slidesToScroll: 2,
-//       },
-//     },
-//     {
-//       breakpoint: 576,
-//       settings: {
-//         slidesToShow: 2,
-//         slidesToScroll: 2,
-//       },
-//     },
-//     // You can unslick at a given breakpoint now by adding:
-//     // settings: "unslick"
-//     // instead of a settings object
-//   ],
-// });
-
-$(document).ready(function () {
-  var $slickElement = $('.discoverPackages-wrapper');
-  if ($(window).width() < 992) {
-    $slickElement.slick({
-      dots: false,
-      infinite: true,
-      arrows: true,
-      speed: 800,
-      slidesToShow: 4,
-      slidesToScroll: 4,
-      responsive: [
-        {
-          breakpoint: 992,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            infinite: true,
-            dots: false,
-          },
-        },
-        {
-          breakpoint: 768,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 1,
-          },
-        },
-        {
-          breakpoint: 576,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 1,
-          },
-        },
-      ],
-    });
-  } else {
-    $slickElement.slick('unslick');
+    getWindowSize(sizeStoreCoursesList);
+  } catch (e) {
+    console.warn(e);
   }
-});
+}
 
-$(window).resize(function () {
-  var $slickElement = $('.discoverPackages-wrapper');
-  if ($(window).width() >= 992) {
-    $slickElement.slick('unslick');
-  } else {
-    $slickElement.slick({
-      dots: false,
-      infinite: true,
-      arrows: true,
-      speed: 800,
-      slidesToShow: 4,
-      slidesToScroll: 4,
-      responsive: [
-        {
-          breakpoint: 992,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            infinite: true,
-            dots: false,
-          },
-        },
-        {
-          breakpoint: 768,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 1,
-          },
-        },
-        {
-          breakpoint: 576,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 1,
-          },
-        },
-      ],
-    });
+function getWindowSize(sizeStoreCoursesList) {
+  let windowSize = window.innerWidth;
+  let newMargin = (windowSize - 250) / 2;
+  let chandeSlideBtn = document.querySelector('.discoverPakagesBtnBox');
+  if (windowSize < 992 || sizeStoreCoursesList >= 5) {
+    eventsDiscoverPackagesSlide(newMargin);
+    chandeSlideBtn.style.display = 'flex';
   }
-});
+}
 
-// End of Discover Packages section
+function eventsDiscoverPackagesSlide(newMargin) {
+  try {
+    const discoverPackagesWrapper = document.querySelector(
+      '[data-slide="discoverPackages-wrapper"]'
+    );
+    const discoverPackagesSlideList = document.querySelector(
+      '[data-slide="discoverPackages-list"]'
+    );
+    const discoverPackagesPreviousBtn = document.querySelector(
+      '[data-slide="discoverPackages-previous-btn"]'
+    );
+    const discoverPackagesNextBtn = document.querySelector(
+      '[data-slide="discoverPackages-next-btn"]'
+    );
+    const discoverPackagesControlsWapper = document.querySelector(
+      '[data-slide="discoverPackages-controls-wrapper"]'
+    );
+    let discPackagesSlideItems = document.querySelectorAll(
+      '[data-slide="desc-packages-slide-item"]'
+    );
+    let discPackagesControlButtons;
+    let discPackagesSlideInterval;
+
+    const discPackagesState = {
+      discPackagesStartingPoint: 0,
+      discPackagesSavedPosition: 0,
+      discPackagesCurrentPoint: 0,
+      discPackagesMovement: 0,
+      CurrentDiscPackagesSlideIndex: 0,
+      discPackagesAutoPlay: true,
+      discPackagesTimeInterval: 0,
+    };
+
+    //Mudar slides
+    function translateDiscPackagesSlide({ discPackagesPosition }) {
+      discPackagesState.discPackagesSavedPosition = discPackagesPosition;
+      discoverPackagesSlideList.style.transform = `translateX(${discPackagesPosition}px)`;
+    }
+
+    function getCenterDiscPackagesPosition({ idx_disc }) {
+      const discPackagesSlideItem = discPackagesSlideItems[idx_disc];
+      const discPackagesSlideWidth = discPackagesSlideItem.clientWidth;
+      const windowDiscPackagesWidth = document.body.clientWidth;
+      const marginDiscPackages = newMargin; //(windowDiscPackagesWidth - discPackagesSlideWidth) / 2;
+      const discPackagesPosition =
+        marginDiscPackages - idx_disc * discPackagesSlideWidth;
+      return discPackagesPosition;
+    }
+
+    function setVisibleDiscPackagesSlide({ idx_disc, animateDiscPackages }) {
+      if (idx_disc === 0 || idx_disc === discPackagesSlideItems.length - 1) {
+        idx_disc = discPackagesState.CurrentDiscPackagesSlideIndex;
+      }
+      const discPackagesPosition = getCenterDiscPackagesPosition({ idx_disc });
+      discPackagesState.CurrentDiscPackagesSlideIndex = idx_disc;
+      discoverPackagesSlideList.style.transition =
+        animateDiscPackages === true ? 'transform 1s' : 'none';
+      activeDiscPackagesControlButton({ idx_disc });
+      translateDiscPackagesSlide({
+        discPackagesPosition: discPackagesPosition,
+      });
+    }
+
+    function nextDiscPackagesSlide() {
+      setVisibleDiscPackagesSlide({
+        idx_disc: discPackagesState.CurrentDiscPackagesSlideIndex + 1,
+        animateDiscPackages: true,
+      });
+    }
+
+    function previousDiscPackagesSlide() {
+      setVisibleDiscPackagesSlide({
+        idx_disc: discPackagesState.CurrentDiscPackagesSlideIndex - 1,
+        animateDiscPackages: true,
+      });
+    }
+
+    function createDiscPackagesControlButtons() {
+      discPackagesSlideItems.forEach(function () {
+        const discPackagesControlButton = document.createElement('button');
+        discPackagesControlButton.classList.add(
+          'discoverPackages-control-button'
+        );
+        discPackagesControlButton.classList.add('fas');
+        discPackagesControlButton.classList.add('fa-circle');
+        discPackagesControlButton.dataset.slide = 'discPackages-control-btn';
+        discoverPackagesControlsWapper.append(discPackagesControlButton);
+      });
+    }
+
+    function activeDiscPackagesControlButton({ idx_disc }) {
+      const discPackagesSlideItem = discPackagesSlideItems[idx_disc];
+      const dataidx_disc = Number(discPackagesSlideItem.dataset.idx_disc);
+      const discPackagesControlButton = discPackagesControlButtons[dataidx_disc];
+      discPackagesControlButtons.forEach(function (
+        discPackagesControlButtonItem
+      ) {
+        discPackagesControlButtonItem.classList.remove('activeDiscPackages');
+      });
+      if (discPackagesControlButton)
+        discPackagesControlButton.classList.add('activeDiscPackages');
+    }
+
+    function createDiscPackagesSlideClone() {
+      const firstDiscPackagesSlide = discPackagesSlideItems[0].cloneNode(true);
+      firstDiscPackagesSlide.classList.add('discPackagesSlide-cloned');
+      firstDiscPackagesSlide.dataset.idx_disc = discPackagesSlideItems.length;
+
+      const secundDiscPackagesSlide = discPackagesSlideItems[1].cloneNode(true);
+      secundDiscPackagesSlide.classList.add('discPackagesSlide-cloned');
+      secundDiscPackagesSlide.dataset.idx_disc =
+        discPackagesSlideItems.length + 1;
+
+      const lastDiscPackagesSlide =
+        discPackagesSlideItems[discPackagesSlideItems.length - 1].cloneNode(
+          true
+        );
+      lastDiscPackagesSlide.classList.add('discPackagesSlide-cloned');
+      lastDiscPackagesSlide.dataset.idx_disc = -1;
+
+      const penultimateDiscPackagesSlide =
+        discPackagesSlideItems[discPackagesSlideItems.length - 2].cloneNode(
+          true
+        );
+      penultimateDiscPackagesSlide.classList.add('discPackagesSlide-cloned');
+      penultimateDiscPackagesSlide.dataset.idx_disc = -2;
+
+      //Criar no final da lista
+      discoverPackagesSlideList.append(firstDiscPackagesSlide);
+      discoverPackagesSlideList.append(secundDiscPackagesSlide);
+      //Criar no início da lista
+      discoverPackagesSlideList.prepend(lastDiscPackagesSlide);
+      discoverPackagesSlideList.prepend(penultimateDiscPackagesSlide);
+
+      discPackagesSlideItems = document.querySelectorAll(
+        '[data-slide="desc-packages-slide-item"]'
+      );
+    }
+
+    //Apertar
+    function onDiscPackagesMouseDown(evento, idx_disc) {
+      const discPackagesSlideItem = evento.currentTarget;
+      discPackagesState.discPackagesStartingPoint = evento.clientX;
+      discPackagesState.discPackagesCurrentPoint =
+        discPackagesState.discPackagesStartingPoint -
+        discPackagesState.discPackagesSavedPosition;
+      discPackagesState.diaDiaCurrentSlideidx_disc = idx_disc;
+      discoverPackagesSlideList.style.transition = 'none';
+      discPackagesSlideItem.addEventListener(
+        'mousemove',
+        onDiscPackagesMouseMove
+      );
+    }
+    //Evento de mover mouse
+    function onDiscPackagesMouseMove(evento, idx_disc) {
+      discPackagesState.discPackagesMovement =
+        evento.clientX - discPackagesState.discPackagesStartingPoint;
+      const discPackagesPosition =
+        evento.clientX - discPackagesState.discPackagesCurrentPoint;
+      translateDiscPackagesSlide({ discPackagesPosition });
+    }
+    //Soltar
+    function noDiscPackagesMouseUp(evento) {
+      const pointsToMoveDiscPackages = evento.type.includes('touch') ? 50 : 150;
+      // console.log(evento.type);
+      const discPackagesSlideItem = evento.currentTarget;
+      if (discPackagesState.discPackagesMovement < -pointsToMoveDiscPackages) {
+        nextDiscPackagesSlide();
+      } else if (
+        discPackagesState.discPackagesMovement > pointsToMoveDiscPackages
+      ) {
+        previousDiscPackagesSlide();
+      } else {
+        setVisibleDiscPackagesSlide({
+          idx_disc: discPackagesState.CurrentDiscPackagesSlideIndex,
+          animateDiscPackages: true,
+        });
+      }
+
+      discPackagesSlideItem.removeEventListener(
+        'mousemove',
+        onDiscPackagesMouseMove
+      );
+    }
+
+    function onDiscPackagesTouchStart(evento, idx_disc) {
+      evento.clientX = evento.touches[0].clientX;
+      onDiscPackagesMouseDown(evento, idx_disc);
+      const discPackagesSlideItem = evento.currentTarget;
+      discPackagesSlideItem.addEventListener(
+        'touchmove',
+        onDiscPackagesTouchMove
+      );
+    }
+
+    function onDiscPackagesTouchMove(evento) {
+      evento.clientX = evento.touches[0].clientX;
+      onDiscPackagesMouseMove(evento);
+    }
+    function onDiscPackagesTouchEnd(evento) {
+      noDiscPackagesMouseUp(evento);
+      const discPackagesSlideItem = evento.currentTarget;
+      discPackagesSlideItem.removeEventListener(
+        'touchmove',
+        onDiscPackagesTouchMove
+      );
+    }
+
+    function onDiscPackagesControlButtonClick(idx_disc) {
+      setVisibleDiscPackagesSlide({
+        idx_disc: idx_disc + 2,
+        animateDiscPackages: true,
+      });
+    }
+
+    function onDiscPackagesSlideListTransitionEnd() {
+      const discPackagesSlideItem =
+        discPackagesSlideItems[discPackagesState.CurrentDiscPackagesSlideIndex];
+
+      if (
+        discPackagesSlideItem.classList.contains('discPackagesSlide-cloned') &&
+        Number(discPackagesSlideItem.dataset.idx_disc) > 0
+      ) {
+        setVisibleDiscPackagesSlide({ idx_disc: 2, animateDiscPackages: false });
+      }
+      if (
+        discPackagesSlideItem.classList.contains('discPackagesSlide-cloned') &&
+        Number(discPackagesSlideItem.dataset.idx_disc) < 0
+      ) {
+        setVisibleDiscPackagesSlide({
+          idx_disc: discPackagesSlideItems.length - 3,
+          animateDiscPackages: false,
+        });
+      }
+    }
+
+    function setDiscPackagesAutoPlay() {
+      if (discPackagesState.discPackagesAutoPlay) {
+        discPackagesSlideInterval = setInterval(function () {
+          setVisibleDiscPackagesSlide({
+            idx_disc: discPackagesState.CurrentDiscPackagesSlideIndex + 1,
+            animateDiscPackages: true,
+          });
+        }, discPackagesState.discPackagesTimeInterval);
+      }
+    }
+
+    function setDiscPackagesListeners() {
+      discPackagesControlButtons = document.querySelectorAll(
+        '[data-slide="discPackages-control-btn"]'
+      );
+      discPackagesSlideItems = document.querySelectorAll(
+        '[data-slide="desc-packages-slide-item"]'
+      );
+
+      //Adicionar evento nos indicatons
+      discPackagesControlButtons.forEach(function (
+        discPackagesControlButton,
+        idx_disc
+      ) {
+        discPackagesControlButton.addEventListener('click', function (evento) {
+          onDiscPackagesControlButtonClick(idx_disc);
+        });
+      });
+
+      //Eventos do mouse
+      discPackagesSlideItems.forEach(function (discPackagesSlideItem, idx_disc) {
+        //Arrastar
+        discPackagesSlideItem.addEventListener('dragstart', function (evento) {
+          evento.preventDefault();
+        });
+        //Apertar
+        discPackagesSlideItem.addEventListener('mousedown', function (evento) {
+          onDiscPackagesMouseDown(evento, idx_disc);
+        }),
+          //Soltar no mobile
+          discPackagesSlideItem.addEventListener(
+            'mouseup',
+            noDiscPackagesMouseUp
+          );
+
+        //Apertar no mobile
+        discPackagesSlideItem.addEventListener('touchstart', function (evento) {
+          onDiscPackagesTouchStart(evento, idx_disc);
+        }),
+          //Soltar
+          discPackagesSlideItem.addEventListener(
+            'touchend',
+            onDiscPackagesTouchEnd
+          );
+      });
+
+      discoverPackagesNextBtn.addEventListener('click', nextDiscPackagesSlide);
+      discoverPackagesPreviousBtn.addEventListener(
+        'click',
+        previousDiscPackagesSlide
+      );
+
+      //Evento para voltar o slide de forma que o usuário não perceba
+      discoverPackagesSlideList.addEventListener(
+        'transitionend',
+        onDiscPackagesSlideListTransitionEnd
+      );
+      discoverPackagesWrapper.addEventListener('mouseenter', function () {
+        clearInterval(discPackagesSlideInterval);
+      });
+      discoverPackagesWrapper.addEventListener('mouseleave', function () {
+        setDiscPackagesAutoPlay();
+      });
+
+      //Manter posicionamento padrão
+      let discPackagesResizeTimeOut;
+      window.addEventListener('resize', function () {
+        clearTimeout(discPackagesResizeTimeOut);
+        discPackagesResizeTimeOut = setTimeout(function () {
+          setVisibleDiscPackagesSlide({
+            idx_disc: discPackagesState.CurrentDiscPackagesSlideIndex,
+            animateDiscPackages: true,
+          });
+        }, 500);
+      });
+    }
+
+    function initDiscPackagesSlider({
+      startAtidx_disc = 0,
+      discPackagesAutoPlay = true,
+      discPackagesTimeInterval = 3000,
+    }) {
+      discPackagesState.discPackagesAutoPlay = discPackagesAutoPlay;
+      discPackagesState.discPackagesTimeInterval = discPackagesTimeInterval;
+      createDiscPackagesControlButtons();
+      createDiscPackagesSlideClone();
+      setDiscPackagesListeners();
+      setVisibleDiscPackagesSlide({
+        idx_disc: startAtidx_disc + 2,
+        animateDiscPackages: true,
+      });
+      setDiscPackagesAutoPlay();
+    }
+
+    initDiscPackagesSlider({
+      discPackagesAutoPlay: true,
+      startAtidx_disc: 0,
+      discPackagesTimeInterval: 3000,
+    });
+
+    //End Discover Packages Section
+  } catch (e) {
+    console.warn(e);
+  }
+}
+// End of Discover Packages section // transform
 
 // Footer Section
 const logoFooterBox = document.querySelector('.footerEnd');
@@ -1694,3 +1976,5 @@ function getSocialMediaFooter(json) {
 fetchJsonNavbarLinks();
 fetchMenuInfo();
 fetchallJsonCourseCategories();
+
+getScreemSize();
