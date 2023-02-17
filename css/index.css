@@ -25,6 +25,13 @@
   padding: 0;
   box-sizing: border-box;
 }
+/* *::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+} */
 body {
   margin: 0;
   padding: 0;
@@ -843,7 +850,7 @@ header {
   color: var(--primary);
 }
 .rightChoiceFooterBox {
-  max-width: 230px;
+  max-width: 200px;
   width: 95%;
   min-height: 140px;
   height: auto;
@@ -911,77 +918,163 @@ header {
 }
 .discoverPackagesText {
   font-size: 16px;
-  margin-bottom: 20px;
+}
+/* Test slide  */
+
+.discoverPackages-wrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 }
 .discoverPackages-wrapper {
-  width: 100%;
-  margin: 20px auto;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  column-gap: 10px;
-  /* row-gap: 15px; */
-}
-
-.discoverPackages-wrapper .discoverPackagesCard {
-  width: 190px !important;
-  height: 240px;
-  background-color: var(--whiteColor);
-  border-radius: 6px;
-  margin-right: 15px;
-}
-.discoverPackages-wrapper .discoverPackagesCardImg {
   width: 100%;
-  height: 48%;
-  border-top-right-radius: 6px;
-  border-top-left-radius: 6px;
   overflow: hidden;
 }
-.discoverPackages-wrapper img {
+
+.discoverPackages-list {
+  display: flex;
+  column-gap: 10px;
+}
+.discoverPackages-list .discoverPackages-item {
+  flex-shrink: 0;
+  width: 185px;
+  cursor: grab;
+  margin-top: 30px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+.discoverPackages-list .discoverPackages-content {
+  background-color: var(--whiteColor);
+  height: 280px;
+  width: 200px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+.discoverPackages-list .imageCardBox {
   width: 100%;
-  transition: 0.8s;
-  cursor: pointer;
+  height: 47%;
+  overflow: hidden;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
 }
-.discoverPackages-wrapper img:hover {
-  transform: scale(1.08);
-}
-.discoverPackages-wrapper .discoverPackagesCardText {
-  width: 85%;
-  height: 52%;
-  margin: 0 auto;
+.discoverPackages-list .contentTextBox {
+  width: 100%;
+  height: 50%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: start;
-  padding-bottom: 20px;
+  padding: 23px 20px;
 }
-.discoverPackages-wrapper .discoverPackagesCardHeader {
+.discoverPackages-list .cardImage {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center center;
+  transition: 01.2s;
+  cursor: pointer;
+}
+.discoverPackages-list .cardImage:hover {
+  transform: scale(1.06);
+}
+.discoverPackages-list .textsBox {
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: start;
-  row-gap: 7px;
-  padding-top: 20px;
 }
-.discoverPackages-wrapper .discoverPackagesCardTitle {
+
+.discoverPackages-list .txtDiscoverPackagesCard {
+  color: var(--blackColor);
+  font-size: 12px;
+  margin-bottom: 5px;
+  text-align: left;
+}
+.discoverPackages-list .packageNameCard {
+  font-size: 16px;
   font-weight: bold;
+  text-align: left;
+  color: var(--blackColor);
 }
-.discoverPackages-wrapper .discoverPackagesCardCategory {
-  font-size: 13px;
-}
-.discoverPackages-wrapper .discoverPackagesCardLink {
-  text-decoration: none;
+.discoverPackages-list .linkDiscoverPackagesCard {
+  text-align: center;
+  margin: 0 auto;
   font-size: 15px;
   font-weight: bold;
   color: var(--primary);
+  text-decoration: none;
   cursor: pointer;
 }
-.discoverPackages-wrapper .discoverPackagesCardLink:hover {
+.discoverPackages-list .linkDiscoverPackagesCard:hover {
   text-decoration: underline;
 }
-.discoverPackages-wrapper .discoverPackagesCardLink:active {
+.discoverPackages-list .linkDiscoverPackagesCard:active {
   opacity: 0.8;
+}
+.discoverPackages-button {
+  color: var(--primary);
+  background-color: var(--whiteColor);
+  font-size: 25px;
+  z-index: 1;
+  cursor: pointer;
+  border: none;
+  border-radius: 50%;
+  padding: 10px 12px;
+}
+.discoverPackages-button:hover {
+  background-color: var(--primary);
+  color: var(--whiteColor);
+  border: 1px solid;
+}
+.discoverPackages-button:active {
+  transform: scale(1.05);
+}
+.discoverPackages-previous {
+  left: 290px;
+}
+.discoverPackages-next {
+  right: 290px;
+}
+.discoverPackages-controls {
+  margin: 20px auto 0;
+  display: none;
+}
+/* Criar esse no JS ↓*/
+.discoverPackages-controls .discoverPackages-control-button {
+  background-color: transparent;
+  color: transparent;
+  font-size: 10px;
+  margin: 0 5px;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  padding: 0;
+  margin-bottom: 30px;
+}
+.discoverPackages-controls .discoverPackages-control-button.activeDiscPackages {
+  color: var(--whiteColor);
+  background-color: var(--whiteColor);
+  border-radius: 50%;
+}
+.discoverPakagesBtnBox {
+  width: 100%;
+  height: 50px;
+  margin-top: 21px;
+  /* display: flex; */
+  display: none;
+  justify-content: center;
+  align-items: center;
+  column-gap: 30px;
 }
 /* End of Discover Packages section */
 
@@ -1151,34 +1244,34 @@ footer {
               Media Query
 */
 @media (max-width: 1800px) {
-  /* Testimonials section  */
+  /* Discover Packages Section  */
   .emphasisSlide-previous {
     left: 225px;
   }
   .emphasisSlide-next {
     right: 225px;
   }
-  /* End Testimonials section  */
+  /* End Discover Packages Section  */
 }
 @media (max-width: 1600px) {
-  /* Testimonials section  */
+  /* Discover Packages Section  */
   .emphasisSlide-previous {
     left: 115px;
   }
   .emphasisSlide-next {
     right: 115px;
   }
-  /* End Testimonials section  */
+  /* End Discover Packages Section  */
 }
 @media (max-width: 1400px) {
-  /* Testimonials section  */
+  /* Discover Packages Section  */
   .emphasisSlide-previous {
     left: 35px;
   }
   .emphasisSlide-next {
     right: 35px;
   }
-  /* End Testimonials section  */
+  /* End Discover Packages Section  */
 }
 @media (max-width: 1106px) {
   /* All Categories section */
@@ -1307,7 +1400,7 @@ footer {
   .emphasisTitle {
     text-align: center;
   }
-  .testimonialsSection {
+  .discoverPackagesSection {
     padding: 50px 0 50px;
   }
   .slideEmphasisNextPrevBtnBox {
@@ -1405,6 +1498,28 @@ footer {
   }
 
   /* End of Right Choice section */
+  /* Test slide  */
+
+  /* Discover Packages Section */
+  .discoverPackagesSection {
+    background-color: var(--whiteColor);
+    padding: 0;
+  }
+  .discoverPackagesContanier {
+    padding: 70px 0;
+  }
+  .discoverPackagesHeader {
+    align-items: center;
+  }
+  .discoverPackagesTitle,
+  .discoverPackagesText {
+    text-align: center;
+  }
+  .discoverPackagesSection {
+    padding: 50px 0 50px;
+  }
+  /* End Discover Packages Section */
+  /* End of Test slide  */
 }
 
 @media (max-width: 576px) {
@@ -1445,6 +1560,10 @@ footer {
   /* End of Emphasis section  */
 
   /* All Categories section */
+  .allCourseForCategory {
+    column-gap: 8px;
+    row-gap: 15px;
+  }
   .allCourseForCategory .boxOfEachCategory {
     max-width: 185px;
     width: 100%;
@@ -1521,6 +1640,18 @@ footer {
   .FooterEndUniMais {
     width: 170px;
   }
-
   /* End Footer Section */
+  /*Test slide  */
+
+  /* End of Test slide  */
+}
+
+@media (max-width: 440px) {
+  /* All Categories section */
+  .allCourseForCategory .boxOfEachCategory {
+    max-width: 178px;
+    width: 100%;
+    height: 260px;
+  }
+  /* End of All Categories section */
 }
