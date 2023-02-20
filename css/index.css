@@ -1078,6 +1078,85 @@ header {
 }
 /* End of Discover Packages section */
 
+/* Find the App */
+.findAppSection {
+  /* .findAppContainer */
+  width: 100%;
+  padding: 0;
+  background-image: url(https://wing.com.br/Loja/Imagens/backgroundcelular1811202217304104.png);
+  background-size: cover;
+  position: relative;
+}
+.findAppMasc {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: var(--findAppMaskColor);
+  z-index: -1;
+}
+/* .findAppMascContainer {
+  display: none;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: var(--findAppMaskColor);
+  z-index: -1;
+} */
+.findAppContainer {
+  max-width: 900px;
+  width: 90%;
+  margin: auto;
+  margin-top: 0px;
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+.findAppTextBtnBox {
+  width: 45%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  row-gap: 20px;
+  padding-top: 35px;
+}
+.findAppTitle {
+  font-size: 50px;
+  color: var(--whiteColor);
+  font-weight: bold;
+  line-height: 50px;
+  margin-bottom: 10px;
+}
+.findAppIconBtn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.findAppIconBtn img {
+  width: 180px;
+  transition: 0.8s;
+}
+.findAppIconBtn img:hover {
+  transform: scale(1.05);
+}
+.findAppImg {
+  width: 45%;
+  display: block;
+  margin-top: -31px;
+  text-align: right;
+  margin-bottom: -35px;
+}
+.findAppImg img {
+  width: 210px;
+  z-index: 2;
+  position: relative;
+}
+/* End Find the App */
+
 /* Footer Section */
 footer {
   width: 100%;
@@ -1347,6 +1426,16 @@ footer {
 
   /* End of Discover Packages section */
 
+  /* Find the App */
+  .findAppIconBtn {
+    justify-content: center;
+    column-gap: 25px;
+  }
+  .findAppImg {
+    width: 50%;
+  }
+  /* End Find the App */
+
   /* Footer Section */
   .footerHeader {
     flex-direction: column;
@@ -1498,7 +1587,6 @@ footer {
   }
 
   /* End of Right Choice section */
-  /* Test slide  */
 
   /* Discover Packages Section */
   .discoverPackagesSection {
@@ -1516,10 +1604,85 @@ footer {
     text-align: center;
   }
   .discoverPackagesSection {
-    padding: 50px 0 50px;
+    padding: 0;
   }
   /* End Discover Packages Section */
-  /* End of Test slide  */
+
+  /* Find the App */
+  /*
+  .findAppMasc {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: var(--findAppMaskColor);
+    z-index: -1;
+  }
+  .findAppMascContainer {
+    display: none;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: var(--findAppMaskColor);
+    z-index: -1;
+  } */
+
+  .findAppSection {
+    /* .findAppContainer */
+    /* width: 100%;
+    padding: 0;
+    position: relative; */
+    background-image: none;
+    background-color: var(--whiteColor);
+    position: static;
+  }
+
+  .findAppContainer {
+    /* background-image: url(https://wing.com.br/Loja/Imagens/backgroundcelular1811202217304104.png);
+    background-size: cover; */
+    background-color: var(--findAppMaskColor);
+    flex-direction: column;
+    row-gap: 55px;
+    padding-top: 40px;
+    position: relative;
+    padding: -1;
+  }
+  .findAppMasc {
+    display: none;
+  }
+  .findAppMascContainer {
+    background-image: url(https://wing.com.br/Loja/Imagens/backgroundcelular1811202217304104.png);
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    /* background-color: var(--findAppMaskColor); */
+    z-index: 0;
+  }
+  .findAppTextBtnBox {
+    width: 100%;
+    align-items: center;
+    z-index: 1;
+  }
+  .findAppIconBtn {
+    flex-direction: column;
+    row-gap: 25px;
+  }
+  .findAppTitle {
+    text-align: center;
+    font-size: 33px;
+    line-height: 36px;
+  }
+  .findAppImg {
+    width: 100%;
+    text-align: center;
+  }
+  .findAppImg img {
+    /* max-width: 360px;
+    width: 95%; */
+  }
+
+  /* End Find the App */
 }
 
 @media (max-width: 576px) {
@@ -1611,6 +1774,16 @@ footer {
   }
 
   /* End of Right Choice section */
+
+  /* Find the App */
+  .findAppBtn {
+    max-width: 289px;
+    width: 100%;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 11px;
+  }
+  /* End Find the App */
 
   /* Footer Section */
   .footerTextBox {
