@@ -1348,6 +1348,111 @@ header {
 /* Criar esse no JS ↑*/
 /* End of Testimonial section */
 
+/* Form section  */
+.formSection {
+  width: 100%;
+  background-color: var(--primary);
+}
+.containerForm {
+  max-width: 1000px;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+.headerTextImgForm {
+  width: 63%;
+  display: flex;
+  justify-content: start;
+  align-items: end;
+}
+.headerTextsForm {
+  padding-top: 40px;
+  margin-bottom: 100px;
+  width: 52%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  color: var(--whiteColor);
+}
+.headerTextFormBar {
+  width: 120px;
+  height: 3px;
+  border: none;
+  background-color: var(--whiteColor);
+  margin-bottom: 15px;
+}
+.headerTitleForm {
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+.headerTextForm {
+  width: 215px;
+}
+.headerImgForm {
+  width: 35%;
+}
+.headerImgForm img {
+  width: 100%;
+  margin: -25px 0 -4px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.coletaLeadForm {
+  width: 37%;
+  margin-bottom: 100px;
+}
+.titleColetaLeadForm {
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--whiteColor);
+  margin-bottom: 15px;
+}
+.coletaLeadBox {
+  width: 100%;
+  height: auto;
+  justify-content: start;
+  align-items: center;
+}
+.coletaLeadBox input {
+  border: none !important;
+  background-color: var(--whiteColor) !important;
+  height: 35px !important;
+  font-family: var(--defaultFont) !important;
+  color: var(--secundary) !important;
+  font-weight: 300 !important;
+  margin-bottom: 10px !important;
+  padding-left: 10px !important;
+  border-radius: 8px !important;
+}
+.coletaLeadBox input::placeholder {
+  color: var(--grayColor) !important;
+  font-family: var(--defaultFont) !important;
+}
+.coletaLeadBox input:focus {
+  color: var(--whiteColor);
+  outline: 1px solid;
+}
+.coletaLeadBox button {
+  color: var(--whiteColor) !important;
+  border: 1px solid !important;
+  background-color: var(--primary) !important;
+  border-radius: 10px !important;
+  padding: 12px 50px !important;
+  margin-top: 20px !important;
+}
+.coletaLeadBox button:hover {
+  color: var(--primary) !important;
+  background-color: var(--whiteColor) !important;
+}
+.coletaLeadBox button:active {
+  opacity: 0.8;
+}
+/* End of Form section  */
+
 /* Footer Section */
 footer {
   width: 100%;
@@ -1893,6 +1998,40 @@ footer {
     height: auto;
   }
   /* End Testimonials Section */
+
+  /* Form section */
+  .formSection {
+    background-color: var(--whiteColor);
+  }
+  .containerForm {
+    background-color: var(--primary);
+    flex-direction: column;
+  }
+  .headerImgForm {
+    display: none;
+  }
+  .headerTextImgForm {
+    width: 100%;
+    justify-content: center;
+    align-items: start;
+    padding-top: 30px;
+  }
+  .headerTextsForm {
+    align-items: center;
+    margin-bottom: 50px;
+  }
+  .headerTitleForm,
+  .headerTextForm {
+    text-align: center;
+  }
+  .coletaLeadForm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 60px;
+  }
+  /* End of Form section */
 }
 
 @media (max-width: 576px) {

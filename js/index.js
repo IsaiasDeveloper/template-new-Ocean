@@ -2278,7 +2278,7 @@ function testimonioalSlideEvents() {
     }
 
     initDepoimentosSlider({
-      depoimentosAutoPlay: false,
+      depoimentosAutoPlay: true,
       startAtIndice: 0,
       depoimentosTimeInterval: 3000,
     });
