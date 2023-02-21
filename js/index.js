@@ -160,6 +160,7 @@ function fetchMenuInfo() {
         getSocialMediaFooter(json);
         getEmphasis(json);
         getDiscoverPackages(json);
+        getTestimonials(json);
       });
   } catch (e) {
     console.warn(e);
@@ -1426,7 +1427,6 @@ for (let i = 0; i < pageLinksList.length; i++) {
 // Discover Packages section
 
 function getDiscoverPackages(json) {
-  console.log(json);
   try {
     let discoverPackagesSection = document.querySelector(
       '.discoverPackagesSection'
@@ -1608,7 +1608,8 @@ function eventsDiscoverPackagesSlide(newMargin) {
     function activeDiscPackagesControlButton({ idx_disc }) {
       const discPackagesSlideItem = discPackagesSlideItems[idx_disc];
       const dataidx_disc = Number(discPackagesSlideItem.dataset.idx_disc);
-      const discPackagesControlButton = discPackagesControlButtons[dataidx_disc];
+      const discPackagesControlButton =
+        discPackagesControlButtons[dataidx_disc];
       discPackagesControlButtons.forEach(function (
         discPackagesControlButtonItem
       ) {
@@ -1738,7 +1739,10 @@ function eventsDiscoverPackagesSlide(newMargin) {
         discPackagesSlideItem.classList.contains('discPackagesSlide-cloned') &&
         Number(discPackagesSlideItem.dataset.idx_disc) > 0
       ) {
-        setVisibleDiscPackagesSlide({ idx_disc: 2, animateDiscPackages: false });
+        setVisibleDiscPackagesSlide({
+          idx_disc: 2,
+          animateDiscPackages: false,
+        });
       }
       if (
         discPackagesSlideItem.classList.contains('discPackagesSlide-cloned') &&
@@ -1781,7 +1785,10 @@ function eventsDiscoverPackagesSlide(newMargin) {
       });
 
       //Eventos do mouse
-      discPackagesSlideItems.forEach(function (discPackagesSlideItem, idx_disc) {
+      discPackagesSlideItems.forEach(function (
+        discPackagesSlideItem,
+        idx_disc
+      ) {
         //Arrastar
         discPackagesSlideItem.addEventListener('dragstart', function (evento) {
           evento.preventDefault();
@@ -1866,7 +1873,422 @@ function eventsDiscoverPackagesSlide(newMargin) {
     console.warn(e);
   }
 }
-// End of Discover Packages section // transform
+// End of Discover Packages section
+
+//Testimonials section
+function getTestimonials(json) {
+  console.log(json);
+  try {
+    let testimoniesSection = document.querySelector('.testimonialsSection');
+    // let whoDo = document.querySelector('.testimonialsTitle');
+    let institutionName = document.querySelector('.instituteName');
+
+    let testimoniesBox = document.querySelector('.depoimentosSlide-list');
+    let testimoniesList = document.querySelectorAll(
+      '[data-slide="depoimentos-slide-item"]'
+    );
+
+    if (json.PortalEducacional)
+      institutionName.innerHTML = json.PortalEducacional;
+    if (json.testimonies) {
+      let count = -1;
+      for (let i = 0; i < json.testimonies.quotes.length; i++) {
+        count++;
+        //Eacth testimonies
+        let testimoniesBoxes = document.createElement('div');
+        testimoniesBoxes.classList.add('depoimentosSlide-item');
+        testimoniesBoxes.dataset.slide = 'depoimentos-slide-item';
+        testimoniesBoxes.dataset.indice = testimoniesList.length + count;
+        testimoniesBox.appendChild(testimoniesBoxes);
+        //Testimonies content
+        let contents = document.createElement('div');
+        contents.classList.add('depoimentosSlide-content');
+        testimoniesBoxes.appendChild(contents);
+        //Icon
+        let icons = document.createElement('i');
+        icons.classList.add('aspasDepoimentos');
+        // icons.innerHTML = 'format_quote';
+        icons.innerHTML = ',,';
+        contents.appendChild(icons);
+        //Content text box
+        let contentTextBox = document.createElement('div');
+        contentTextBox.classList.add('contentTextBox');
+        contents.appendChild(contentTextBox);
+        //Testimonies text
+        let testimoniesText = document.createElement('p');
+        testimoniesText.classList.add('txtDepoimentos');
+        testimoniesText.innerHTML = json.testimonies.quotes[i].excerpt;
+        contentTextBox.appendChild(testimoniesText);
+        //footer box
+        let footerBox = document.createElement('div');
+        footerBox.classList.add('footerBox');
+        testimoniesBoxes.appendChild(footerBox);
+        //Author name
+        let authorName = document.createElement('p');
+        authorName.classList.add('nomeAutorDepoimento');
+        authorName.innerHTML = json.testimonies.quotes[i].author;
+        footerBox.appendChild(authorName);
+        //Course
+        let courseName = document.createElement('p');
+        courseName.classList.add('redeScAutorDepoimento');
+        courseName.innerHTML = json.testimonies.quotes[i].course;
+        footerBox.appendChild(courseName);
+      }
+    } else if (!json.testimonies) {
+      testimoniesSection.style.display = 'none';
+      // console.log('Não há depoimentos de alunos');
+    }
+    testimonioalSlideEvents();
+  } catch (e) {
+    console.warn(e);
+  }
+}
+function testimonioalSlideEvents() {
+  try {
+    const depoimentosSlideWrapper = document.querySelector(
+      '[data-slide="depoimentosSlide-wrapper"]'
+    );
+    const depoimentosSlideList = document.querySelector(
+      '[data-slide="depoimentos-slide-list"]'
+    );
+    const depoimentosPreviousBtn = document.querySelector(
+      '[data-slide="depoimentos-previous-btn"]'
+    );
+    const depoimentosNextBtn = document.querySelector(
+      '[data-slide="depoimentos-next-btn"]'
+    );
+    const depoimentosControlsWapper = document.querySelector(
+      '[data-slide="depoimentos-slide-controls-wrapper"]'
+    );
+    let depoimentosSlideItems = document.querySelectorAll(
+      '[data-slide="depoimentos-slide-item"]'
+    );
+    let depoimentosControlButtons;
+    let depoimentosSlideInterval;
+
+    const depoimentosState = {
+      depoimentosStartingPoint: 0,
+      depoimentosSavedPosition: 0,
+      depoimentosCurrentPoint: 0,
+      depoimentosMovement: 0,
+      CurrentDepoimentosSlideIndex: 0,
+      depoimentosAutoPlay: true,
+      depoimentosTimeInterval: 0,
+    };
+
+    //Mudar slides
+    function translateDepoimentosSlide({ depoimentosPosition }) {
+      depoimentosState.depoimentosSavedPosition = depoimentosPosition;
+      depoimentosSlideList.style.transform = `translateX(${depoimentosPosition}px)`;
+    }
+
+    function getCenterDepoimentosPosition({ indice }) {
+      const depoimentosSlideItem = depoimentosSlideItems[indice];
+      const depoimentosSlideWidth = depoimentosSlideItem.clientWidth;
+      const windowDepoimentosWidth = document.body.clientWidth;
+      const marginDepoimentos =
+        (windowDepoimentosWidth - depoimentosSlideWidth) / 2;
+      const depoimentosPosition =
+        marginDepoimentos - indice * depoimentosSlideWidth;
+      return depoimentosPosition;
+    }
+
+    function setVisibleDepoimentosSlide({ indice, animateDepoimentos }) {
+      if (indice === 0 || indice === depoimentosSlideItems.length - 1) {
+        indice = depoimentosState.CurrentDepoimentosSlideIndex;
+      }
+      const depoimentosPosition = getCenterDepoimentosPosition({ indice });
+      depoimentosState.CurrentDepoimentosSlideIndex = indice;
+      depoimentosSlideList.style.transition =
+        animateDepoimentos === true ? 'transform 1s' : 'none';
+      activeDepoimentosControlButton({ indice });
+      translateDepoimentosSlide({ depoimentosPosition: depoimentosPosition });
+    }
+
+    function nextDepoimentosSlide() {
+      setVisibleDepoimentosSlide({
+        indice: depoimentosState.CurrentDepoimentosSlideIndex + 1,
+        animateDepoimentos: true,
+      });
+    }
+
+    function previousDepoimentosSlide() {
+      setVisibleDepoimentosSlide({
+        indice: depoimentosState.CurrentDepoimentosSlideIndex - 1,
+        animateDepoimentos: true,
+      });
+    }
+
+    function createDepoimentosControlButtons() {
+      depoimentosSlideItems.forEach(function () {
+        const depoimentosControlButton = document.createElement('button');
+        depoimentosControlButton.classList.add(
+          'depoimentosSlide-control-button'
+        );
+        depoimentosControlButton.classList.add('fas');
+        depoimentosControlButton.classList.add('fa-circle');
+        depoimentosControlButton.dataset.slide = 'depoimentos-control-btn';
+        depoimentosControlsWapper.append(depoimentosControlButton);
+      });
+    }
+
+    function activeDepoimentosControlButton({ indice }) {
+      const depoimentosSlideItem = depoimentosSlideItems[indice];
+      const dataIndice = Number(depoimentosSlideItem.dataset.indice);
+      const depoimentosControlButton = depoimentosControlButtons[dataIndice];
+      depoimentosControlButtons.forEach(function (
+        depoimentosControlButtonItem
+      ) {
+        depoimentosControlButtonItem.classList.remove('activeDepoimentos');
+      });
+      if (depoimentosControlButton)
+        depoimentosControlButton.classList.add('activeDepoimentos');
+    }
+
+    function createDepoimentosSlideClone() {
+      const firstDepoimentosSlide = depoimentosSlideItems[0].cloneNode(true);
+      firstDepoimentosSlide.classList.add('depoimentosSlide-cloned');
+      firstDepoimentosSlide.dataset.indice = depoimentosSlideItems.length;
+
+      const secundDepoimentosSlide = depoimentosSlideItems[1].cloneNode(true);
+      secundDepoimentosSlide.classList.add('depoimentosSlide-cloned');
+      secundDepoimentosSlide.dataset.indice = depoimentosSlideItems.length + 1;
+
+      const lastDepoimentosSlide =
+        depoimentosSlideItems[depoimentosSlideItems.length - 1].cloneNode(true);
+      lastDepoimentosSlide.classList.add('depoimentosSlide-cloned');
+      lastDepoimentosSlide.dataset.indice = -1;
+
+      const penultimateDepoimentosSlide =
+        depoimentosSlideItems[depoimentosSlideItems.length - 2].cloneNode(true);
+      penultimateDepoimentosSlide.classList.add('depoimentosSlide-cloned');
+      penultimateDepoimentosSlide.dataset.indice = -2;
+
+      //Criar no final da lista
+      depoimentosSlideList.append(firstDepoimentosSlide);
+      depoimentosSlideList.append(secundDepoimentosSlide);
+      //Criar no início da lista
+      depoimentosSlideList.prepend(lastDepoimentosSlide);
+      depoimentosSlideList.prepend(penultimateDepoimentosSlide);
+
+      depoimentosSlideItems = document.querySelectorAll(
+        '[data-slide="depoimentos-slide-item"]'
+      );
+    }
+
+    //Apertar
+    function onDepoimentosMouseDown(evento, indice) {
+      const depoimentosSlideItem = evento.currentTarget;
+      depoimentosState.depoimentosStartingPoint = evento.clientX;
+      depoimentosState.depoimentosCurrentPoint =
+        depoimentosState.depoimentosStartingPoint -
+        depoimentosState.depoimentosSavedPosition;
+      depoimentosState.diaDiaCurrentSlideindice = indice;
+      depoimentosSlideList.style.transition = 'none';
+      depoimentosSlideItem.addEventListener(
+        'mousemove',
+        onDepoimentosMouseMove
+      );
+    }
+    //Evento de mover mouse
+    function onDepoimentosMouseMove(evento, indice) {
+      depoimentosState.depoimentosMovement =
+        evento.clientX - depoimentosState.depoimentosStartingPoint;
+      const depoimentosPosition =
+        evento.clientX - depoimentosState.depoimentosCurrentPoint;
+      translateDepoimentosSlide({ depoimentosPosition });
+    }
+    //Soltar
+    function noDepoimentosMouseUp(evento) {
+      const pointsToMoveDepoimentos = evento.type.includes('touch') ? 50 : 150;
+      // console.log(evento.type);
+      const depoimentosSlideItem = evento.currentTarget;
+      if (depoimentosState.depoimentosMovement < -pointsToMoveDepoimentos) {
+        nextDepoimentosSlide();
+      } else if (
+        depoimentosState.depoimentosMovement > pointsToMoveDepoimentos
+      ) {
+        previousDepoimentosSlide();
+      } else {
+        setVisibleDepoimentosSlide({
+          indice: depoimentosState.CurrentDepoimentosSlideIndex,
+          animateDepoimentos: true,
+        });
+      }
+
+      depoimentosSlideItem.removeEventListener(
+        'mousemove',
+        onDepoimentosMouseMove
+      );
+    }
+
+    function onDepoimentosTouchStart(evento, indice) {
+      evento.clientX = evento.touches[0].clientX;
+      onDepoimentosMouseDown(evento, indice);
+      const depoimentosSlideItem = evento.currentTarget;
+      depoimentosSlideItem.addEventListener(
+        'touchmove',
+        onDepoimentosTouchMove
+      );
+    }
+
+    function onDepoimentosTouchMove(evento) {
+      evento.clientX = evento.touches[0].clientX;
+      onDepoimentosMouseMove(evento);
+    }
+    function onDepoimentosTouchEnd(evento) {
+      noDepoimentosMouseUp(evento);
+      const depoimentosSlideItem = evento.currentTarget;
+      depoimentosSlideItem.removeEventListener(
+        'touchmove',
+        onDepoimentosTouchMove
+      );
+    }
+
+    function onDepoimentosControlButtonClick(indice) {
+      setVisibleDepoimentosSlide({
+        indice: indice + 2,
+        animateDepoimentos: true,
+      });
+    }
+
+    function onDepoimentosSlideListTransitionEnd() {
+      const depoimentosSlideItem =
+        depoimentosSlideItems[depoimentosState.CurrentDepoimentosSlideIndex];
+
+      if (
+        depoimentosSlideItem.classList.contains('depoimentosSlide-cloned') &&
+        Number(depoimentosSlideItem.dataset.indice) > 0
+      ) {
+        setVisibleDepoimentosSlide({ indice: 2, animateDepoimentos: false });
+      }
+      if (
+        depoimentosSlideItem.classList.contains('depoimentosSlide-cloned') &&
+        Number(depoimentosSlideItem.dataset.indice) < 0
+      ) {
+        setVisibleDepoimentosSlide({
+          indice: depoimentosSlideItems.length - 3,
+          animateDepoimentos: false,
+        });
+      }
+    }
+
+    function setDepoimentosAutoPlay() {
+      if (depoimentosState.depoimentosAutoPlay) {
+        depoimentosSlideInterval = setInterval(function () {
+          setVisibleDepoimentosSlide({
+            indice: depoimentosState.CurrentDepoimentosSlideIndex + 1,
+            animateDepoimentos: true,
+          });
+        }, depoimentosState.depoimentosTimeInterval);
+      }
+    }
+
+    function setDepoimentosListeners() {
+      depoimentosControlButtons = document.querySelectorAll(
+        '[data-slide="depoimentos-control-btn"]'
+      );
+      depoimentosSlideItems = document.querySelectorAll(
+        '[data-slide="depoimentos-slide-item"]'
+      );
+
+      //Adicionar evento nos indicatons
+      depoimentosControlButtons.forEach(function (
+        depoimentosControlButton,
+        indice
+      ) {
+        depoimentosControlButton.addEventListener('click', function (evento) {
+          onDepoimentosControlButtonClick(indice);
+        });
+      });
+
+      //Eventos do mouse
+      depoimentosSlideItems.forEach(function (depoimentosSlideItem, indice) {
+        //Arrastar
+        depoimentosSlideItem.addEventListener('dragstart', function (evento) {
+          evento.preventDefault();
+        });
+        //Apertar
+        depoimentosSlideItem.addEventListener('mousedown', function (evento) {
+          onDepoimentosMouseDown(evento, indice);
+        }),
+          //Soltar no mobile
+          depoimentosSlideItem.addEventListener(
+            'mouseup',
+            noDepoimentosMouseUp
+          );
+
+        //Apertar no mobile
+        depoimentosSlideItem.addEventListener('touchstart', function (evento) {
+          onDepoimentosTouchStart(evento, indice);
+        }),
+          //Soltar
+          depoimentosSlideItem.addEventListener(
+            'touchend',
+            onDepoimentosTouchEnd
+          );
+      });
+
+      depoimentosNextBtn.addEventListener('click', nextDepoimentosSlide);
+      depoimentosPreviousBtn.addEventListener(
+        'click',
+        previousDepoimentosSlide
+      );
+
+      //Evento para voltar o slide de forma que o usuário não perceba
+      depoimentosSlideList.addEventListener(
+        'transitionend',
+        onDepoimentosSlideListTransitionEnd
+      );
+      depoimentosSlideWrapper.addEventListener('mouseenter', function () {
+        clearInterval(depoimentosSlideInterval);
+      });
+      depoimentosSlideWrapper.addEventListener('mouseleave', function () {
+        setDepoimentosAutoPlay();
+      });
+
+      //Manter posicionamento padrão
+      let depoimentosResizeTimeOut;
+      window.addEventListener('resize', function () {
+        clearTimeout(depoimentosResizeTimeOut);
+        depoimentosResizeTimeOut = setTimeout(function () {
+          setVisibleDepoimentosSlide({
+            indice: depoimentosState.CurrentDepoimentosSlideIndex,
+            animateDepoimentos: true,
+          });
+        }, 500);
+      });
+    }
+
+    function initDepoimentosSlider({
+      startAtIndice = 0,
+      depoimentosAutoPlay = true,
+      depoimentosTimeInterval = 3000,
+    }) {
+      depoimentosState.depoimentosAutoPlay = depoimentosAutoPlay;
+      depoimentosState.depoimentosTimeInterval = depoimentosTimeInterval;
+      createDepoimentosControlButtons();
+      createDepoimentosSlideClone();
+      setDepoimentosListeners();
+      setVisibleDepoimentosSlide({
+        indice: startAtIndice + 2,
+        animateDepoimentos: true,
+      });
+      setDepoimentosAutoPlay();
+    }
+
+    initDepoimentosSlider({
+      depoimentosAutoPlay: false,
+      startAtIndice: 0,
+      depoimentosTimeInterval: 3000,
+    });
+
+    //End Testimonials section
+  } catch (e) {
+    console.warn(e);
+  }
+}
+//End of Testimonials section
 
 // Footer Section
 const logoFooterBox = document.querySelector('.footerEnd');
@@ -1977,4 +2399,4 @@ fetchJsonNavbarLinks();
 fetchMenuInfo();
 fetchallJsonCourseCategories();
 
-getScreemSize();
+// getScreemSize();

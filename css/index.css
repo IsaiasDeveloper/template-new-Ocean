@@ -10,6 +10,7 @@
   --grayColor: #5c6f82;
   --iceColor: #f5f5f5;
   --cardsBarColor: #cbcdce;
+  --shadowColor: #08101866;
   /* Other pages colors  */
   --findAppMaskColor: #0c162f;
   --transparentWindow: #081018eb;
@@ -1157,6 +1158,196 @@ header {
 }
 /* End Find the App */
 
+/* Testimonial section */
+.testimonialSection {
+  width: 100%;
+  padding: 70px 0;
+  background-color: var(--whiteColor);
+  color: var(--blackColor);
+  position: relative;
+}
+.containerTestimonial {
+  max-width: 1000px;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: left;
+  align-items: start;
+}
+
+.headerTestimonial {
+  width: 300px;
+  height: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  position: relative;
+  z-index: 1;
+  background-color: var(--whiteColor);
+}
+.testimonialBar {
+  height: 3px;
+  width: 120px;
+  border: none;
+  background-color: var(--primary);
+  margin-bottom: 15px;
+}
+.testimonialTitle {
+  font-size: 30px;
+}
+.testimonialChangeBtnBox {
+  position: absolute;
+  bottom: 21px;
+  right: 0;
+  left: 0;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 40px;
+}
+/* Slide ↓  */
+.slideDepoimentos-wrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 70%;
+  position: absolute;
+  top: 0px;
+  right: 0;
+}
+.depoimentosSlide-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+  padding-bottom: 30px;
+}
+
+.depoimentosSlide-list {
+  display: flex;
+}
+.depoimentosSlide-list .depoimentosSlide-item {
+  flex-shrink: 0;
+  padding: 0 10px;
+  width: 325px;
+  cursor: grab;
+  margin-top: 30px;
+  box-shadow: 0px 0px 23px -3px var(--shadowColor);
+  margin-right: 60px;
+  border-radius: 12px;
+}
+.depoimentosSlide-list .depoimentosSlide-content {
+  background-color: var(--whiteColor);
+  height: 245px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  position: relative;
+}
+.depoimentosSlide-list .contentTextBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  row-gap: 5px;
+  padding-top: 70px;
+  padding-bottom: 20px;
+}
+.depoimentosSlide-list .depoimentosSlide-content img {
+  margin-top: -55px;
+  width: 90px;
+  border-radius: 50%;
+}
+.depoimentosSlide-list .aspasDepoimentos {
+  position: absolute;
+  top: 26px;
+  left: 6%;
+  font-size: 69px;
+  color: var(--primary);
+  transform: rotate(180deg);
+  font-family: var(--Oswald);
+  margin-top: 0px;
+  margin-right: auto;
+  margin-bottom: 0px;
+  margin-left: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+.depoimentosSlide-list .txtDepoimentos {
+  font-size: 11px;
+  line-height: 15px;
+  text-align: left;
+  width: 85%;
+  margin: 0 auto;
+}
+.depoimentosSlide-list .footerBox {
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 20px;
+}
+.depoimentosSlide-list .nomeAutorDepoimento {
+  font-size: 12px;
+  color: var(--blackColor);
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+.depoimentosSlide-list .redeScAutorDepoimento {
+  width: 75%;
+  text-align: center;
+  margin: 0 auto;
+  font-size: 11px;
+  color: var(--primary);
+}
+.depoimentosSlide-button {
+  color: var(--primary);
+  background-color: var(--whiteColor);
+  font-size: 25px;
+  z-index: 1;
+  cursor: pointer;
+  border: none;
+  border-radius: 50%;
+  padding: 8px 12px;
+  box-shadow: 0px 0px 21px -5px var(--transparentWindow);
+}
+/* .depoimentosSlide-previous {
+  left: 290px;
+}
+.depoimentosSlide-next {
+  right: 290px;
+} */
+.depoimentosSlide-controls {
+  margin: 20px auto 0;
+  display: none;
+}
+/* Criar esse no JS ↓*/
+.depoimentosSlide-controls .depoimentosSlide-control-button {
+  background-color: transparent;
+  color: transparent;
+  font-size: 10px;
+  margin: 0 5px;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  padding: 0;
+  margin-bottom: 30px;
+}
+.depoimentosSlide-controls .depoimentosSlide-control-button.activeDepoimentos {
+  color: var(--whiteColor);
+  background-color: var(--whiteColor);
+  border-radius: 50%;
+}
+/* Criar esse no JS ↑*/
+/* End of Testimonial section */
+
 /* Footer Section */
 footer {
   width: 100%;
@@ -1322,6 +1513,7 @@ footer {
 /*
               Media Query
 */
+
 @media (max-width: 1800px) {
   /* Discover Packages Section  */
   .emphasisSlide-previous {
@@ -1331,6 +1523,15 @@ footer {
     right: 225px;
   }
   /* End Discover Packages Section  */
+
+  /* Testimonials section  */
+  .depoimentosSlide-previous {
+    left: 225px;
+  }
+  .depoimentosSlide-next {
+    right: 225px;
+  }
+  /* End Testimonials section  */
 }
 @media (max-width: 1600px) {
   /* Discover Packages Section  */
@@ -1341,6 +1542,15 @@ footer {
     right: 115px;
   }
   /* End Discover Packages Section  */
+
+  /* Testimonials section  */
+  .depoimentosSlide-previous {
+    left: 115px;
+  }
+  .depoimentosSlide-next {
+    right: 115px;
+  }
+  /* End Testimonials section  */
 }
 @media (max-width: 1400px) {
   /* Discover Packages Section  */
@@ -1351,6 +1561,15 @@ footer {
     right: 35px;
   }
   /* End Discover Packages Section  */
+
+  /* Testimonials section  */
+  .depoimentosSlide-previous {
+    left: 35px;
+  }
+  .depoimentosSlide-next {
+    right: 35px;
+  }
+  /* End Testimonials section  */
 }
 @media (max-width: 1106px) {
   /* All Categories section */
@@ -1609,36 +1828,13 @@ footer {
   /* End Discover Packages Section */
 
   /* Find the App */
-  /*
-  .findAppMasc {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-color: var(--findAppMaskColor);
-    z-index: -1;
-  }
-  .findAppMascContainer {
-    display: none;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-color: var(--findAppMaskColor);
-    z-index: -1;
-  } */
-
   .findAppSection {
-    /* .findAppContainer */
-    /* width: 100%;
-    padding: 0;
-    position: relative; */
     background-image: none;
     background-color: var(--whiteColor);
     position: static;
   }
 
   .findAppContainer {
-    /* background-image: url(https://wing.com.br/Loja/Imagens/backgroundcelular1811202217304104.png);
-    background-size: cover; */
     background-color: var(--findAppMaskColor);
     flex-direction: column;
     row-gap: 55px;
@@ -1656,7 +1852,6 @@ footer {
     top: 0;
     height: 100%;
     width: 100%;
-    /* background-color: var(--findAppMaskColor); */
     z-index: 0;
   }
   .findAppTextBtnBox {
@@ -1677,12 +1872,27 @@ footer {
     width: 100%;
     text-align: center;
   }
-  .findAppImg img {
-    /* max-width: 360px;
-    width: 95%; */
-  }
-
   /* End Find the App */
+  /* Testimonials Section */
+  .testimonialsSection {
+    padding: 50px 0 50px;
+  }
+  .testimonialTitle {
+    text-align: center;
+  }
+  .headerTestimonial {
+    width: 100%;
+    align-items: center;
+    height: 540px;
+    z-index: 0;
+  }
+  .slideDepoimentos-wrapper {
+    left: 0;
+    top: 160px;
+    width: 100%;
+    height: auto;
+  }
+  /* End Testimonials Section */
 }
 
 @media (max-width: 576px) {
@@ -1784,6 +1994,15 @@ footer {
     font-size: 11px;
   }
   /* End Find the App */
+
+  /* Testimonials section  */
+  .testimonialsTitle {
+    font-size: 30px;
+  }
+  .teachingContainer .blueClassicBtn {
+    font-size: 13px;
+  }
+  /* End Testimonials section  */
 
   /* Footer Section */
   .footerTextBox {
