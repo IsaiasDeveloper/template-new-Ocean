@@ -5,18 +5,10 @@ const frontUrl = siteProt + siteHost;
 let jsonFile = '/api/getJson.aspx?type=home';
 let menuInfo = '/api/getJson.aspx?type=menu';
 
-// let initUrl = frontUrl;  //No Grape devo descomentar essa variável
-
-// let initUrl = 'https://euestudo.com.vc'; //No Grape devo Comentar essa variável //https://espg.com.br/
-let initUrl = 'https://catalogo.drmeducacao.com.br'; //No Grape devo Comentar essa variável //
-// let initUrl = 'https://espg.com.br'; //No Grape devo Comentar essa variável //
-// let initUrl = 'https://faculdadesucesso.edu.br'; //Tem 3 emphasis
-// let initUrl = 'https://uniflor.edu.br'; //Tem 9 emphasis
-// let initUrl = 'http://facigma.edu.br'; // SÓ ESSE ESTÁ DANDO ERRO! //
-// let initUrl = 'https://reboucasdigital.com.br'; // SÓ ESSE ESTÁ DANDO ERRO! //
+let initUrl = frontUrl;
 
 const pageLinksList = [
-  { page: 'Home', id: '111111' },
+  { page: 'Home', id: '408098' },
   { page: 'Nossos Cursos', id: '222222' },
   { page: 'Quem Somos', id: '333333' },
   { page: 'Como Funciona', id: '44444' },
@@ -39,7 +31,7 @@ function fetchJsonNavbarLinks() {
         getFooterInfo(json);
       });
   } catch (e) {
-    console.warn(e);
+    null;
   }
 }
 function createNavBarInfo(json) {
@@ -60,7 +52,7 @@ function createNavBarInfo(json) {
     logoImg.setAttribute('alt', 'Logo image');
     linkToLogo.appendChild(logoImg);
   } catch (e) {
-    console.warn(e);
+    null;
   }
 }
 //End create all menu informations
@@ -126,7 +118,7 @@ try {
     }
   }
 } catch (e) {
-  console.warn(e);
+  null;
 }
 //Login button
 let coletaLeadLogin = document.querySelector('.coletaLeadLogin');
@@ -163,7 +155,7 @@ function fetchMenuInfo() {
         getTestimonials(json);
       });
   } catch (e) {
-    console.warn(e);
+    null;
   }
 }
 
@@ -257,12 +249,11 @@ function getHeaderSlide(json) {
       }
     } else {
       headerSection.style.display = 'none';
-      console.log('Não há banners na Api');
     }
 
     getEventHeaderSlide();
   } catch (e) {
-    console.warn(e);
+    null;
   }
 }
 
@@ -567,14 +558,13 @@ function getEventHeaderSlide() {
       timeIntervalHeader: 4000,
     });
   } catch (e) {
-    console.warn(e);
+    null;
   }
 }
 // End of Header section
 
 // Emphasis section
 function getEmphasis(json) {
-  // console.log(json);
   try {
     // Why Choose Us section
     let instituteName = document.querySelector('.instituteName');
@@ -594,7 +584,6 @@ function getEmphasis(json) {
       '[data-slide="emphasis-slide-item"]'
     );
 
-    // if (json.PortalEducacional)
     if (json.featuredCourses.courses) {
       let count = -1;
       for (let i = 0; i < json.featuredCourses.courses.length; i++) {
@@ -637,11 +626,10 @@ function getEmphasis(json) {
       }
     } else if (json.featuredCourses.courses) {
       discoverPackagesSection.style.display = 'none';
-      console.log('Não há emphasis de alunos');
     }
     slideEvents();
   } catch (e) {
-    console.warn(e);
+    null;
   }
 }
 function slideEvents() {
@@ -964,7 +952,7 @@ function slideEvents() {
       emphasisTimeInterval: 4000,
     });
   } catch (e) {
-    console.warn(e);
+    null;
   }
 }
 // End of Emphasis section
@@ -1010,7 +998,6 @@ seachInput.addEventListener('keyup', (e) => {
       let showMoreCourses = document.querySelector('.showMoreCourses');
       if (showMoreCourses) showMoreCourses.remove();
       fecthSeachCourse(seachName);
-      console.log(seachInput.value);
       seachInput.value = '';
       textWarn.innerHTML = '';
       coursesList.length = 0;
@@ -1027,7 +1014,6 @@ seachInputIcon.addEventListener('click', (e) => {
     let showMoreCourses = document.querySelector('.showMoreCourses');
     if (showMoreCourses) showMoreCourses.remove();
     fecthSeachCourse(seachName);
-    console.log(seachInput.value);
     seachInput.value = '';
     textWarn.innerHTML = '';
     coursesList.length = 0;
@@ -1054,7 +1040,7 @@ function fetchallJsonCourseCategories() {
         createCourseForCategory(allCategory);
       });
   } catch (e) {
-    console.warn(e);
+    null;
   }
 }
 
@@ -1065,7 +1051,7 @@ function getCategoryTitles(allCategory) {
       categoryList.push(categoryName);
     }
   } catch (e) {
-    console.warn(e);
+    null;
   }
 }
 
@@ -1095,8 +1081,6 @@ function createCourseForCategory(allCategory) {
           }
         }
       });
-      //https://catalogo.drmeducacao.com.br/pages/396298/TemplateClassicCategoria
-      //https://catalogo.drmeducacao.com.br/pages/396298/Nossos-Cursos?categoryId=1145045
       boxFromImg.appendChild(imageBox);
       //Texts box
       let textsBox = document.createElement('div');
@@ -1107,42 +1091,9 @@ function createCourseForCategory(allCategory) {
       categoryTitle.innerHTML = categoryName;
       categoryTitle.classList.add('categoryTitle');
       textsBox.appendChild(categoryTitle);
-      // //Number of courses
-      // let NumberOfCourses = document.createElement('p');
-      // NumberOfCourses.classList.add('NumberOfCourses');
-      // getQuantityCoursesByCategory(NumberOfCourses, categoryId);
-      // textsBox.appendChild(NumberOfCourses);
-
-      // //Category information
-      // let categoryInfo = document.createElement('p');
-      // categoryInfo.innerHTML = 'Aulas presenciais ou 100% on-line';
-      // categoryInfo.classList.add('categoryInfo');
-      // textsBox.appendChild(categoryInfo);
-      // //Last box Category
-      // let lastBoxCategory = document.createElement('div');
-      // lastBoxCategory.classList.add('lastBoxCategory');
-      // boxOfEachCategory.appendChild(lastBoxCategory);
-      // //Bar
-      // let categoryBar = document.createElement('hr');
-      // categoryBar.classList.add('categoryBar');
-      // lastBoxCategory.appendChild(categoryBar);
-      // //Category button
-      // let categoryLink = document.createElement('a');
-      // categoryLink.innerHTML = 'Confira os Cursos';
-      // categoryLink.classList.add('categoryLink');
-      // for (let y = 0; y < pageLinksList.length; y++) {
-      //   if (pageLinksList[y].page === 'Nossos Cursos') {
-      //     categoryLink.setAttribute(
-      //       'href',
-      //       `${initUrl}/pages/${pageLinksList[y].id}/Nossos Cursos?categoryId=${categoryId}`
-      //     );
-      //   }
-      // }
-      // lastBoxCategory.appendChild(categoryLink);
     }
-    // console.log(allCategory);
   } catch (e) {
-    console.warn(e);
+    null;
   }
 }
 
@@ -1153,8 +1104,6 @@ function getQuantityCoursesByCategory(NumberOfCourses, categoryId) {
     )
       .then((answer) => answer.json())
       .then((json) => {
-        // let strQuantityCourse;
-        // console.log(json);
         if (json.total === '1') {
           NumberOfCourses.innerHTML = `${json.total} Curso disponível`;
         } else if (json.total > '1') {
@@ -1165,7 +1114,7 @@ function getQuantityCoursesByCategory(NumberOfCourses, categoryId) {
         // NumberOfCourses.innerHTML = `${json.total} ${strQuantityCourse} `;
       });
   } catch (e) {
-    console.warn(e);
+    null;
   }
 }
 function fecthSeachCourse(seachName) {
@@ -1179,7 +1128,7 @@ function fecthSeachCourse(seachName) {
         searchForCoursesSearched(json);
       });
   } catch (e) {
-    console.warn(e);
+    null;
   }
 
   function createUrlPageMoreCouses() {
@@ -1203,17 +1152,15 @@ function fecthSeachCourse(seachName) {
       fetch(newPage)
         .then((resposta) => resposta.json())
         .then((json) => {
-          console.log(newPage);
           searchForCoursesSearched(json);
         });
     } catch (e) {
-      console.warn(e);
+      null;
     }
   }
 
   function searchForCoursesSearched(json) {
     try {
-      console.log(json);
       let numberCourse = Number(json.total);
       if (numberCourse === 0) {
         let infoTextBox = document.createElement('div');
@@ -1276,47 +1223,15 @@ function fecthSeachCourse(seachName) {
         }
         categoryTitle.classList.add('categoryTitle');
         textsBox.appendChild(categoryTitle);
-        // //Number of courses
-        // let NumberOfCourses = document.createElement('p');
-        // NumberOfCourses.classList.add('NumberOfCourses');
-        // NumberOfCourses.innerHTML = courseCategoryName;
-        // textsBox.appendChild(NumberOfCourses);
-        // //Category information
-        // let categoryInfo = document.createElement('p');
-        // categoryInfo.innerHTML = `${courseThemeName}`;
-        // categoryInfo.classList.add('categoryInfo');
-        // textsBox.appendChild(categoryInfo);
-        // //Last box Category
-        // let lastBoxCategory = document.createElement('div');
-        // lastBoxCategory.classList.add('lastBoxCategory');
-        // boxOfEachCategory.appendChild(lastBoxCategory);
-        // //Bar
-        // let categoryBar = document.createElement('hr');
-        // categoryBar.classList.add('categoryBar');
-        // lastBoxCategory.appendChild(categoryBar);
-        // //Category button
-        // let categoryLink = document.createElement('a');
-        // categoryLink.innerHTML = 'Saiba mais...';
-        // categoryLink.classList.add('categoryLink');
-        // for (let y = 0; y < pageLinksList.length; y++) {
-        //   if (pageLinksList[y].page === 'Curso') {
-        //     categoryLink.setAttribute(
-        //       'href',
-        //       `${initUrl}/pages/${pageLinksList[y].id}/Detalhe Curso?courseId=${courseId}&ysnPacote=${ysnPacote}`
-        //     );
-        //   }
-        // }
-        // console.log(coursesList.length);
-        // lastBoxCategory.appendChild(categoryLink);
       } else {
         for (let i = 0; i < json.coursesList.course.length; i++) {
           let categoryName = json.coursesList.course[i].title;
           let courseId = json.coursesList.course[i].id;
           let categoryImg = json.coursesList.course[i].img;
           let ysnPacote = json.coursesList.course[i].ysnPacote;
-          let courseCategoryName = json.coursesList.course[i].categoria.name;
-          let courseCategoryId = json.coursesList.course[i].categoria.id;
-          let courseThemeName = json.coursesList.course[i].temaCourse;
+          //   let courseCategoryName = json.coursesList.course[i].categoria.name;
+          //   let courseCategoryId = json.coursesList.course[i].categoria.id;
+          //   let courseThemeName = json.coursesList.course[i].temaCourse;
           //Box of each category
           let boxOfEachCategory = document.createElement('div');
           boxOfEachCategory.id = courseId;
@@ -1352,49 +1267,15 @@ function fecthSeachCourse(seachName) {
           }
           categoryTitle.classList.add('categoryTitle');
           textsBox.appendChild(categoryTitle);
-          // //Number of courses
-          // let NumberOfCourses = document.createElement('p');
-          // NumberOfCourses.classList.add('NumberOfCourses');
-          // NumberOfCourses.innerHTML = courseCategoryName;
-          // textsBox.appendChild(NumberOfCourses);
-          // //Category information
-          // let categoryInfo = document.createElement('p');
-          // categoryInfo.innerHTML = `${courseThemeName}`;
-          // categoryInfo.classList.add('categoryInfo');
-          // textsBox.appendChild(categoryInfo);
-          // //Last box Category
-          // let lastBoxCategory = document.createElement('div');
-          // lastBoxCategory.classList.add('lastBoxCategory');
-          // boxOfEachCategory.appendChild(lastBoxCategory);
-          // //Bar
-          // let categoryBar = document.createElement('hr');
-          // categoryBar.classList.add('categoryBar');
-          // lastBoxCategory.appendChild(categoryBar);
-          // //Category button
-          // let categoryLink = document.createElement('a');
-          // categoryLink.innerHTML = 'Saiba mais...';
-          // categoryLink.classList.add('categoryLink');
-          // for (let y = 0; y < pageLinksList.length; y++) {
-          //   if (pageLinksList[y].page === 'Curso') {
-          //     categoryLink.setAttribute(
-          //       'href',
-          //       `${initUrl}/pages/${pageLinksList[y].id}/Detalhe Curso?courseId=${courseId}&ysnPacote=${ysnPacote}`
-          //     );
-          //   }
-          // }
-          // console.log(coursesList.length);
-          // lastBoxCategory.appendChild(categoryLink);
         }
       }
 
-      console.log(coursesList.length);
-      console.log(numberCourse);
       //courseContainer
       numberCourse > coursesList.length
         ? (showMoreCourses.style.display = 'block')
         : (showMoreCourses.style.display = 'none');
     } catch (e) {
-      console.warn(e);
+      null;
     }
   }
 }
@@ -1496,12 +1377,11 @@ function getDiscoverPackages(json) {
       }
     } else if (!json.store.courses) {
       discoverPackagesSection.style.display = 'none';
-      // console.log('Não há discPackages de alunos');
     }
 
     getWindowSize(sizeStoreCoursesList);
   } catch (e) {
-    console.warn(e);
+    null;
   }
 }
 
@@ -1558,8 +1438,7 @@ function eventsDiscoverPackagesSlide(newMargin) {
       const discPackagesSlideItem = discPackagesSlideItems[idx_disc];
       const discPackagesSlideWidth = discPackagesSlideItem.clientWidth;
       const windowDiscPackagesWidth = document.body.clientWidth;
-      const marginDiscPackages =
-        (windowDiscPackagesWidth - discPackagesSlideWidth) / 2;
+      const marginDiscPackages = newMargin; //(windowDiscPackagesWidth - discPackagesSlideWidth) / 2;
       const discPackagesPosition =
         marginDiscPackages - idx_disc * discPackagesSlideWidth;
       return discPackagesPosition;
@@ -1864,21 +1743,20 @@ function eventsDiscoverPackagesSlide(newMargin) {
     }
 
     initDiscPackagesSlider({
-      discPackagesAutoPlay: false,
+      discPackagesAutoPlay: true,
       startAtidx_disc: 0,
       discPackagesTimeInterval: 3000,
     });
 
     //End Discover Packages Section
   } catch (e) {
-    console.warn(e);
+    null;
   }
 }
 // End of Discover Packages section
 
 //Testimonials section
 function getTestimonials(json) {
-  console.log(json);
   try {
     let testimoniesSection = document.querySelector('.testimonialsSection');
     // let whoDo = document.querySelector('.testimonialsTitle');
@@ -1937,11 +1815,10 @@ function getTestimonials(json) {
       }
     } else if (!json.testimonies) {
       testimoniesSection.style.display = 'none';
-      // console.log('Não há depoimentos de alunos');
     }
     testimonioalSlideEvents();
   } catch (e) {
-    console.warn(e);
+    null;
   }
 }
 function testimonioalSlideEvents() {
@@ -2286,7 +2163,7 @@ function testimonioalSlideEvents() {
 
     //End Testimonials section
   } catch (e) {
-    console.warn(e);
+    null;
   }
 }
 //End of Testimonials section
@@ -2351,7 +2228,7 @@ try {
     }
   }
 } catch (e) {
-  console.warn(e);
+  null;
 }
 
 //Footer logo
@@ -2371,7 +2248,7 @@ function getFooterInfo(json) {
     logoImg.setAttribute('alt', 'Logo image');
     linkToLogo.appendChild(logoImg);
   } catch (e) {
-    console.warn(e);
+    null;
   }
 }
 
@@ -2390,7 +2267,7 @@ function getSocialMediaFooter(json) {
       socialMediaBox.appendChild(socialMediaLink);
     }
   } catch (e) {
-    console.warn(e);
+    null;
   }
 }
 // End Footer Section
@@ -2399,5 +2276,3 @@ function getSocialMediaFooter(json) {
 fetchJsonNavbarLinks();
 fetchMenuInfo();
 fetchallJsonCourseCategories();
-
-// getScreemSize();
