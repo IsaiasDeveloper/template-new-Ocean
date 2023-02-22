@@ -1779,10 +1779,14 @@ function getTestimonials(json) {
         testimoniesBoxes.dataset.slide = 'depoimentos-slide-item';
         testimoniesBoxes.dataset.indice = testimoniesList.length + count;
         testimoniesBox.appendChild(testimoniesBoxes);
+        //Intern box
+        let internBox = document.createElement('div');
+        internBox.classList.add('internBox');
+        testimoniesBoxes.appendChild(internBox);
         //Testimonies content
         let contents = document.createElement('div');
         contents.classList.add('depoimentosSlide-content');
-        testimoniesBoxes.appendChild(contents);
+        internBox.appendChild(contents);
         //Icon
         let icons = document.createElement('i');
         icons.classList.add('aspasDepoimentos');
@@ -1801,7 +1805,7 @@ function getTestimonials(json) {
         //footer box
         let footerBox = document.createElement('div');
         footerBox.classList.add('footerBox');
-        testimoniesBoxes.appendChild(footerBox);
+        internBox.appendChild(footerBox);
         //Author name
         let authorName = document.createElement('p');
         authorName.classList.add('nomeAutorDepoimento');
