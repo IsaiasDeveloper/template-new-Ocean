@@ -1448,10 +1448,14 @@ function getDiscoverPackages(json) {
         discoverPackagesBoxes.dataset.idx_disc =
           discoverPackagesList.length + count;
         discoverPackagesBox.appendChild(discoverPackagesBoxes);
+        //Intern box
+        let discPkgInternBox = document.createElement('div');
+        discPkgInternBox.classList.add('discPkgInternBox');
+        discoverPackagesBoxes.appendChild(discPkgInternBox);
         //Testimonies content
         let contents = document.createElement('div');
         contents.classList.add('discoverPackages-content');
-        discoverPackagesBoxes.appendChild(contents);
+        discPkgInternBox.appendChild(contents);
         //Image box
         let imageCardBox = document.createElement('div');
         imageCardBox.classList.add('imageCardBox');
