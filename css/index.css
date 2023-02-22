@@ -347,22 +347,24 @@ header {
 
 .emphasisSlide-list {
   display: flex;
+  column-gap: 10px;
 }
 .emphasisSlide-list .emphasisSlide-item {
   flex-shrink: 0;
-  max-width: 350px;
-  width: 80%;
+  max-width: 315px;
+  width: 71%;
   height: 200px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: end;
   align-items: start;
-  margin: 15px 0 0 15px;
   padding: 15px;
   overflow: hidden;
   position: relative;
   border-radius: 15px;
+  box-shadow: 0px 0px 8px -2px var(--transparentWindow);
+  margin: 10px 0;
 }
 .emphasisSlide-list .emphasisSlide-content {
   background-size: cover;
@@ -1228,15 +1230,31 @@ header {
 
 .depoimentosSlide-list {
   display: flex;
+  /* column-gap: 10px; */
 }
 .depoimentosSlide-list .depoimentosSlide-item {
+  /* flex-shrink: 0;*/
+  padding: 20px 40px;
+  width: 340px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  /* cursor: grab;
+  margin-top: 30px;
+  box-shadow: 0px 0px 23px -3px var(--shadowColor);
+  margin-right: 2974011729Desenvolvedor Front emd0px;
+  border-radius: 12px; */
+}
+.depoimentosSlide-list .internBox {
   flex-shrink: 0;
   padding: 0 10px;
-  width: 325px;
+  width: 280px;
+  height: 310px;
   cursor: grab;
   margin-top: 30px;
   box-shadow: 0px 0px 23px -3px var(--shadowColor);
-  margin-right: 60px;
+  margin-right: 2974011729Desenvolvedor Front emd0px;
   border-radius: 12px;
 }
 .depoimentosSlide-list .depoimentosSlide-content {
@@ -1288,6 +1306,7 @@ header {
 }
 .depoimentosSlide-list .footerBox {
   width: 85%;
+  margin: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1844,7 +1863,7 @@ footer {
   .slideEmphasis-wrapper {
     position: absolute;
     left: 0;
-    bottom: 99px;
+    bottom: 85px;
     top: auto;
     height: auto;
   }
@@ -2011,9 +2030,9 @@ footer {
   }
   .slideDepoimentos-wrapper {
     left: 0;
-    top: 160px;
+    top: 175px;
     width: 100%;
-    height: auto;
+    height: 350px;
   }
   /* End Testimonials Section */
 
@@ -2203,4 +2222,13 @@ footer {
     height: 260px;
   }
   /* End of All Categories section */
+
+  /* Testimonial section */
+  /* .depoimentosSlide-list {
+    column-gap: 0px;
+  }
+  .depoimentosSlide-list .depoimentosSlide-item {
+    width: 280px;
+  } */
+  /* End of Testimonial section */
 }
