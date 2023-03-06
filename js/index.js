@@ -16,16 +16,18 @@ let initUrl = 'https://catalogo.drmeducacao.com.br'; //No Grape devo Comentar es
 // let initUrl = 'https://reboucasdigital.com.br'; // SÓ ESSE ESTÁ DANDO ERRO! //
 
 const pageLinksList = [
-  { page: 'Home', id: '111111' },
-  { page: 'Nossos Cursos', id: '222222' },
-  { page: 'Quem Somos', id: '333333' },
-  { page: 'Como Funciona', id: '44444' },
-  { page: 'Contato', id: '55555' },
-  { page: 'Curso', id: '66666' },
-  { page: 'Política de Privacidade', id: '777777' },
-  { page: 'Termos de Uso', id: '88888' },
-  { page: 'Registre-se', id: '99999' },
-  { page: 'Login', id: '101010' },
+  { page: 'Home', id: '408098' },
+  { page: 'Nossos Cursos', id: '408816' },
+  { page: 'Quem Somos', id: '408817' },
+  { page: 'Como Funciona', id: '408818' },
+  { page: 'FAQ', id: '408819' },
+  { page: 'Seja Parceiro', id: '408820' },
+  { page: 'Contato', id: '408821' },
+  { page: 'Curso', id: '408822' },
+  { page: 'Política de Privacidade', id: '408823' },
+  { page: 'Termos de Uso', id: '408824' },
+  { page: 'Registre-se', id: '408825' },
+  { page: 'Login', id: '408826' },
 ];
 
 // Navbar
@@ -576,15 +578,11 @@ function getEventHeaderSlide() {
 function getEmphasis(json) {
   // console.log(json);
   try {
-    // Why Choose Us section
-    let instituteName = document.querySelector('.instituteName');
-    instituteName.innerHTML = json.PortalEducacional || json.pageTitle;
-    // End of Why Choose Us section
     // Right Choice section
-    let rightChoiceInstituteName = document.querySelectorAll(
-      '.rightChoiceHeaderTexts span'
+    let instituteName = Array.prototype.slice.call(
+      document.querySelectorAll('.instituteName')
     );
-    rightChoiceInstituteName.forEach(
+    instituteName.forEach(
       (e) => (e.innerHTML = json.PortalEducacional || json.pageTitle)
     );
     // End of Right Choice section
@@ -983,6 +981,9 @@ const categoryList = [];
 let allCourseBox = document.querySelector('.allCourseForCategory');
 const courseContainer = document.querySelector('.teachingContainer');
 const coursesList = [];
+const allCategoriesSearchBtn = document.querySelector(
+  '#allCategoriesSearchBtn'
+);
 
 seachInput.addEventListener('input', () => {
   if (seachInput.value.length > 2) {
@@ -1044,7 +1045,22 @@ backToStartBtn.addEventListener('click', () => {
   backToStartBtn.style.display = 'none';
   fetchallJsonCourseCategories();
 });
-
+allCategoriesSearchBtn.addEventListener('click', () => {
+  seachName = seachInput.value;
+  if (seachInput.value.length < 3) {
+    textWarn.style.display = 'block';
+    textWarn.innerHTML = 'Para buscar um curso, digite pelo menos 3 letras.';
+  } else {
+    let showMoreCourses = document.querySelector('.showMoreCourses');
+    if (showMoreCourses) showMoreCourses.remove();
+    fecthSeachCourse(seachName);
+    console.log(seachInput.value);
+    seachInput.value = '';
+    textWarn.innerHTML = '';
+    coursesList.length = 0;
+    countPage = 1;
+  }
+});
 function fetchallJsonCourseCategories() {
   try {
     fetch(`${initUrl}/api/getJson.aspx?type=tutors_app_new`)
@@ -1098,47 +1114,12 @@ function createCourseForCategory(allCategory) {
       //https://catalogo.drmeducacao.com.br/pages/396298/TemplateClassicCategoria
       //https://catalogo.drmeducacao.com.br/pages/396298/Nossos-Cursos?categoryId=1145045
       boxFromImg.appendChild(imageBox);
-      //Texts box
-      let textsBox = document.createElement('div');
-      textsBox.classList.add('textsBox');
-      boxOfEachCategory.appendChild(textsBox);
+
       //Category title
       let categoryTitle = document.createElement('p');
       categoryTitle.innerHTML = categoryName;
       categoryTitle.classList.add('categoryTitle');
-      textsBox.appendChild(categoryTitle);
-      // //Number of courses
-      // let NumberOfCourses = document.createElement('p');
-      // NumberOfCourses.classList.add('NumberOfCourses');
-      // getQuantityCoursesByCategory(NumberOfCourses, categoryId);
-      // textsBox.appendChild(NumberOfCourses);
-
-      // //Category information
-      // let categoryInfo = document.createElement('p');
-      // categoryInfo.innerHTML = 'Aulas presenciais ou 100% on-line';
-      // categoryInfo.classList.add('categoryInfo');
-      // textsBox.appendChild(categoryInfo);
-      // //Last box Category
-      // let lastBoxCategory = document.createElement('div');
-      // lastBoxCategory.classList.add('lastBoxCategory');
-      // boxOfEachCategory.appendChild(lastBoxCategory);
-      // //Bar
-      // let categoryBar = document.createElement('hr');
-      // categoryBar.classList.add('categoryBar');
-      // lastBoxCategory.appendChild(categoryBar);
-      // //Category button
-      // let categoryLink = document.createElement('a');
-      // categoryLink.innerHTML = 'Confira os Cursos';
-      // categoryLink.classList.add('categoryLink');
-      // for (let y = 0; y < pageLinksList.length; y++) {
-      //   if (pageLinksList[y].page === 'Nossos Cursos') {
-      //     categoryLink.setAttribute(
-      //       'href',
-      //       `${initUrl}/pages/${pageLinksList[y].id}/Nossos Cursos?categoryId=${categoryId}`
-      //     );
-      //   }
-      // }
-      // lastBoxCategory.appendChild(categoryLink);
+      boxFromImg.appendChild(categoryTitle);
     }
     // console.log(allCategory);
   } catch (e) {
@@ -1884,7 +1865,7 @@ function eventsDiscoverPackagesSlide(newMargin) {
 function getTestimonials(json) {
   console.log(json);
   try {
-    let testimoniesSection = document.querySelector('.testimonialsSection');
+    let testimoniesSection = document.querySelector('.testimonialSection');
     // let whoDo = document.querySelector('.testimonialsTitle');
     let institutionName = document.querySelector('.instituteName');
 
@@ -1944,8 +1925,8 @@ function getTestimonials(json) {
         footerBox.appendChild(courseName);
       }
     } else if (!json.testimonies) {
+      console.log(testimoniesSection);
       testimoniesSection.style.display = 'none';
-      // console.log('Não há depoimentos de alunos');
     }
     testimonioalSlideEvents();
   } catch (e) {

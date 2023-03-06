@@ -19,7 +19,12 @@
   --inputsBgLogin: #ffffff1f;
   /* Fonts */
   --defaultFont: 'Montserrat';
-  --Oswald: 'Oswald';
+  --Oswald: 'BIZ UDGothic', sans-serif;
+  --Garamond: 'EB Garamond', serif;
+  --Baskerville: 'Libre Baskerville', serif;
+  --Quicksand: 'Quicksand', sans-serif;
+  --Raleway: 'Raleway', sans-serif;
+  --Roboto: 'Roboto', sans-serif;
 }
 * {
   margin: 0;
@@ -38,23 +43,53 @@ body {
   padding: 0;
   font-family: var(--defaultFont);
 }
-
 /* Navbar */
+
 nav {
   width: 100%;
-  height: 60px;
+  height: auto;
   display: flex;
+  flex-direction: column;
   align-items: center;
   background-color: var(--whiteColor);
   position: fixed;
   border-bottom: 1px solid #ffffff24;
   z-index: 3;
-  margin-top: -60px;
-  border: 1px solid #08101845;
+  top: 0;
+  border-bottom: 1px solid #08101845;
+}
+
+.subNavBarContainer {
+  background-color: var(--primary);
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 25px;
+}
+.subNavBarLinks {
+  font-size: 14px;
+  text-decoration: none;
+  align-items: center;
+  color: var(--whiteColor);
+  margin: 10px 0;
+}
+.subNavBarLinks i {
+  margin-right: 5px;
+}
+.subNavBarLinks:hover {
+  text-decoration: underline;
+}
+.subNavBarLinks:active {
+  color: var(--support);
 }
 .containerNavbar {
   max-width: 1000px;
   width: 95%;
+  height: auto;
+  min-height: 60px;
   margin: auto;
   display: flex;
   justify-content: space-between;
@@ -86,7 +121,7 @@ li {
   color: var(--blackColor);
   text-decoration: none;
   text-transform: uppercase;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   cursor: pointer;
 }
@@ -99,19 +134,21 @@ li {
 .coletaLeadLogin {
   background-color: var(--primary);
   color: var(--whiteColor);
-  padding: 7px 25px;
+  padding: 7px 15px;
   border-radius: 5px;
+  /* border-radius: 15px; */
   font-size: 11px;
   margin-right: 15px;
   font-weight: bold;
   cursor: pointer;
+  white-space: nowrap;
 }
 .registerNavbarBtn {
   background-color: var(--secundary);
-
   color: var(--whiteColor);
-  padding: 7px 25px;
+  padding: 7px 15px;
   border-radius: 5px;
+  /* border-radius: 15px; */
   font-size: 11px;
   font-weight: bold;
   cursor: pointer;
@@ -170,7 +207,7 @@ header {
   width: 100%;
   height: auto;
   color: var(--whiteColor);
-  margin-top: 60px;
+  margin-top: 99px;
 }
 .slide-wrapper-header {
   display: flex;
@@ -224,7 +261,7 @@ header {
   background-color: transparent;
   border: 1px solid #fff;
   color: transparent;
-  border-radius: 0;
+  border-radius: 5px;
   width: 30px;
   height: 7px;
   cursor: pointer;
@@ -476,11 +513,37 @@ header {
   font-size: 13px;
   margin-bottom: 30px;
 }
+.allCategoriesInputBtnBox {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 40px;
+}
 .inputBox {
-  max-width: 329px;
+  max-width: 840px;
   width: 90%;
   height: auto;
   position: relative;
+}
+.allCategoriesBtn {
+  border: none;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: nowrap;
+  font-weight: bold;
+  color: var(--whiteColor);
+  background-color: var(--primary);
+  padding: 7px 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.allCategoriesBtn:hover {
+  transform: scale(1.02);
+}
+.allCategoriesBtn:active {
+  opacity: 0.8;
 }
 
 #courseName {
@@ -498,7 +561,7 @@ header {
   font-size: 12px;
   color: var(--secundary);
   font-weight: bold;
-  margin: 0 auto;
+  margin: 0 auto 0 0;
   display: none;
 }
 .backToStartBtn {
@@ -537,9 +600,9 @@ header {
   margin-top: 30px;
 }
 .allCourseForCategory .boxOfEachCategory {
-  max-width: 234px;
+  max-width: 319px;
   width: 100%;
-  height: 300px;
+  height: 200px;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -548,11 +611,13 @@ header {
   box-shadow: 0px 2px 20px 6px #0000003b;
   overflow: hidden;
   border-radius: 15px;
+  position: relative;
 }
 .allCourseForCategory .boxFromImg {
   width: 100%;
-  height: 74%;
+  height: 100%;
   overflow: hidden;
+  position: relative;
 }
 .allCourseForCategory .imageBox {
   width: 100%;
@@ -566,22 +631,34 @@ header {
   transform: scale(1.1);
 }
 
-.allCourseForCategory .textsBox {
-  width: 84%;
-  height: 25%;
-  margin: 0 auto;
+/* .allCourseForCategory .textsBox {
+  position: absolute;
+  left: 0;
+  top: auto;
+  bottom: 0;
+  width: 100%;
+  height: 30%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
-  /* position: relative;
-     z-index: 1;*/
-}
+} */
 .allCourseForCategory .categoryTitle {
-  color: var(--blackColor);
   font-size: 14px;
   font-weight: bold;
-  text-align: center;
+  position: absolute;
+  left: 0px;
+  right: 0;
+  top: auto;
+  bottom: 0px;
+  /* height: 35px; */
+  text-align: left;
+  padding: 15px;
+  color: var(--whiteColor);
+  background-image: linear-gradient(
+    to top,
+    var(--transparentdarkColor),
+    transparent
+  );
 }
 .allCourseForCategory .NumberOfCourses {
   margin: 15px auto 7px 0;
@@ -803,7 +880,7 @@ header {
   margin-bottom: 15px;
 }
 .rightChoiceHeaderTitle {
-  max-width: 364px;
+  /* max-width: 364px; */
   width: 100%;
   text-align: left;
   font-size: 30px;
@@ -824,8 +901,7 @@ header {
 .rightChoiceHeaderImg img {
   width: 90%;
   height: 300px;
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
+  border-radius: 15px;
 }
 .rightChoiceFooter {
   width: 100%;
@@ -940,10 +1016,11 @@ header {
 
 .discoverPackages-list {
   display: flex;
-  /* column-gap: 10px; */
+  margin-top: 15px;
 }
 .discoverPackages-list .discoverPackages-item {
-  width: 210px;
+  width: 160px;
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -952,7 +1029,7 @@ header {
 }
 .discoverPackages-list .discPkgInternBox {
   flex-shrink: 0;
-  width: 200px;
+  /* width: 150px; */
   height: 310px;
   cursor: grab;
   margin-top: 30px;
@@ -961,19 +1038,20 @@ header {
 }
 .discoverPackages-list .discoverPackages-content {
   background-color: var(--whiteColor);
-  height: 280px;
-  width: 200px;
+  height: 100%;
+  width: 100%;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   position: relative;
+  overflow: hidden;
   border-radius: 8px;
 }
 .discoverPackages-list .imageCardBox {
   width: 100%;
-  height: 47%;
+  height: 65%;
   overflow: hidden;
   /* display: flex;
   justify-content: center;
@@ -981,12 +1059,12 @@ header {
 }
 .discoverPackages-list .contentTextBox {
   width: 100%;
-  height: 50%;
+  height: 35%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: start;
-  padding: 23px 20px;
+  padding: 15px;
 }
 .discoverPackages-list .cardImage {
   width: 100%;
@@ -1009,12 +1087,12 @@ header {
 
 .discoverPackages-list .txtDiscoverPackagesCard {
   color: var(--blackColor);
-  font-size: 12px;
+  font-size: 11px;
   margin-bottom: 5px;
   text-align: left;
 }
 .discoverPackages-list .packageNameCard {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   text-align: left;
   color: var(--blackColor);
@@ -1022,7 +1100,7 @@ header {
 .discoverPackages-list .linkDiscoverPackagesCard {
   text-align: center;
   margin: 0 auto;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: bold;
   color: var(--primary);
   text-decoration: none;
@@ -1161,18 +1239,20 @@ header {
   display: block;
   margin-top: -31px;
   text-align: right;
-  margin-bottom: -35px;
+  /* margin-bottom: -35px; */
 }
 .findAppImg img {
   width: 210px;
   z-index: 2;
   position: relative;
+  margin-bottom: -40px;
 }
 /* End Find the App */
 
 /* Testimonial section */
 .testimonialSection {
   width: 100%;
+  height: 555px;
   padding: 70px 0;
   background-color: var(--whiteColor);
   color: var(--blackColor);
@@ -1183,13 +1263,12 @@ header {
   width: 90%;
   margin: auto;
   display: flex;
-  justify-content: left;
-  align-items: start;
+  flex-direction: column;
 }
 
 .headerTestimonial {
-  width: 300px;
-  height: 360px;
+  width: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -1215,7 +1294,7 @@ header {
   left: 0;
   height: 50px;
   display: flex;
-  justify-content: center;
+  justify-content: end;
   align-items: center;
   column-gap: 40px;
 }
@@ -1223,11 +1302,11 @@ header {
 .slideDepoimentos-wrapper {
   display: flex;
   align-items: center;
-  height: 100%;
-  width: 70%;
   position: absolute;
-  top: 0px;
+  top: auto;
+  left: 0;
   right: 0;
+  bottom: 40px;
 }
 .depoimentosSlide-wrapper {
   display: flex;
@@ -1243,24 +1322,19 @@ header {
   /* column-gap: 10px; */
 }
 .depoimentosSlide-list .depoimentosSlide-item {
-  /* flex-shrink: 0;*/
-  padding: 20px 40px;
-  width: 340px;
+  flex-shrink: 0;
+  padding: 20px 20px;
+  width: 325px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: transparent;
-  /* cursor: grab;
-  margin-top: 30px;
-  box-shadow: 0px 0px 23px -3px var(--shadowColor);
-  margin-right: 2974011729Desenvolvedor Front emd0px;
-  border-radius: 12px; */
 }
 .depoimentosSlide-list .internBox {
   flex-shrink: 0;
   padding: 0 10px;
   width: 280px;
-  height: 310px;
+  height: 265px;
   cursor: grab;
   margin-top: 30px;
   box-shadow: 0px 0px 23px -3px var(--shadowColor);
@@ -1269,7 +1343,7 @@ header {
 }
 .depoimentosSlide-list .depoimentosSlide-content {
   background-color: var(--whiteColor);
-  height: 245px;
+  height: 200px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -1432,7 +1506,7 @@ header {
 }
 .headerImgForm img {
   width: 100%;
-  margin: -25px 0 -4px 0;
+  margin: -25px 0 0 0;
   position: relative;
   z-index: 1;
 }
@@ -1447,11 +1521,14 @@ header {
   color: var(--whiteColor);
   margin-bottom: 15px;
 }
+
 .coletaLeadBox {
   width: 100%;
   height: auto;
+  display: flex;
   justify-content: start;
-  align-items: center;
+  align-items: start;
+  flex-direction: column;
 }
 .coletaLeadBox div {
   width: 100% !important;
@@ -1461,10 +1538,14 @@ header {
 .coletaLeadBox input {
   border: none !important;
   background-color: var(--whiteColor) !important;
-  height: 35px !important;
   font-family: var(--defaultFont) !important;
   color: var(--secundary) !important;
   font-weight: 300 !important;
+  height: 35px !important;
+  max-width: 500px !important;
+  width: 90% !important;
+  margin-left: 0 !important;
+  margin-right: auto !important;
   margin-bottom: 10px !important;
   padding-left: 10px !important;
   border-radius: 8px !important;
@@ -1479,13 +1560,14 @@ header {
 }
 .coletaLeadBox button {
   color: var(--whiteColor) !important;
-  border: 1px solid !important;
-  background-color: var(--primary) !important;
-  border-radius: 10px !important;
+  border: none !important;
+  background-color: var(--secundary) !important;
+  border-radius: 20px !important;
   padding: 12px 50px !important;
   margin: 20px auto 0 0 !important;
   text-transform: uppercase !important;
   font-weight: bold !important;
+  width: 160px !important;
 }
 .coletaLeadBox button:hover {
   color: var(--primary) !important;
@@ -1628,7 +1710,7 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 8px 10px;
+  padding: 20px;
 }
 .footerSocialMediaIconBox i:hover {
   transform: scale(1.2);
@@ -1724,23 +1806,13 @@ footer {
   /* End Testimonials section  */
 }
 @media (max-width: 1106px) {
-  /* All Categories section */
-  .allCategoriesTextBox {
-    align-items: center;
-  }
-  .backToStartBtn {
-    margin: 15px auto 0;
-  }
-  /* End of All Categories section */
-}
-@media (max-width: 992px) {
   /* Navbar */
   .menuMobileBtn {
     display: flex;
   }
   .navbarMenu {
     position: fixed;
-    top: 60px;
+    top: 95px;
     left: 0;
     width: 100%;
     height: 100vh;
@@ -1793,6 +1865,32 @@ footer {
   }
   /* End of Navbar */
 
+  /* All Categories section */
+  .allCategoriesTextBox {
+    align-items: center;
+  }
+  .backToStartBtn {
+    margin: 15px auto 0;
+  }
+  .allCourseForCategory .boxOfEachCategory {
+    max-width: 48%;
+    width: 100%;
+    height: 250px;
+  }
+  .textWarn {
+    margin: 0 auto 0 0;
+  }
+  /* End of All Categories section */
+}
+@media (max-width: 992px) {
+  /* All Categories section */
+  .allCourseForCategory .boxOfEachCategory {
+    max-width: 48%;
+    width: 100%;
+    height: 220px;
+  }
+  /* End of All Categories section */
+
   /* Discover Packages section */
 
   /* End of Discover Packages section */
@@ -1806,6 +1904,12 @@ footer {
     width: 50%;
   }
   /* End Find the App */
+
+  /* Form section */
+  .coletaLeadForm {
+    padding-top: 35px;
+  }
+  /* End of Form section */
 
   /* Footer Section */
   .footerHeader {
@@ -1843,6 +1947,12 @@ footer {
     margin: auto;
     object-fit: none;
   }
+  .slide-nav-next-header {
+    right: 45px;
+  }
+  .slide-nav-previous-header {
+    left: 45px;
+  }
   /* Header */
 
   /* Emphasis section  */
@@ -1865,16 +1975,16 @@ footer {
   }
   .slideEmphasisNextPrevBtnBox {
     top: auto;
-    bottom: 25px;
+    bottom: 35px;
     left: 0;
     height: 50px;
     justify-content: center;
   }
   .slideEmphasis-wrapper {
-    position: absolute;
+    /* position: absolute;
     left: 0;
     bottom: 85px;
-    top: auto;
+    top: auto; */
     height: auto;
   }
   /* End of Emphasis section  */
@@ -1889,7 +1999,16 @@ footer {
     border-right: 1px solid #bdc0c3;
     border-left: 1px solid #bdc0c3;
   }
+  .allCategoriesInputBtnBox {
+    width: 98%;
+  }
+  .allCourseForCategory .boxOfEachCategory {
+    max-width: 48%;
+    width: 100%;
+    height: 180px;
+  }
   /* End of All Categories section */
+
   /* Why Choose Us section */
   .whyChooseUsSection {
     background-color: var(--whiteColor);
@@ -2023,11 +2142,13 @@ footer {
   .findAppImg {
     width: 100%;
     text-align: center;
+    margin-bottom: -35px;
   }
   /* End Find the App */
+
   /* Testimonials Section */
-  .testimonialsSection {
-    padding: 50px 0 50px;
+  .testimonialSection {
+    padding: 120px 0 50px 0;
   }
   .testimonialTitle {
     text-align: center;
@@ -2035,7 +2156,7 @@ footer {
   .headerTestimonial {
     width: 100%;
     align-items: center;
-    height: 540px;
+    height: 485px;
     z-index: 0;
   }
   .slideDepoimentos-wrapper {
@@ -2043,6 +2164,12 @@ footer {
     top: 175px;
     width: 100%;
     height: 350px;
+  }
+  .depoimentosSlide-wrapper {
+    padding-bottom: 0;
+  }
+  .testimonialChangeBtnBox {
+    justify-content: center;
   }
   /* End Testimonials Section */
 
@@ -2061,7 +2188,7 @@ footer {
     width: 100%;
     justify-content: center;
     align-items: start;
-    padding-top: 30px;
+    padding-top: 55px;
   }
   .headerTextsForm {
     align-items: center;
@@ -2078,6 +2205,15 @@ footer {
     align-items: center;
     margin-bottom: 60px;
   }
+  .coletaLeadBox {
+    justify-content: center;
+    align-items: center;
+  }
+  .coletaLeadBox input,
+  .coletaLeadBox button,
+  .coletaLeadBox #lblMsg {
+    margin-left: auto !important;
+  }
   /* End of Form section */
 }
 
@@ -2090,27 +2226,28 @@ footer {
     margin-bottom: -7px;
   }
   .slide-controls-header .slide-control-button-header {
-    width: 15px;
-    height: 15px;
+    width: 25px;
+    height: 8px;
   }
   .slide-nav-button-header {
     margin-top: -30px;
     font-size: 20px;
   }
   .slide-nav-next-header {
-    right: 10px;
+    right: 30px;
   }
   .slide-nav-previous-header {
-    left: 10px;
+    left: 30px;
   }
 
   /* End Header */
 
   /* Emphasis section  */
   .containerEmphasis {
-    height: 450px;
+    height: 500px;
   }
   .emphasisTitle {
+    width: 98%;
     font-family: 23px;
   }
   .teachingContainer .blueClassicBtn {
@@ -2123,10 +2260,18 @@ footer {
     column-gap: 8px;
     row-gap: 15px;
   }
-  .allCourseForCategory .boxOfEachCategory {
-    max-width: 185px;
+  .allCategoriesInputBtnBox {
     width: 100%;
-    height: 275px;
+    flex-direction: column;
+    row-gap: 10px;
+  }
+  .allCourseForCategory .boxOfEachCategory {
+    max-width: 48%;
+    width: 100%;
+    height: 125px;
+  }
+  .allCourseForCategory .categoryTitle {
+    font-size: 13px;
   }
   .allCourseForCategory .textsBox {
     height: 30%;
@@ -2136,7 +2281,9 @@ footer {
   .whyChooseUsCardsTitle {
     font-size: 19px;
   }
-
+  .chooseInstituteName {
+    display: none;
+  }
   /* End of Why Choose Us section */
 
   /* Right Choice section */
@@ -2153,11 +2300,13 @@ footer {
     text-align: center;
   }
   .rightChoiceHeaderImg {
-    width: 95%;
+    width: 100%;
     justify-content: center;
   }
   .rightChoiceHeaderImg img {
     border-radius: 0;
+    max-width: 100%;
+    width: 100%;
   }
   .rightChoiceFooterBoxes {
     width: 90%;
@@ -2188,6 +2337,13 @@ footer {
   .teachingContainer .blueClassicBtn {
     font-size: 13px;
   }
+  .depoimentosSlide-wrapper {
+    padding-bottom: 0px;
+  }
+  .testimonialChangeBtnBox {
+    justify-content: center;
+  }
+
   /* End Testimonials section  */
 
   /* Footer Section */
@@ -2225,12 +2381,37 @@ footer {
 }
 
 @media (max-width: 440px) {
-  /* All Categories section */
-  .allCourseForCategory .boxOfEachCategory {
-    max-width: 178px;
-    width: 100%;
-    height: 260px;
+  /* SubNavbar section  */
+  .subNavBarLinks {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    justify-content: center;
+    align-items: center;
   }
+  /* End of SubNavbar section  */
+
+  /* Navbar section  */
+  .navbarMenu {
+    position: fixed;
+    top: 115px;
+  }
+  /* End of Navbar section  */
+
+  /* All Categories section */
+  .allCategoriesInputBtnBox {
+    width: 98%;
+  }
+  .allCourseForCategory .boxOfEachCategory {
+    max-width: 95%;
+    width: 100%;
+    height: 233px;
+  }
+
+  .allCourseForCategory .categoryTitle {
+    font-size: 12px;
+  }
+
   /* End of All Categories section */
 
   /* Testimonial section */
