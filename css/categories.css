@@ -1,0 +1,793 @@
+:root {
+  /* Major colors  */
+  --primary: #22d2b3;
+  --secundary: #003399;
+  --support: #199983;
+  /* Page colors  */
+  --blackColor: #000;
+  --transparentdarkColor: #081018c4;
+  --whiteColor: #fff;
+  --grayColor: #5c6f82;
+  --iceColor: #f5f5f5;
+  --cardsBarColor: #cbcdce;
+  --shadowColor: #08101866;
+  /* Other pages colors  */
+  --findAppMaskColor: #0c162f;
+  --transparentWindow: #081018eb;
+  --findAppMasc: #081018;
+  --redColor: red;
+  --inputsBgLogin: #ffffff1f;
+  /* Fonts */
+  --defaultFont: 'Montserrat';
+  --Oswald: 'BIZ UDGothic', sans-serif;
+  --Garamond: 'EB Garamond', serif;
+  --Baskerville: 'Libre Baskerville', serif;
+  --Quicksand: 'Quicksand', sans-serif;
+  --Raleway: 'Raleway', sans-serif;
+  --Roboto: 'Roboto', sans-serif;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+  } */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--defaultFont);
+}
+/* Navbar */
+
+nav {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--whiteColor);
+  position: fixed;
+  border-bottom: 1px solid #ffffff24;
+  z-index: 3;
+  top: 0;
+  border-bottom: 1px solid #08101845;
+}
+
+.subNavBarContainer {
+  background-color: var(--primary);
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 25px;
+}
+.subNavBarLinks {
+  font-size: 14px;
+  text-decoration: none;
+  align-items: center;
+  color: var(--whiteColor);
+  margin: 10px 0;
+}
+.subNavBarLinks i {
+  margin-right: 5px;
+}
+.subNavBarLinks:hover {
+  text-decoration: underline;
+}
+.subNavBarLinks:active {
+  color: var(--support);
+}
+.containerNavbar {
+  max-width: 1000px;
+  width: 95%;
+  height: auto;
+  min-height: 60px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.navbarImg {
+  width: 160px;
+}
+.navbarImg img {
+  width: 100%;
+}
+
+.navbarMenu {
+  width: auto;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+}
+li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.navbarMenu .itemsMenuNavbar,
+.itemsMenuNavbar a,
+.coletaLeadLogin {
+  color: var(--blackColor);
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.navbarMenu .actived a {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.coletaLeadLogin {
+  background-color: var(--primary);
+  color: var(--whiteColor);
+  padding: 7px 15px;
+  border-radius: 15px;
+  font-size: 11px;
+  margin-right: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.registerNavbarBtn {
+  background-color: var(--secundary);
+  color: var(--whiteColor);
+  padding: 7px 15px;
+  border-radius: 15px;
+  font-size: 11px;
+  font-weight: bold;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.coletaLeadLogin:active,
+.registerNavbarBtn:active {
+  opacity: 0.7;
+}
+
+.navbarMenu .itemsMenuNavbar:hover,
+.navbarMenu .itemsMenuNavbar a:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+.navbarMenu .itemsMenuNavbar:not(:last-child) {
+  margin-right: 15px;
+}
+
+.containerNavbar .mobileBtnMobile {
+  color: var(--blackColor);
+  font-size: 30px;
+  margin-right: 20px;
+}
+
+.containerNavbar i {
+  display: none;
+}
+.containerNavbar .mobileBtnMobile:active {
+  transform: rotate(-10deg);
+}
+.menuMobileBtn {
+  width: 26px;
+  height: 28px;
+  cursor: pointer;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  row-gap: 7px;
+  /* border: 1px solid #000; */
+}
+.menuMobileBars {
+  width: 100%;
+  height: 3px;
+  border-radius: 20px;
+  background-color: var(--blackColor);
+  /* transition: 0.8s; */
+}
+/* End of Navbar */
+
+/* Header section */
+header {
+  width: 100%;
+  height: 360px;
+  background-image: url(https://catalogo.drmeducacao.com.br/Loja/Imagens/comofuncionaimgbackgroundmobile2722023172016175.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  margin-top: 100px;
+  color: var(--whiteColor);
+}
+.headerContainer {
+  max-width: 1000px;
+  width: 98%;
+  margin: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  padding-top: 70px;
+}
+.headerBar {
+  border: none;
+  background-color: var(--whiteColor);
+  height: 3px;
+  width: 150px;
+  margin: 0 auto 15px;
+}
+.headerTitle {
+  font-size: 30px;
+  text-align: center;
+}
+/* End of Header section */
+
+/* Courses Categories */
+.coursesCategories {
+  width: 100%;
+  background-color: var(--iceColor);
+  padding-bottom: 70px;
+}
+.coursesCategoriesContainer {
+  max-width: 1000px;
+  width: 98%;
+  margin: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+.categoryNamesInputBox {
+  width: 700px;
+  height: auto;
+  box-shadow: 0px 0px 21px -3px var(--transparentdarkColor);
+  background-color: var(--whiteColor);
+  color: var(--blackColor);
+  border-radius: 15px;
+  margin: -90px auto 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0 40px;
+}
+.categoryNameContent {
+  width: 75%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 20px;
+}
+.categoryName {
+  font-size: 14px;
+}
+.categoryNamesBox {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  row-gap: 15px;
+  column-gap: 20px;
+}
+.allCategoriesInputBtnBox {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.inputBox {
+  width: 100%;
+  height: 40px;
+  position: relative;
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: center;
+  align-items: center;
+}
+.inputBox input {
+  color: var(--grayColor);
+  border: 1px solid;
+  width: 100%;
+  height: 100%;
+  padding-left: 45px;
+  border-radius: 20px;
+  outline: var(--cardsBarColor);
+}
+.inputBox i {
+  position: absolute;
+  left: 20px;
+  top: 13px;
+}
+.textWarn {
+  color: var(--secundary);
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  margin: 5px auto;
+}
+.backToStartBtn {
+  width: auto;
+  white-space: nowrap;
+  padding: 4px 15px;
+  display: flex;
+  column-gap: 10px;
+  justify-content: center;
+  align-items: center;
+  color: var(--whiteColor);
+  background-color: var(--primary);
+  border-radius: 15px;
+  cursor: pointer;
+}
+/* End of Courses Categories */
+
+/* Find the App */
+.findAppSection {
+  /* .findAppContainer */
+  width: 100%;
+  padding: 0;
+  background-image: url(https://wing.com.br/Loja/Imagens/backgroundcelular1811202217304104.png);
+  background-size: cover;
+  position: relative;
+}
+.findAppMasc {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: var(--findAppMaskColor);
+  z-index: -1;
+}
+/* .findAppMascContainer {
+    display: none;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: var(--findAppMaskColor);
+    z-index: -1;
+  } */
+.findAppContainer {
+  max-width: 900px;
+  width: 98%;
+  margin: auto;
+  margin-top: 0px;
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+.findAppTextBtnBox {
+  width: 45%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  row-gap: 20px;
+  padding-top: 35px;
+}
+.findAppTitle {
+  font-size: 50px;
+  color: var(--whiteColor);
+  font-weight: bold;
+  line-height: 50px;
+  margin-bottom: 10px;
+}
+.findAppIconBtn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.findAppIconBtn img {
+  width: 180px;
+  transition: 0.8s;
+}
+.findAppIconBtn img:hover {
+  transform: scale(1.05);
+}
+.findAppImg {
+  width: 45%;
+  display: block;
+  margin-top: -31px;
+  text-align: right;
+  /* margin-bottom: -35px; */
+}
+.findAppImg img {
+  width: 210px;
+  z-index: 2;
+  position: relative;
+  margin-bottom: -40px;
+}
+/* End Find the App */
+
+/* Footer Section */
+footer {
+  width: 100%;
+  padding: 60px 0 20px;
+  color: var(--blackColor);
+  background-color: var(--whiteColor);
+}
+.footerContainer {
+  max-width: 1000px;
+  width: 90%;
+  margin: auto;
+  display: block;
+  text-align: center;
+}
+.footerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 40px;
+}
+.footerTextBox {
+  /* linksCreatedJs */
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+.footerInfoBox {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  row-gap: 5px;
+}
+.OurCoursesFooterBox,
+.footerRegristrationBox {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  row-gap: 10px;
+}
+.footerTextTitle {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 0;
+}
+.footerInfoBox .OurCoursesLinks,
+.OurCoursesFooterBox .OurCoursesLinks {
+  text-decoration: none;
+  color: var(--blackFont);
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.8s;
+  cursor: pointer;
+  text-align: justify;
+}
+.footerInfoBox .OurCoursesLinks:hover {
+  color: var(--primary);
+}
+.footerInfoBox .OurCoursesLinks:active,
+.OurCoursesFooterBox .OurCoursesLinks:active {
+  opacity: 0.9;
+}
+
+.footerInfoBox .linksCreatedJs {
+  display: flex;
+  align-items: start;
+  width: 100%;
+  row-gap: 10px;
+}
+.footerInfoBox .infoBoxLeftFooter {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 47%;
+  row-gap: 10px;
+}
+.footerInfoBox .serviceBox {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 51%;
+  row-gap: 10px;
+}
+
+.OurCoursesFooterBox a,
+.footerInfoBox a,
+.footerRegristrationBox a,
+.linksCreatedJs span a,
+.footerInfoBox a {
+  text-decoration: none;
+  color: var(--blackColor);
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.8s;
+}
+.linksCreatedJs span a:hover,
+.OurCoursesFooterBox a:hover,
+.footerInfoBox a:hover,
+.footerRegristrationBox a:hover {
+  color: var(--primary);
+}
+
+.footerSocialMediaIconBox {
+  width: 40%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: start;
+}
+.footerSocialMediaIconBox a {
+  text-decoration: none;
+}
+
+.footerSocialMediaIconBox i {
+  font-size: 25px;
+  color: var(--blackColor);
+  border: 1px solid #000;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.8s;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+.footerSocialMediaIconBox i:hover {
+  transform: scale(1.2);
+}
+.footerSocialMediaIconBox i:active {
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+.footerBar {
+  border: none;
+  width: 100%;
+  height: 2px;
+  background-color: var(--blackColor);
+}
+.footerEnd {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 20px;
+}
+.footerEnd .footerLogo {
+  width: 232px;
+}
+.FooterEndUniMais {
+  width: 220px;
+}
+.FooterEndDZM {
+  width: 120px;
+}
+/* End Footer Section */
+
+/*
+
+     MEDIA QUERY
+
+*/
+
+@media (max-width: 1106px) {
+  /* Navbar */
+  .menuMobileBtn {
+    display: flex;
+  }
+  .navbarMenu {
+    position: fixed;
+    top: 95px;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--transparentdarkColor);
+    backdrop-filter: blur(6px);
+    display: none;
+    flex-direction: column;
+    justify-content: start;
+    align-items: end;
+    row-gap: 30px;
+    padding: 20px 0 65px 0;
+    margin-top: 0px;
+  }
+  /* .navbarMenu::before {
+      content: '';
+      background-image: url(https://images.pexels.com/photos/1341279/pexels-photo-1341279.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+      background-repeat: no-repeat;
+      background-size: cover;
+      opacity: 0.9;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      position: absolute;
+      z-index: -1;
+    } */
+
+  .coletaLeadLogin,
+  .navbarMenu .itemsMenuNavbar,
+  .registerNavbarBtn {
+    margin-right: 15px;
+  }
+  .coletaLeadLogin,
+  .registerNavbarBtn {
+    margin-right: 15px;
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+  .navbarMenu .itemsMenuNavbar,
+  .itemsMenuNavbar a {
+    color: var(--whiteColor);
+    font-size: 16px;
+  }
+  .coletaLeadLogin,
+  .registerNavbarBtn {
+    font-size: 16px;
+  }
+  .containerNavbar i {
+    display: block;
+  }
+  /* End of Navbar */
+}
+@media (max-width: 992px) {
+  /* Find the App */
+  .findAppIconBtn {
+    justify-content: center;
+    column-gap: 25px;
+  }
+  .findAppImg {
+    width: 50%;
+  }
+  /* End Find the App */
+
+  /* Footer Section */
+  .footerHeader {
+    flex-direction: column;
+    row-gap: 30px;
+  }
+  .footerTextBox {
+    width: 100%;
+  }
+  .footerSocialMediaIconBox {
+    max-width: 450px;
+    width: 100%;
+    margin: auto;
+  }
+  /* End Footer Section */
+}
+
+@media (max-width: 768px) {
+  /* NavBar*/
+  nav {
+    border: none;
+  }
+  .containerNavbar {
+    width: 90%;
+  }
+  /* End of NavBar*/
+
+  /* Find the App */
+  .findAppSection {
+    background-image: none;
+    background-color: var(--whiteColor);
+    position: static;
+  }
+
+  .findAppContainer {
+    background-color: var(--findAppMaskColor);
+    flex-direction: column;
+    row-gap: 55px;
+    padding-top: 40px;
+    position: relative;
+    padding: -1;
+  }
+  .findAppMasc {
+    display: none;
+  }
+  .findAppMascContainer {
+    background-image: url(https://wing.com.br/Loja/Imagens/backgroundcelular1811202217304104.png);
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+  }
+  .findAppTextBtnBox {
+    width: 100%;
+    align-items: center;
+    z-index: 1;
+  }
+  .findAppIconBtn {
+    flex-direction: column;
+    row-gap: 25px;
+  }
+  .findAppTitle {
+    text-align: center;
+    font-size: 33px;
+    line-height: 36px;
+  }
+  .findAppImg {
+    width: 100%;
+    text-align: center;
+    margin-bottom: -35px;
+  }
+  /* End Find the App */
+}
+
+@media (max-width: 576px) {
+  /* Find the App */
+  .findAppBtn {
+    max-width: 289px;
+    width: 100%;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 11px;
+  }
+  /* End Find the App */
+
+  /* Footer Section */
+  .footerTextBox {
+    flex-direction: column;
+    row-gap: 20px;
+  }
+  .OurCoursesFooterBox,
+  .footerInfoBox,
+  .footerRegristrationBox {
+    width: 100%;
+    align-items: center;
+  }
+  .footerInfoBox .linksCreatedJs {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .footerInfoBox .infoBoxLeftFooter,
+  .footerInfoBox .serviceBox {
+    align-items: center;
+  }
+  .footerSocialMediaIconBox i {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+  .FooterEndUniMais {
+    width: 170px;
+  }
+  /* End Footer Section */
+}
+
+@media (max-width: 440px) {
+  /* Navbar section  */
+  .subNavBarLinks {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .navbarMenu {
+    position: fixed;
+    top: 115px;
+  }
+  /* End of Navbar section  */
+}
