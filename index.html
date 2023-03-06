@@ -60,6 +60,23 @@
 
     <!-- Navbar -->
     <nav>
+      <div class="subNavBarContainer">
+        <a
+          href="https://api.whatsapp.com/send?phone=5512998814141&text=Ol%C3%A1!%20Como%20posso%20ajuda-lo%3F"
+          class="subNavBarLinks"
+          target="_blank"
+          ><i class="fa-brands fa-whatsapp"></i> (12)99881-4141</a
+        >
+        <a href="tel:1299881-4141" target="_blank" class="subNavBarLinks"
+          ><i class="fa-solid fa-phone"></i> (12)99881-4141</a
+        >
+        <a
+          href="https://goo.gl/maps/8gedhsDeuMaQugXV9"
+          target="_blank"
+          class="subNavBarLinks"
+          ><i class="fa-sharp fa-solid fa-map-location-dot"></i> Localização</a
+        >
+      </div>
       <div class="containerNavbar">
         <div class="navbarImg"><!-- Here go the logo image --></div>
         <ul class="navbarMenu">
@@ -68,6 +85,8 @@
           </li>
           <li class="itemsMenuNavbar"><a>Quem Somos</a></li>
           <li class="itemsMenuNavbar"><a>Como Funciona</a></li>
+          <li class="itemsMenuNavbar"><a>Seja Parceiro</a></li>
+          <li class="itemsMenuNavbar"><a>FAQ</a></li>
           <li class="itemsMenuNavbar"><a>Contato</a></li>
           <li><a class="coletaLeadLogin">Sou Aluno</a></li>
           <li>
@@ -148,16 +167,21 @@
           <hr class="allCategoriesBar" />
           <h2 class="teachingTitle">Escolha sua área de interesse</h2>
           <p class="teachingSubTitle">CURSOS DE A-Z</p>
-          <label class="inputBox"
-            ><input
-              type="search"
-              name="courseName"
-              id="courseName"
-              minlength="5"
-              placeholder="Buscar curso" /><i
-              class="fa-sharp fa-solid fa-magnifying-glass seachInputIcon"
-            ></i
-          ></label>
+          <div class="allCategoriesInputBtnBox">
+            <label class="inputBox"
+              ><input
+                type="search"
+                name="courseName"
+                id="courseName"
+                minlength="5"
+                placeholder="Buscar curso" /><i
+                class="fa-sharp fa-solid fa-magnifying-glass seachInputIcon"
+              ></i
+            ></label>
+            <button class="allCategoriesBtn" id="allCategoriesSearchBtn">
+              Pesquisar
+            </button>
+          </div>
           <p class="textWarn"></p>
           <p class="backToStartBtn">
             <span class="backToStartLabel">Voltar</span>
@@ -238,13 +262,16 @@
           <div class="rightChoiceHeaderTexts">
             <hr class="rightChoiceHeaderBar" />
             <p class="rightChoiceHeaderTitle">
-              Escolha protagonizar o futuro. <b>Escolha <span>UniMais</span></b>
+              Escolha protagonizar o futuro.
+              <span class="chooseInstituteName"
+                ><b>Escolha <span class="instituteName">UniMais</span></b></span
+              >
             </p>
             <p class="rightChoiceHeaderContent">
               Inspirar é nossa missão. Não se conformar e incentivar nossos
               alunos a pensarem fora da caixa deixarem sua marca no mundo é
               nosso propósito. Se identificou? Então venha ser
-              <span>UniMais</span>!
+              <span class="instituteName">UniMais</span>!
             </p>
           </div>
           <div class="rightChoiceHeaderImg">

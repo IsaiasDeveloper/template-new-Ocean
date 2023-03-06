@@ -9,15 +9,17 @@ let initUrl = frontUrl;
 
 const pageLinksList = [
   { page: 'Home', id: '408098' },
-  { page: 'Nossos Cursos', id: '222222' },
-  { page: 'Quem Somos', id: '333333' },
-  { page: 'Como Funciona', id: '44444' },
-  { page: 'Contato', id: '55555' },
-  { page: 'Curso', id: '66666' },
-  { page: 'Política de Privacidade', id: '777777' },
-  { page: 'Termos de Uso', id: '88888' },
-  { page: 'Registre-se', id: '99999' },
-  { page: 'Login', id: '101010' },
+  { page: 'Nossos Cursos', id: '408816' },
+  { page: 'Quem Somos', id: '408817' },
+  { page: 'Como Funciona', id: '408818' },
+  { page: 'FAQ', id: '408819' },
+  { page: 'Seja Parceiro', id: '408820' },
+  { page: 'Contato', id: '408821' },
+  { page: 'Curso', id: '408822' },
+  { page: 'Política de Privacidade', id: '408823' },
+  { page: 'Termos de Uso', id: '408824' },
+  { page: 'Registre-se', id: '408825' },
+  { page: 'Login', id: '408826' },
 ];
 
 // Navbar
@@ -566,14 +568,8 @@ function getEventHeaderSlide() {
 // Emphasis section
 function getEmphasis(json) {
   try {
-    // Why Choose Us section
-    let instituteName = document.querySelector('.instituteName');
-    instituteName.innerHTML = json.PortalEducacional || json.pageTitle;
-    // End of Why Choose Us section
     // Right Choice section
-    let rightChoiceInstituteName = document.querySelectorAll(
-      '.rightChoiceHeaderTexts span'
-    );
+    let rightChoiceInstituteName = document.querySelectorAll('.instituteName');
     rightChoiceInstituteName.forEach(
       (e) => (e.innerHTML = json.PortalEducacional || json.pageTitle)
     );
@@ -971,6 +967,9 @@ const categoryList = [];
 let allCourseBox = document.querySelector('.allCourseForCategory');
 const courseContainer = document.querySelector('.teachingContainer');
 const coursesList = [];
+const allCategoriesSearchBtn = document.querySelector(
+  '#allCategoriesSearchBtn'
+);
 
 seachInput.addEventListener('input', () => {
   if (seachInput.value.length > 2) {
@@ -1030,7 +1029,22 @@ backToStartBtn.addEventListener('click', () => {
   backToStartBtn.style.display = 'none';
   fetchallJsonCourseCategories();
 });
-
+allCategoriesSearchBtn.addEventListener('click', () => {
+  seachName = seachInput.value;
+  if (seachInput.value.length < 3) {
+    textWarn.style.display = 'block';
+    textWarn.innerHTML = 'Para buscar um curso, digite pelo menos 3 letras.';
+  } else {
+    let showMoreCourses = document.querySelector('.showMoreCourses');
+    if (showMoreCourses) showMoreCourses.remove();
+    fecthSeachCourse(seachName);
+    console.log(seachInput.value);
+    seachInput.value = '';
+    textWarn.innerHTML = '';
+    coursesList.length = 0;
+    countPage = 1;
+  }
+});
 function fetchallJsonCourseCategories() {
   try {
     fetch(`${initUrl}/api/getJson.aspx?type=tutors_app_new`)
@@ -1329,6 +1343,10 @@ function getDiscoverPackages(json) {
         discoverPackagesBoxes.dataset.idx_disc =
           discoverPackagesList.length + count;
         discoverPackagesBox.appendChild(discoverPackagesBoxes);
+        //Intern box
+        let discPkgInternBox = document.createElement('div');
+        discPkgInternBox.classList.add('discPkgInternBox');
+        discoverPackagesBoxes.appendChild(discPkgInternBox);
         //Testimonies content
         let contents = document.createElement('div');
         contents.classList.add('discoverPackages-content');
@@ -1758,7 +1776,7 @@ function eventsDiscoverPackagesSlide(newMargin) {
 //Testimonials section
 function getTestimonials(json) {
   try {
-    let testimoniesSection = document.querySelector('.testimonialsSection');
+    let testimoniesSection = document.querySelector('.testimonialSection');
     // let whoDo = document.querySelector('.testimonialsTitle');
     let institutionName = document.querySelector('.instituteName');
 
