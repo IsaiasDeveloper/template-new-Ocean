@@ -4,6 +4,9 @@ let siteHost = location.host;
 const frontUrl = siteProt + siteHost;
 let jsonFile = '/api/getJson.aspx?type=home';
 let menuInfo = '/api/getJson.aspx?type=menu';
+let jsonCategories = '/api/getJson.aspx?type=tutors_app_new';
+let jsonSpecificCategory =
+  '/api/getJson.aspx?type=courses_list_app&page_total=12&page=1&tutor_id=';
 
 // let initUrl = frontUrl;  //No Grape devo descomentar essa variável
 
@@ -152,6 +155,290 @@ for (let i = 0; i < pageLinksList.length; i++) {
 }
 // End of Navbar
 
+// Course categories
+const categoriesBox = document.querySelector('.categoryNamesBox');
+const categoriesCourseCardsBox = document.querySelector(
+  '.coursesCategoriesCardsBox'
+);
+let categoryList = [];
+let courseSpecificList = [];
+let coursesCategoriesTitle = document.querySelector('.coursesCategoriesTitle');
+let showMoreCourseBtn = document.querySelector('.showMoreCourses');
+
+function fetchJsonProductCategoryList() {
+  try {
+    const reqCategory = `${initUrl}${jsonCategories}`;
+    fetch(reqCategory)
+      .then((answer) => answer.json())
+      .then((json) => {
+        getCourseCategoriesName(json);
+        getCourseCategoriesCards(json);
+      });
+  } catch (e) {
+    console.warn(e);
+  }
+}
+
+function getCourseCategoriesName(json) {
+  try {
+    // console.log(json);
+    // console.log(json.tutorsList.length);
+    if (json.tutorsList) {
+      for (let item = 0; item < json.tutorsList.length; item++) {
+        let categoryId = json.tutorsList[item].id;
+        let categoryName = json.tutorsList[item].name;
+
+        //Create category names in the categories box
+        let names = document.createElement('p');
+        names.classList.add('categoryName');
+        names.id = categoryId;
+        names.innerHTML = categoryName;
+        categoriesBox.appendChild(names);
+      }
+    }
+    getCategoryNames();
+  } catch (e) {
+    console.warn(e);
+  }
+}
+
+function getCourseCategoriesCards(json) {
+  try {
+    // console.log(json);
+    // console.log(json.tutorsList);
+    if (json.tutorsList) {
+      for (let item = 0; item < json.tutorsList.length; item++) {
+        let categoryId = json.tutorsList[item].id;
+        let categoryName = json.tutorsList[item].name;
+        let categoryImg = json.tutorsList[item].img;
+
+        //Create categories cards
+        let categoryCard = document.createElement('div');
+        categoryCard.classList.add('coursesCategoriesCard');
+        categoryCard.id = categoryId;
+        categoriesCourseCardsBox.appendChild(categoryCard);
+
+        //Create category card image box
+        let imgBox = document.createElement('div');
+        imgBox.classList.add('coursesCategoriesCardImg');
+        categoryCard.appendChild(imgBox);
+
+        //Create card image
+        let cardImg = document.createElement('img');
+        cardImg.classList.add('categoryCardImg');
+        cardImg.setAttribute('src', `${initUrl}${categoryImg}`);
+        cardImg.setAttribute('alt', 'Image');
+        imgBox.appendChild(cardImg);
+
+        //Create category card content
+        let contentBox = document.createElement('div');
+        contentBox.classList.add('coursesCategoriesCardContent');
+        categoryCard.appendChild(contentBox);
+
+        //Get category name
+        let title = document.createElement('p');
+        title.classList.add('coursesCategoriesCardTitle');
+        title.innerHTML = categoryName;
+        contentBox.appendChild(title);
+
+        //Get category link
+        let categoryLink = document.createElement('a');
+        categoryLink.classList.add('coursesCategoriesCardsLink');
+        categoryLink.innerHTML = 'Saiba mais →';
+        // Aqui coloco o direcionamento
+        categoryLink.addEventListener('click', () => {
+          getCategoryNames();
+        });
+        contentBox.appendChild(categoryLink);
+
+        categoryList.push(categoryCard);
+        // console.log(categoryList.length);
+      }
+    }
+  } catch (e) {
+    console.warn(e);
+  }
+}
+
+//Get all category names
+function getCategoryNames() {
+  const categoryNamesList = document.querySelectorAll('.categoryName');
+  categoryNamesList[0].classList.add('activedCategory');
+  categoryNamesList.forEach((e) =>
+    e.addEventListener('click', () => {
+      categoriesCourseCardsBox.innerHTML = '';
+      let categoryName = e.innerText;
+      let categoryId = e.id;
+      console.log(`Nome da Categoria: ${categoryName} e id: ${categoryId}`);
+      if (categoryId === '00000') {
+        location.reload();
+      } else {
+        categoryNamesList[0].classList.remove('activedCategory');
+        document.addEventListener('click', (e) => {
+          const elCkd = e.target;
+
+          categoryNamesList.forEach((e) => {
+            if (elCkd.id === e.id) {
+              e.classList.add('activedCategory');
+              coursesCategoriesTitle.innerHTML = categoryName;
+
+              // courseSpecificList.length = 0;
+              // console.log(courseSpecificList.length);
+              // console.log(courseSpecificList);
+
+              // Object.keys(courseSpecificList).forEach((key) => {
+              //   allList[key].length = 0;
+              // });
+              showSizeList(categoryId);
+            } else {
+              e.classList.remove('activedCategory');
+            }
+          });
+        });
+      }
+    })
+  );
+  // console.log(categoryNamesList[3].id);
+  // console.log(categoryNamesList.length);
+}
+
+function fetchSpecificCategory(categoryId) {
+  try {
+    let urlSearch = initUrl + jsonSpecificCategory + categoryId;
+    fetch(urlSearch)
+      .then((answer) => answer.json())
+      .then((json) => {
+        getSpecificCategory(json);
+      });
+  } catch (e) {
+    console.warn(e);
+  }
+}
+
+function getSpecificCategory(json) {
+  try {
+    // console.log(json);
+    // console.log(json.coursesList.course.length);
+    if (json.coursesList.course.length) {
+      for (let cl = 0; cl < json.coursesList.course.length; cl++) {
+        let curseId = json.coursesList.course[cl].id;
+        let curseImg = json.coursesList.course[cl].img;
+        let courseName = json.coursesList.course[cl].title;
+        let curseCategoryName = json.coursesList.course[cl].categoria.name;
+        let curseCategoryId = json.coursesList.course[cl].categoria.id;
+        let ysnPacote = json.coursesList.course[cl].ysnPacote;
+
+        //Get course card
+        let courseCard = document.createElement('div');
+        courseCard.id = curseId;
+        courseCard.classList.add('coursesCategoriesCard');
+        categoriesCourseCardsBox.appendChild(courseCard);
+
+        //Get course card image box
+        let courseImgBox = document.createElement('div');
+        courseImgBox.classList.add('coursesCategoriesCardImg');
+        courseCard.appendChild(courseImgBox);
+
+        //Get course image
+        let courseImg = document.createElement('img');
+        courseImg.classList.add('categoryCardImg');
+        courseImg.setAttribute('src', `${initUrl}${curseImg}`);
+        courseImg.setAttribute('alt', 'Image');
+        courseImgBox.appendChild(courseImg);
+
+        //Get course detail content
+        let courseDetailBox = document.createElement('div');
+        courseDetailBox.classList.add('coursesCategoriesCardContent');
+        courseCard.appendChild(courseDetailBox);
+
+        //Get course name
+        let cardCourseName = document.createElement('p');
+        cardCourseName.classList.add('coursesCategoriesCardTitle');
+        cardCourseName.innerHTML = courseName;
+        courseDetailBox.appendChild(cardCourseName);
+
+        //Get course category
+        let cardCourseCategory = document.createElement('p');
+        cardCourseCategory.classList.add('coursesCategoriesCardCategory');
+        cardCourseCategory.id = curseCategoryId;
+        cardCourseCategory.innerHTML = curseCategoryName;
+        courseDetailBox.appendChild(cardCourseCategory);
+
+        //Create more course detail button
+        let showMoreBtn = document.createElement('a');
+        showMoreBtn.classList.add('coursesCategoriesCardsLink');
+        showMoreBtn.innerHTML = 'Saiba mais →';
+        courseDetailBox.appendChild(showMoreBtn);
+
+        courseSpecificList.push(courseCard);
+        // console.log(courseSpecificList.length);
+      }
+    } else {
+      let curseId = json.coursesList.course.id;
+      let curseImg = json.coursesList.course.img;
+      let courseName = json.coursesList.course.title;
+      let curseCategoryName = json.coursesList.course.categoria.name;
+      let curseCategoryId = json.coursesList.course.categoria.id;
+      let ysnPacote = json.coursesList.course.ysnPacote;
+
+      //Get course card
+      let courseCard = document.createElement('div');
+      courseCard.id = curseId;
+      courseCard.classList.add('coursesCategoriesCard');
+      categoriesCourseCardsBox.appendChild(courseCard);
+
+      //Get course card image box
+      let courseImgBox = document.createElement('div');
+      courseImgBox.classList.add('coursesCategoriesCardImg');
+      courseCard.appendChild(courseImgBox);
+
+      //Get course image
+      let courseImg = document.createElement('img');
+      courseImg.classList.add('categoryCardImg');
+      courseImg.setAttribute('src', `${initUrl}${curseImg}`);
+      courseImg.setAttribute('alt', 'Image');
+      courseImgBox.appendChild(courseImg);
+
+      //Get course detail content
+      let courseDetailBox = document.createElement('div');
+      courseDetailBox.classList.add('coursesCategoriesCardContent');
+      courseCard.appendChild(courseDetailBox);
+
+      //Get course name
+      let cardCourseName = document.createElement('p');
+      cardCourseName.classList.add('coursesCategoriesCardTitle');
+      cardCourseName.innerHTML = courseName;
+      courseDetailBox.appendChild(cardCourseName);
+
+      //Get course category
+      let cardCourseCategory = document.createElement('p');
+      cardCourseCategory.classList.add('coursesCategoriesCardCategory');
+      cardCourseCategory.id = curseCategoryId;
+      cardCourseCategory.innerHTML = curseCategoryName;
+      courseDetailBox.appendChild(cardCourseCategory);
+
+      //Create more course detail button
+      let showMoreBtn = document.createElement('a');
+      showMoreBtn.classList.add('coursesCategoriesCardsLink');
+      showMoreBtn.innerHTML = 'Saiba mais →';
+      courseDetailBox.appendChild(showMoreBtn);
+
+      courseSpecificList.push(courseCard);
+      // console.log(courseSpecificList.length);
+    }
+  } catch (e) {
+    console.warn(e);
+  }
+}
+function showSizeList(categoryId) {
+  // courseSpecificList.length = 0;
+  courseSpecificList.splice(0, courseSpecificList.length);
+  console.log(courseSpecificList);
+
+  fetchSpecificCategory(categoryId);
+}
+// End of Course categories
+
 // Footer Section
 const logoFooterBox = document.querySelector('.footerEnd');
 const socialMediaBox = document.querySelector('.footerSocialMediaIconBox');
@@ -270,4 +557,4 @@ function fetchMenuInfo() {
 //Call functions
 fetchJsonNavbarLinks();
 fetchMenuInfo();
-// fetchallJsonCourseCategories();
+fetchJsonProductCategoryList();
