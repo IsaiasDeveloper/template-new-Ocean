@@ -10,11 +10,11 @@ let jsonSpecificCategory =
 
 // let initUrl = frontUrl;  //No Grape devo descomentar essa variável
 
-// let initUrl = 'https://euestudo.com.vc'; //No Grape devo Comentar essa variável //https://espg.com.br/
+let initUrl = 'https://euestudo.com.vc'; //No Grape devo Comentar essa variável //https://espg.com.br/
 // let initUrl = 'https://catalogo.drmeducacao.com.br'; //No Grape devo Comentar essa variável //
 // let initUrl = 'https://espg.com.br'; //No Grape devo Comentar essa variável //
 // let initUrl = 'https://faculdadesucesso.edu.br'; //Tem 3 emphasis
-let initUrl = 'https://uniflor.edu.br'; //Tem 9 emphasis
+// let initUrl = 'https://uniflor.edu.br'; //Tem 9 emphasis
 // let initUrl = 'http://facigma.edu.br'; // SÓ ESSE ESTÁ DANDO ERRO! //
 // let initUrl = 'https://reboucasdigital.com.br'; // SÓ ESSE ESTÁ DANDO ERRO! //
 
@@ -160,11 +160,13 @@ const categoriesBox = document.querySelector('.categoryNamesBox');
 const categoriesCourseCardsBox = document.querySelector(
   '.coursesCategoriesCardsBox'
 );
-
 let categoryList = [];
 let courseSpecificList = [];
 let coursesCategoriesTitle = document.querySelector('.coursesCategoriesTitle');
 let showMoreCourseBtn = document.querySelector('.showMoreCourses');
+const categoryNamesList = document.querySelectorAll('.categoryName');
+let APICategoryId;
+let pageCounter = 1;
 
 function fetchJsonProductCategoryList() {
   try {
@@ -198,7 +200,8 @@ function getCourseCategoriesName(json) {
         categoryList.push(names);
       }
     }
-    getCategoryNames(categoryList);
+    showCoursesForCategory(categoryList);
+    getCategoryNames();
   } catch (e) {
     console.warn(e);
   }
@@ -263,30 +266,30 @@ function getCourseCategoriesCards(json) {
 }
 
 //Get all category names
-function getCategoryNames(categoryList) {
-  const categoryNamesList = document.querySelectorAll('.categoryName');
+function getCategoryNames() {
   categoryNamesList[0].classList.add('activedCategory');
-
+}
+function showCoursesForCategory(categoryList) {
   document.addEventListener('click', (e) => {
     const elCkd = e.target;
-
+    // console.log(elCkd);
     categoryList.forEach((e) => {
-      categoriesCourseCardsBox.innerHTML = '';
       let categoryName = e.innerText;
       let categoryId = e.id;
       // console.log(`Nome: ${categoryName} → id: ${categoryId}`);
-      if (categoryId === '00000') {
+      if (elCkd.id === 'allCourses') {
         location.reload();
-      } else {
+      } else if (elCkd.id === e.id) {
+        categoriesCourseCardsBox.innerHTML = '';
         categoryNamesList[0].classList.remove('activedCategory');
-        if (elCkd.id === e.id) {
-          e.classList.add('activedCategory');
-          coursesCategoriesTitle.innerHTML = categoryName;
-          courseSpecificList.length = 0;
-          fetchSpecificCategory(categoryId);
-        } else {
-          e.classList.remove('activedCategory');
-        }
+        e.classList.add('activedCategory');
+        coursesCategoriesTitle.innerHTML = categoryName;
+        courseSpecificList.length = 0;
+        courseSpecificList = [];
+        pageCounter = 1;
+        fetchSpecificCategory(categoryId);
+      } else {
+        e.classList.remove('activedCategory');
       }
     });
   });
@@ -294,40 +297,20 @@ function getCategoryNames(categoryList) {
 
 function getSpecificCategory(json) {
   try {
+    if (json.coursesList === 0) {
+      let titleCategoryCourses = document.querySelector(
+        '.coursesCategoriesTitle'
+      );
+      titleCategoryCourses.innerHTML =
+        'Desculpe, ainda não temos o que procura.';
+      // return;
+    }
+
+    let APICoursesListSize = json.total;
+
     // console.log(json);
-    // console.log(json.coursesList.course.length);
 
-    if (json.coursesList.course.length) {
-      for (let cl = 0; cl < json.coursesList.course.length; cl++) {
-        let curseId = json.coursesList.course[cl].id;
-        let curseImg = json.coursesList.course[cl].img;
-        let courseName = json.coursesList.course[cl].title;
-        let curseCategoryName = json.coursesList.course[cl].categoria.name;
-        let curseCategoryId = json.coursesList.course[cl].categoria.id;
-        let ysnPacote = json.coursesList.course[cl].ysnPacote;
-
-        const cardCourse = document.createElement('div');
-        cardCourse.classList.add('coursesCategoriesCard');
-        cardCourse.id = curseId;
-        cardCourse.innerHTML = `
-          <div class="coursesCategoriesCardImg">
-              <img
-                class="categoryCardImg"
-                src="${initUrl}${curseImg}"
-                alt="Image"
-              />
-            </div>
-            <div class="coursesCategoriesCardContent">
-              <p class="coursesCategoriesCardTitle">${courseName}</p>
-              <p class="coursesCategoriesCardCategory">${curseCategoryName}</p>
-              <a class="coursesCategoriesCardsLink">Saiba mais →</a>
-            </div>
-          `;
-        categoriesCourseCardsBox.appendChild(cardCourse);
-        // testFunction(cardCourse);
-        courseSpecificList.push(cardCourse);
-      }
-    } else {
+    if (json.coursesList.course.length === undefined) {
       let curseId = json.coursesList.course.id;
       let curseImg = json.coursesList.course.img;
       let courseName = json.coursesList.course.title;
@@ -358,22 +341,114 @@ function getSpecificCategory(json) {
       // });
 
       courseSpecificList.push(cardCourse);
+    } else if (json.coursesList.course.length) {
+      for (let cl = 0; cl < json.coursesList.course.length; cl++) {
+        let curseId = json.coursesList.course[cl].id;
+        let curseImg = json.coursesList.course[cl].img;
+        let courseName = json.coursesList.course[cl].title;
+        let curseCategoryName = json.coursesList.course[cl].categoria.name;
+        let curseCategoryId = json.coursesList.course[cl].categoria.id;
+        let ysnPacote = json.coursesList.course[cl].ysnPacote;
+
+        const cardCourse = document.createElement('div');
+        cardCourse.classList.add('coursesCategoriesCard');
+        cardCourse.id = curseId;
+        cardCourse.innerHTML = `
+          <div class="coursesCategoriesCardImg">
+              <img
+                class="categoryCardImg"
+                src="${initUrl}${curseImg}"
+                alt="Image"
+              />
+            </div>
+            <div class="coursesCategoriesCardContent">
+              <p class="coursesCategoriesCardTitle">${courseName}</p>
+              <p class="coursesCategoriesCardCategory">${curseCategoryName}</p>
+              <a class="coursesCategoriesCardsLink">Saiba mais →</a>
+            </div>
+          `;
+        categoriesCourseCardsBox.appendChild(cardCourse);
+        // testFunction(cardCourse);
+        courseSpecificList.push(cardCourse);
+        console.log(courseSpecificList.length);
+      }
+    } else {
+      let curseId = json.coursesList.course.id;
+      let curseImg = json.coursesList.course.img;
+      let courseName = json.coursesList.course.title;
+      let curseCategoryName = json.coursesList.course.categoria.name;
+      let curseCategoryId = json.coursesList.course.categoria.id;
+      let ysnPacote = json.coursesList.course.ysnPacote;
+
+      const cardCourse = document.createElement('div');
+      cardCourse.classList.add('coursesCategoriesCard');
+      cardCourse.id = curseId;
+      cardCourse.innerHTML = `
+          <div class="coursesCategoriesCardImg">
+              <img
+                class="categoryCardImg"
+                src="${initUrl}${curseImg}"
+                alt="Image"
+              />
+            </div>
+            <div class="coursesCategoriesCardContent">
+              <p class="coursesCategoriesCardTitle">${courseName}</p>
+              <p class="coursesCategoriesCardCategory">${curseCategoryName}</p>
+              <a class="coursesCategoriesCardsLink">Saiba mais →</a>
+            </div>
+          `;
+      categoriesCourseCardsBox.appendChild(cardCourse);
+
+      courseSpecificList.push(cardCourse);
     }
-    // return categoriesCourseCardsBox;
+    // console.log(json);
+    console.log(
+      'json.coursesList.course.length → ' + courseSpecificList.length
+    );
+    // console.log(json.coursesList);
+    console.log('json.total  → ' + json.total);
+
+    if (courseSpecificList.length < APICoursesListSize) {
+      showMoreCourseBtn.style.display = 'block';
+    } else {
+      showMoreCourseBtn.style.display = 'none';
+    }
   } catch (e) {
     console.warn(e);
   }
 }
+//Show more button
+showMoreCourseBtn.addEventListener('click', () => {
+  fetchMoreSpecificCategory();
+  console.log(courseSpecificList.length);
+});
+
 function fetchSpecificCategory(categoryId) {
   try {
+    APICategoryId = categoryId;
     let urlSearch = initUrl + jsonSpecificCategory + categoryId;
     fetch(urlSearch)
       .then((answer) => answer.json())
       .then((json) => {
         courseSpecificList.length = 0;
         categoriesCourseCardsBox.innerHTML = '';
-        console.log(urlSearch);
+        getSpecificCategory(json);
+        // console.log(json);
+      });
+  } catch (e) {
+    console.warn(e);
+  }
+}
 
+function fetchMoreSpecificCategory() {
+  try {
+    pageCounter++;
+    let urlSearch = `${initUrl}/api/getJson.aspx?type=courses_list_app&page_total=12&page=${pageCounter}&tutor_id=${APICategoryId}`;
+
+    console.log(urlSearch);
+    fetch(urlSearch)
+      .then((answer) => answer.json())
+      .then((json) => {
         getSpecificCategory(json);
       });
   } catch (e) {
