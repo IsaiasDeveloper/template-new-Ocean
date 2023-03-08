@@ -160,6 +160,7 @@ const categoriesBox = document.querySelector('.categoryNamesBox');
 const categoriesCourseCardsBox = document.querySelector(
   '.coursesCategoriesCardsBox'
 );
+
 let categoryList = [];
 let courseSpecificList = [];
 let coursesCategoriesTitle = document.querySelector('.coursesCategoriesTitle');
@@ -194,9 +195,10 @@ function getCourseCategoriesName(json) {
         names.id = categoryId;
         names.innerHTML = categoryName;
         categoriesBox.appendChild(names);
+        categoryList.push(names);
       }
     }
-    getCategoryNames();
+    getCategoryNames(categoryList);
   } catch (e) {
     console.warn(e);
   }
@@ -246,12 +248,12 @@ function getCourseCategoriesCards(json) {
         categoryLink.classList.add('coursesCategoriesCardsLink');
         categoryLink.innerHTML = 'Saiba mais →';
         // Aqui coloco o direcionamento
-        categoryLink.addEventListener('click', () => {
-          getCategoryNames();
-        });
+        // categoryLink.addEventListener('click', () => {
+        //   getCategoryNames();
+        // });
         contentBox.appendChild(categoryLink);
 
-        categoryList.push(categoryCard);
+        // categoryList.push(categoryCard);
         // console.log(categoryList.length);
       }
     }
@@ -261,64 +263,40 @@ function getCourseCategoriesCards(json) {
 }
 
 //Get all category names
-function getCategoryNames() {
+function getCategoryNames(categoryList) {
   const categoryNamesList = document.querySelectorAll('.categoryName');
   categoryNamesList[0].classList.add('activedCategory');
-  categoryNamesList.forEach((e) =>
-    e.addEventListener('click', () => {
+
+  document.addEventListener('click', (e) => {
+    const elCkd = e.target;
+
+    categoryList.forEach((e) => {
       categoriesCourseCardsBox.innerHTML = '';
       let categoryName = e.innerText;
       let categoryId = e.id;
-      console.log(`Nome da Categoria: ${categoryName} e id: ${categoryId}`);
+      // console.log(`Nome: ${categoryName} → id: ${categoryId}`);
       if (categoryId === '00000') {
         location.reload();
       } else {
         categoryNamesList[0].classList.remove('activedCategory');
-        document.addEventListener('click', (e) => {
-          const elCkd = e.target;
-
-          categoryNamesList.forEach((e) => {
-            if (elCkd.id === e.id) {
-              e.classList.add('activedCategory');
-              coursesCategoriesTitle.innerHTML = categoryName;
-
-              // courseSpecificList.length = 0;
-              // console.log(courseSpecificList.length);
-              // console.log(courseSpecificList);
-
-              // Object.keys(courseSpecificList).forEach((key) => {
-              //   allList[key].length = 0;
-              // });
-              showSizeList(categoryId);
-            } else {
-              e.classList.remove('activedCategory');
-            }
-          });
-        });
+        if (elCkd.id === e.id) {
+          e.classList.add('activedCategory');
+          coursesCategoriesTitle.innerHTML = categoryName;
+          courseSpecificList.length = 0;
+          fetchSpecificCategory(categoryId);
+        } else {
+          e.classList.remove('activedCategory');
+        }
       }
-    })
-  );
-  // console.log(categoryNamesList[3].id);
-  // console.log(categoryNamesList.length);
-}
-
-function fetchSpecificCategory(categoryId) {
-  try {
-    let urlSearch = initUrl + jsonSpecificCategory + categoryId;
-    fetch(urlSearch)
-      .then((answer) => answer.json())
-      .then((json) => {
-        getSpecificCategory(json);
-      });
-  } catch (e) {
-    console.warn(e);
-  }
+    });
+  });
 }
 
 function getSpecificCategory(json) {
   try {
     // console.log(json);
     // console.log(json.coursesList.course.length);
+
     if (json.coursesList.course.length) {
       for (let cl = 0; cl < json.coursesList.course.length; cl++) {
         let curseId = json.coursesList.course[cl].id;
@@ -328,50 +306,26 @@ function getSpecificCategory(json) {
         let curseCategoryId = json.coursesList.course[cl].categoria.id;
         let ysnPacote = json.coursesList.course[cl].ysnPacote;
 
-        //Get course card
-        let courseCard = document.createElement('div');
-        courseCard.id = curseId;
-        courseCard.classList.add('coursesCategoriesCard');
-        categoriesCourseCardsBox.appendChild(courseCard);
-
-        //Get course card image box
-        let courseImgBox = document.createElement('div');
-        courseImgBox.classList.add('coursesCategoriesCardImg');
-        courseCard.appendChild(courseImgBox);
-
-        //Get course image
-        let courseImg = document.createElement('img');
-        courseImg.classList.add('categoryCardImg');
-        courseImg.setAttribute('src', `${initUrl}${curseImg}`);
-        courseImg.setAttribute('alt', 'Image');
-        courseImgBox.appendChild(courseImg);
-
-        //Get course detail content
-        let courseDetailBox = document.createElement('div');
-        courseDetailBox.classList.add('coursesCategoriesCardContent');
-        courseCard.appendChild(courseDetailBox);
-
-        //Get course name
-        let cardCourseName = document.createElement('p');
-        cardCourseName.classList.add('coursesCategoriesCardTitle');
-        cardCourseName.innerHTML = courseName;
-        courseDetailBox.appendChild(cardCourseName);
-
-        //Get course category
-        let cardCourseCategory = document.createElement('p');
-        cardCourseCategory.classList.add('coursesCategoriesCardCategory');
-        cardCourseCategory.id = curseCategoryId;
-        cardCourseCategory.innerHTML = curseCategoryName;
-        courseDetailBox.appendChild(cardCourseCategory);
-
-        //Create more course detail button
-        let showMoreBtn = document.createElement('a');
-        showMoreBtn.classList.add('coursesCategoriesCardsLink');
-        showMoreBtn.innerHTML = 'Saiba mais →';
-        courseDetailBox.appendChild(showMoreBtn);
-
-        courseSpecificList.push(courseCard);
-        // console.log(courseSpecificList.length);
+        const cardCourse = document.createElement('div');
+        cardCourse.classList.add('coursesCategoriesCard');
+        cardCourse.id = curseId;
+        cardCourse.innerHTML = `
+          <div class="coursesCategoriesCardImg">
+              <img
+                class="categoryCardImg"
+                src="${initUrl}${curseImg}"
+                alt="Image"
+              />
+            </div>
+            <div class="coursesCategoriesCardContent">
+              <p class="coursesCategoriesCardTitle">${courseName}</p>
+              <p class="coursesCategoriesCardCategory">${curseCategoryName}</p>
+              <a class="coursesCategoriesCardsLink">Saiba mais →</a>
+            </div>
+          `;
+        categoriesCourseCardsBox.appendChild(cardCourse);
+        // testFunction(cardCourse);
+        courseSpecificList.push(cardCourse);
       }
     } else {
       let curseId = json.coursesList.course.id;
@@ -381,61 +335,50 @@ function getSpecificCategory(json) {
       let curseCategoryId = json.coursesList.course.categoria.id;
       let ysnPacote = json.coursesList.course.ysnPacote;
 
-      //Get course card
-      let courseCard = document.createElement('div');
-      courseCard.id = curseId;
-      courseCard.classList.add('coursesCategoriesCard');
-      categoriesCourseCardsBox.appendChild(courseCard);
+      const cardCourse = document.createElement('div');
+      cardCourse.classList.add('coursesCategoriesCard');
+      cardCourse.id = curseId;
+      cardCourse.innerHTML = `
+          <div class="coursesCategoriesCardImg">
+              <img
+                class="categoryCardImg"
+                src="${initUrl}${curseImg}"
+                alt="Image"
+              />
+            </div>
+            <div class="coursesCategoriesCardContent">
+              <p class="coursesCategoriesCardTitle">${courseName}</p>
+              <p class="coursesCategoriesCardCategory">${curseCategoryName}</p>
+              <a class="coursesCategoriesCardsLink">Saiba mais →</a>
+            </div>
+          `;
+      categoriesCourseCardsBox.appendChild(cardCourse);
+      // courseSpecificList.forEach((course) => {
+      //   course.innerHTML = cardCourse;
+      // });
 
-      //Get course card image box
-      let courseImgBox = document.createElement('div');
-      courseImgBox.classList.add('coursesCategoriesCardImg');
-      courseCard.appendChild(courseImgBox);
-
-      //Get course image
-      let courseImg = document.createElement('img');
-      courseImg.classList.add('categoryCardImg');
-      courseImg.setAttribute('src', `${initUrl}${curseImg}`);
-      courseImg.setAttribute('alt', 'Image');
-      courseImgBox.appendChild(courseImg);
-
-      //Get course detail content
-      let courseDetailBox = document.createElement('div');
-      courseDetailBox.classList.add('coursesCategoriesCardContent');
-      courseCard.appendChild(courseDetailBox);
-
-      //Get course name
-      let cardCourseName = document.createElement('p');
-      cardCourseName.classList.add('coursesCategoriesCardTitle');
-      cardCourseName.innerHTML = courseName;
-      courseDetailBox.appendChild(cardCourseName);
-
-      //Get course category
-      let cardCourseCategory = document.createElement('p');
-      cardCourseCategory.classList.add('coursesCategoriesCardCategory');
-      cardCourseCategory.id = curseCategoryId;
-      cardCourseCategory.innerHTML = curseCategoryName;
-      courseDetailBox.appendChild(cardCourseCategory);
-
-      //Create more course detail button
-      let showMoreBtn = document.createElement('a');
-      showMoreBtn.classList.add('coursesCategoriesCardsLink');
-      showMoreBtn.innerHTML = 'Saiba mais →';
-      courseDetailBox.appendChild(showMoreBtn);
-
-      courseSpecificList.push(courseCard);
-      // console.log(courseSpecificList.length);
+      courseSpecificList.push(cardCourse);
     }
+    // return categoriesCourseCardsBox;
   } catch (e) {
     console.warn(e);
   }
 }
-function showSizeList(categoryId) {
-  // courseSpecificList.length = 0;
-  courseSpecificList.splice(0, courseSpecificList.length);
-  console.log(courseSpecificList);
+function fetchSpecificCategory(categoryId) {
+  try {
+    let urlSearch = initUrl + jsonSpecificCategory + categoryId;
+    fetch(urlSearch)
+      .then((answer) => answer.json())
+      .then((json) => {
+        courseSpecificList.length = 0;
+        categoriesCourseCardsBox.innerHTML = '';
+        console.log(urlSearch);
 
-  fetchSpecificCategory(categoryId);
+        getSpecificCategory(json);
+      });
+  } catch (e) {
+    console.warn(e);
+  }
 }
 // End of Course categories
 
