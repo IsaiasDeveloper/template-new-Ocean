@@ -303,7 +303,8 @@ header {
 }
 .categorySelectorBox {
   width: 100%;
-  display: block;
+  /* display: block; */
+  display: none;
   text-align: center;
 }
 .selectorCategoryList {
@@ -379,6 +380,7 @@ header {
   font-weight: bold;
   font-size: 25px;
   margin-bottom: 40px;
+  text-align: center;
 }
 .coursesCategoriesCardsBox {
   width: 100%;
@@ -867,6 +869,11 @@ footer {
     margin-bottom: -35px;
   }
   /* End Find the App */
+  /* Footer section */
+  footer {
+    padding-top: 100px;
+  }
+  /* Footer section */
 }
 
 @media (max-width: 576px) {
@@ -879,6 +886,18 @@ footer {
     font-size: 11px;
   }
   /* End Find the App */
+
+  /* Courses Categories */
+  .categoryNamesInputBox {
+    margin-top: -50px;
+  }
+  .categoryNamesBox {
+    display: none;
+  }
+  .categorySelectorBox {
+    display: block;
+  }
+  /* End of Courses Categories */
 
   /* Footer Section */
   .footerTextBox {
