@@ -156,6 +156,7 @@ for (let i = 0; i < pageLinksList.length; i++) {
 // End of Navbar
 
 // Course categories
+//Global variables
 const categoriesBox = document.querySelector('.categoryNamesBox');
 const categoriesCourseCardsBox = document.querySelector(
   '.coursesCategoriesCardsBox'
@@ -167,6 +168,341 @@ let showMoreCourseBtn = document.querySelector('.showMoreCourses');
 const categoryNamesList = document.querySelectorAll('.categoryName');
 let APICategoryId;
 let pageCounter = 1;
+
+//Seach input
+let seachInput = document.getElementById('courseName');
+let seachInputIcon = document.querySelector('.seachInputIcon');
+let textWarn = document.querySelector('.textWarn');
+let backToStartLabel = document.querySelector('.backToStartLabel');
+let backToStartBtn = document.querySelector('.backToStartBtn');
+let closedBtn = document.querySelector('.closedBtn');
+let seachIcon = document.querySelector('.seachInputIcon');
+const coursesList = [];
+let countSearchPage = 1;
+let seachName;
+// let seachIcon = document.createElement('i');
+// seachIcon.classList.add('fa-sharp', 'fa-solid', 'fa-magnifying-glass');
+// seachInput.appendChild(seachIcon);
+
+closedBtn.addEventListener('click', () => {
+  seachInput.value = '';
+  textWarn.innerHTML = '';
+});
+
+seachInput.addEventListener('input', () => {
+  if (seachInput.value.length > 2) {
+    backToStartBtn.style.display = 'flex';
+    backToStartLabel.innerHTML = seachInput.value;
+    textWarn.innerHTML = '';
+    textWarn.style.display = 'none';
+  }
+});
+seachInput.addEventListener('blur', () => {
+  if (seachInput.value.length < 3) {
+    textWarn.innerHTML = '';
+    textWarn.style.display = 'none';
+  }
+});
+
+seachInput.addEventListener('keyup', (e) => {
+  seachName = seachInput.value;
+
+  if (e.keyCode === 13) {
+    if (seachInput.value.length < 3) {
+      textWarn.style.display = 'block';
+      textWarn.innerHTML = 'Para buscar um curso, digite pelo menos 3 letras.';
+    } else {
+      let showMoreCourses = document.querySelector('.showMoreCourses');
+      if (showMoreCourses) showMoreCourses.remove();
+      fecthSeachCourse(seachName);
+      console.log(seachInput.value);
+      seachInput.value = '';
+      textWarn.innerHTML = '';
+      coursesList.length = 0;
+      countSearchPage = 1;
+      courseSpecificList = [];
+      coursesCategoriesTitle.innerHTML = 'Todas as categorias';
+    }
+  }
+});
+seachInputIcon.addEventListener('click', (e) => {
+  seachName = seachInput.value;
+  if (seachInput.value.length < 3) {
+    textWarn.style.display = 'block';
+    textWarn.innerHTML = 'Para buscar um curso, digite pelo menos 3 letras.';
+  } else {
+    let showMoreCourses = document.querySelector('.showMoreCourses');
+    if (showMoreCourses) showMoreCourses.remove();
+    fecthSeachCourse(seachName);
+    console.log(seachInput.value);
+    seachInput.value = '';
+    textWarn.innerHTML = '';
+    coursesList.length = 0;
+    countSearchPage = 1;
+    courseSpecificList = [];
+    coursesCategoriesTitle.innerHTML = 'Todas as categorias';
+  }
+});
+
+backToStartBtn.addEventListener('click', () => {
+  let showMoreCourses = document.querySelector('.showMoreCourses');
+  if (showMoreCourses) showMoreCourses.remove();
+  categoriesCourseCardsBox.innerHTML = '';
+  coursesList.length = 0;
+  countSearchPage = 1;
+  backToStartBtn.style.display = 'none';
+  location.reload();
+});
+
+function fecthSeachCourse(seachName) {
+  try {
+    // console.log(searchString);
+    // let newPage;
+    // if (arguments.callee.caller === countNextPageOfCoursesFromSearchInput) {
+    //   newPage = `${initUrl}/api/getJson.aspx?type=courses_list_app&page=${countSearchPage}&page_total=12&txt_search=${seachName}`;
+    //   console.log(searchString);
+    // } else {
+    //   console.log(seachName);
+    // }
+    // console.log(newPage);
+
+    let newPage = `${initUrl}/api/getJson.aspx?type=courses_list_app&page=${countSearchPage}&page_total=12&txt_search=${seachName}`;
+    fetch(newPage)
+      .then((resposta) => resposta.json())
+      .then((json) => {
+        categoriesCourseCardsBox.innerHTML = '';
+        // searchForCoursesSearched(json);
+        // getSpecificCategory(json);
+
+        getSearchCourse(json);
+      });
+  } catch (e) {
+    console.warn(e);
+  }
+}
+function countNextPageOfCoursesFromSearchInput() {
+  countSearchPage++;
+  let searchString = document.querySelector('.backToStartLabel').textContent;
+
+  fecthNewPageSeachCourse(searchString);
+}
+
+function fecthNewPageSeachCourse(searchString) {
+  try {
+    let newPage = `${initUrl}/api/getJson.aspx?type=courses_list_app&page=${countSearchPage}&page_total=12&txt_search=${searchString}`;
+    fetch(newPage)
+      .then((resposta) => resposta.json())
+      .then((json) => {
+        categoriesCourseCardsBox.innerHTML = '';
+        // searchForCoursesSearched(json);
+        // getSpecificCategory(json);
+        console.log(newPage);
+        getSearchCourse(json);
+      });
+  } catch (e) {
+    console.warn(e);
+  }
+}
+
+// function fecthNewPageWithMoreCourses(countSearchPage) {
+//   try {
+//     let newPage = `${initUrl}/api/getJson.aspx?type=courses_list_app&page=${countSearchPage}&page_total=12&txt_search=${seachName}`;
+
+//     fetch(newPage)
+//       .then((resposta) => resposta.json())
+//       .then((json) => {
+//         // console.log(newPage);
+//         // searchForCoursesSearched(json);
+//         // getSpecificCategory(json);
+//         getSearchCourse(json);
+//       });
+//   } catch (e) {
+//     console.warn(e);
+//   }
+// }
+// function searchForCoursesSearched(json) {
+//   try {
+//     console.log(json);
+//     let numberCourse = Number(json.total);
+//     if (numberCourse === 0) {
+//       let infoText = document.createElement('h2');
+//       infoText.classList.add('infoText');
+//       infoText.innerHTML = 'Desculpe, ainda não temos o curso pesquisado.';
+//       allCourseBox.appendChild(infoText);
+//       showMoreCourses.style.display = 'none';
+//       const showBtnList = Array.prototype.slice.call(
+//         document.querySelectorAll('.showMoreCourses')
+//       );
+//       showBtnList.forEach((e) => e.remove());
+//     }
+//     if (
+//       json.coursesList.course.length === 1 ||
+//       typeof json.coursesList.course.length === 'undefined'
+//     ) {
+//       let categoryName = json.coursesList.course.title;
+//       let courseId = json.coursesList.course.id;
+//       let categoryImg = json.coursesList.course.img;
+//       let ysnPacote = json.coursesList.course.ysnPacote;
+//       let courseCategoryName = json.coursesList.course.categoria.name;
+//       // let courseCategoryId = json.coursesList.course.categoria.id;
+//       let courseThemeName = json.coursesList.course.temaCourse;
+//       //Box of each category
+//       let boxOfEachCategory = document.createElement('div');
+//       boxOfEachCategory.id = courseId;
+//       boxOfEachCategory.classList.add('boxOfEachCategory');
+//       coursesList.push(boxOfEachCategory);
+//       allCourseBox.appendChild(boxOfEachCategory);
+//       //boxFromImg
+//       let boxFromImg = document.createElement('div');
+//       boxFromImg.classList.add('boxFromImg');
+//       boxOfEachCategory.appendChild(boxFromImg);
+//       //Image box
+//       let imageBox = document.createElement('div');
+//       imageBox.classList.add('imageBox');
+//       imageBox.style.backgroundImage = `url(${initUrl}${categoryImg})`;
+//       imageBox.addEventListener('click', () => {
+//         for (let y = 0; y < pageLinksList.length; y++) {
+//           if (pageLinksList[y].page === 'Nossos Cursos') {
+//             window.location.href = `${initUrl}/pages/${pageLinksList[y].id}/Detalhe Curso?courseId=${courseId}&ysnPacote=${ysnPacote}`;
+//           }
+//         }
+//       });
+//       boxFromImg.appendChild(imageBox);
+//       //Texts box
+//       let textsBox = document.createElement('div');
+//       textsBox.classList.add('textsBox');
+//       boxOfEachCategory.appendChild(textsBox);
+//       //Category title
+//       let categoryTitle = document.createElement('p');
+//       if (categoryName.length > 45) {
+//         categoryTitle.innerHTML = `${categoryName.slice(0, 45)}...`;
+//       } else {
+//         categoryTitle.innerHTML = categoryName;
+//       }
+//       categoryTitle.classList.add('categoryTitle');
+//       textsBox.appendChild(categoryTitle);
+//       //Number of courses
+//       let NumberOfCourses = document.createElement('p');
+//       NumberOfCourses.classList.add('NumberOfCourses');
+//       NumberOfCourses.innerHTML = courseCategoryName;
+//       textsBox.appendChild(NumberOfCourses);
+//       //Category information
+//       let categoryInfo = document.createElement('p');
+//       categoryInfo.innerHTML = `${courseThemeName}`;
+//       categoryInfo.classList.add('categoryInfo');
+//       textsBox.appendChild(categoryInfo);
+//       //Last box Category
+//       let lastBoxCategory = document.createElement('div');
+//       lastBoxCategory.classList.add('lastBoxCategory');
+//       boxOfEachCategory.appendChild(lastBoxCategory);
+//       //Bar
+//       let categoryBar = document.createElement('hr');
+//       categoryBar.classList.add('categoryBar');
+//       lastBoxCategory.appendChild(categoryBar);
+//       //Category button
+//       let categoryLink = document.createElement('a');
+//       categoryLink.innerHTML = 'Saiba mais...';
+//       categoryLink.classList.add('categoryLink');
+//       for (let y = 0; y < pageLinksList.length; y++) {
+//         if (pageLinksList[y].page === 'Curso') {
+//           categoryLink.setAttribute(
+//             'href',
+//             `${initUrl}/pages/${pageLinksList[y].id}/Detalhe Curso?courseId=${courseId}&ysnPacote=${ysnPacote}`
+//           );
+//         }
+//       }
+//       console.log(coursesList.length);
+//       lastBoxCategory.appendChild(categoryLink);
+//     } else {
+//       for (let i = 0; i < json.coursesList.course.length; i++) {
+//         let categoryName = json.coursesList.course[i].title;
+//         let courseId = json.coursesList.course[i].id;
+//         let categoryImg = json.coursesList.course[i].img;
+//         let ysnPacote = json.coursesList.course[i].ysnPacote;
+//         let courseCategoryName = json.coursesList.course[i].categoria.name;
+//         let courseCategoryId = json.coursesList.course[i].categoria.id;
+//         let courseThemeName = json.coursesList.course[i].temaCourse;
+//         //Box of each category
+//         let boxOfEachCategory = document.createElement('div');
+//         boxOfEachCategory.id = courseId;
+//         boxOfEachCategory.classList.add('boxOfEachCategory');
+//         coursesList.push(boxOfEachCategory);
+//         allCourseBox.appendChild(boxOfEachCategory);
+//         //boxFromImg
+//         let boxFromImg = document.createElement('div');
+//         boxFromImg.classList.add('boxFromImg');
+//         boxOfEachCategory.appendChild(boxFromImg);
+//         //Image box
+//         let imageBox = document.createElement('div');
+//         imageBox.classList.add('imageBox');
+//         imageBox.style.backgroundImage = `url(${initUrl}${categoryImg})`;
+//         imageBox.addEventListener('click', () => {
+//           for (let y = 0; y < pageLinksList.length; y++) {
+//             if (pageLinksList[y].page === 'Nossos Cursos') {
+//               window.location.href = `${initUrl}/pages/${pageLinksList[y].id}/Detalhe Curso?courseId=${courseId}&ysnPacote=${ysnPacote}`;
+//             }
+//           }
+//         });
+//         boxFromImg.appendChild(imageBox);
+//         //Texts box
+//         let textsBox = document.createElement('div');
+//         textsBox.classList.add('textsBox');
+//         boxOfEachCategory.appendChild(textsBox);
+//         //Category title
+//         let categoryTitle = document.createElement('p');
+//         if (categoryName.length > 45) {
+//           categoryTitle.innerHTML = `${categoryName.slice(0, 45)}...`;
+//         } else {
+//           categoryTitle.innerHTML = categoryName;
+//         }
+//         categoryTitle.classList.add('categoryTitle');
+//         textsBox.appendChild(categoryTitle);
+//         //Number of courses
+//         let NumberOfCourses = document.createElement('p');
+//         NumberOfCourses.classList.add('NumberOfCourses');
+//         NumberOfCourses.innerHTML = courseCategoryName;
+//         textsBox.appendChild(NumberOfCourses);
+//         //Category information
+//         let categoryInfo = document.createElement('p');
+//         categoryInfo.innerHTML = `${courseThemeName}`;
+//         categoryInfo.classList.add('categoryInfo');
+//         textsBox.appendChild(categoryInfo);
+//         //Last box Category
+//         let lastBoxCategory = document.createElement('div');
+//         lastBoxCategory.classList.add('lastBoxCategory');
+//         boxOfEachCategory.appendChild(lastBoxCategory);
+//         //Bar
+//         let categoryBar = document.createElement('hr');
+//         categoryBar.classList.add('categoryBar');
+//         lastBoxCategory.appendChild(categoryBar);
+//         //Category button
+//         let categoryLink = document.createElement('a');
+//         categoryLink.innerHTML = 'Saiba mais...';
+//         categoryLink.classList.add('categoryLink');
+//         for (let y = 0; y < pageLinksList.length; y++) {
+//           if (pageLinksList[y].page === 'Curso') {
+//             categoryLink.setAttribute(
+//               'href',
+//               `${initUrl}/pages/${pageLinksList[y].id}/Detalhe Curso?courseId=${courseId}&ysnPacote=${ysnPacote}`
+//             );
+//           }
+//         }
+//         console.log(coursesList.length);
+//         lastBoxCategory.appendChild(categoryLink);
+//       }
+//     }
+
+//     console.log(coursesList.length);
+//     console.log(numberCourse);
+//     //courseContainer
+//     numberCourse > coursesList.length
+//       ? (showMoreCourses.style.display = 'block')
+//       : (showMoreCourses.style.display = 'none');
+//   } catch (e) {
+//     console.warn(e);
+//   }
+// }
+//End of search input
 
 function fetchJsonProductCategoryList() {
   try {
@@ -220,7 +556,6 @@ function getCourseCategoriesCards(json) {
         //Create categories cards
         let categoryCard = document.createElement('div');
         categoryCard.classList.add('coursesCategoriesCard');
-        categoryCard.id = categoryId;
         categoriesCourseCardsBox.appendChild(categoryCard);
 
         //Create category card image box
@@ -249,11 +584,11 @@ function getCourseCategoriesCards(json) {
         //Get category link
         let categoryLink = document.createElement('a');
         categoryLink.classList.add('coursesCategoriesCardsLink');
+        categoryLink.id = categoryId;
         categoryLink.innerHTML = 'Saiba mais →';
-        // Aqui coloco o direcionamento
-        // categoryLink.addEventListener('click', () => {
-        //   getCategoryNames();
-        // });
+        categoryLink.addEventListener('click', () => {
+          showCoursesForCategory(categoryList);
+        });
         contentBox.appendChild(categoryLink);
 
         // categoryList.push(categoryCard);
@@ -269,76 +604,81 @@ function getCourseCategoriesCards(json) {
 function getCategoryNames() {
   categoryNamesList[0].classList.add('activedCategory');
 }
+
 function showCoursesForCategory(categoryList) {
   document.addEventListener('click', (e) => {
     const elCkd = e.target;
-    // console.log(elCkd);
-    categoryList.forEach((e) => {
-      let categoryName = e.innerText;
-      let categoryId = e.id;
-      // console.log(`Nome: ${categoryName} → id: ${categoryId}`);
-      if (elCkd.id === 'allCourses') {
+    for (let x = 0; x < categoryList.length; x++) {
+      if (elCkd.id === categoryList[x].id) {
+        categoryList.filter((e) => {
+          let categoryName = e.innerText;
+          let categoryId = e.id;
+          if (e.id === categoryList[x].id) {
+            categoriesCourseCardsBox.innerHTML = '';
+            categoryNamesList[0].classList.remove('activedCategory');
+            e.classList.add('activedCategory');
+            coursesCategoriesTitle.innerHTML = categoryName;
+            courseSpecificList.length = 0;
+            courseSpecificList = [];
+            pageCounter = 1;
+            fetchSpecificCategory(categoryId);
+          } else {
+            e.classList.remove('activedCategory');
+          }
+        });
+      } else if (elCkd.id === 'allCourses') {
         location.reload();
-      } else if (elCkd.id === e.id) {
-        categoriesCourseCardsBox.innerHTML = '';
-        categoryNamesList[0].classList.remove('activedCategory');
-        e.classList.add('activedCategory');
-        coursesCategoriesTitle.innerHTML = categoryName;
-        courseSpecificList.length = 0;
-        courseSpecificList = [];
-        pageCounter = 1;
-        fetchSpecificCategory(categoryId);
-      } else {
-        e.classList.remove('activedCategory');
       }
-    });
+    }
   });
 }
 
 function getSpecificCategory(json) {
   try {
-    if (json.coursesList === 0) {
-      let titleCategoryCourses = document.querySelector(
-        '.coursesCategoriesTitle'
-      );
-      titleCategoryCourses.innerHTML =
-        'Desculpe, ainda não temos o que procura.';
-      // return;
+    console.log(json);
+    if (json.coursesList === 0 || json.coursesList === false) {
+      showMessageNoHavingCourse();
     }
 
     let APICoursesListSize = json.total;
-
-    // console.log(json);
 
     if (json.coursesList.course.length === undefined) {
       let curseId = json.coursesList.course.id;
       let curseImg = json.coursesList.course.img;
       let courseName = json.coursesList.course.title;
       let curseCategoryName = json.coursesList.course.categoria.name;
-      let curseCategoryId = json.coursesList.course.categoria.id;
+      // let curseCategoryId = json.coursesList.course.categoria.id;
       let ysnPacote = json.coursesList.course.ysnPacote;
+      let linkDetailCoursePage;
+
+      //Create guidance for the Course Details page
+      for (let x = 0; x < pageLinksList.length; x++) {
+        if (pageLinksList[x].page === 'Curso') {
+          linkDetailCoursePage = `${initUrl}/pages/${pageLinksList[x].id}/Curso?courseId=${curseId}&ysnPacote=${ysnPacote}`;
+        }
+      }
 
       const cardCourse = document.createElement('div');
       cardCourse.classList.add('coursesCategoriesCard');
       cardCourse.id = curseId;
       cardCourse.innerHTML = `
-          <div class="coursesCategoriesCardImg">
-              <img
-                class="categoryCardImg"
-                src="${initUrl}${curseImg}"
-                alt="Image"
-              />
-            </div>
-            <div class="coursesCategoriesCardContent">
-              <p class="coursesCategoriesCardTitle">${courseName}</p>
-              <p class="coursesCategoriesCardCategory">${curseCategoryName}</p>
-              <a class="coursesCategoriesCardsLink">Saiba mais →</a>
-            </div>
-          `;
+      <div class="coursesCategoriesCardImg">
+         <a  href="${linkDetailCoursePage}" >
+          <img
+            class="categoryCardImg"
+            src="${initUrl}${curseImg}"
+            alt="Image"
+          />
+         </a>
+        </div>
+        <div class="coursesCategoriesCardContent">
+          <p class="coursesCategoriesCardTitle">${courseName}</p>
+          <p class="coursesCategoriesCardCategory">${curseCategoryName}</p>
+          <a href="${linkDetailCoursePage}"  class="coursesCategoriesCardsLink">Saiba mais →</a>
+        </div>
+      `;
       categoriesCourseCardsBox.appendChild(cardCourse);
-      // courseSpecificList.forEach((course) => {
-      //   course.innerHTML = cardCourse;
-      // });
+      console.log(linkDetailCoursePage);
 
       courseSpecificList.push(cardCourse);
     } else if (json.coursesList.course.length) {
@@ -347,24 +687,33 @@ function getSpecificCategory(json) {
         let curseImg = json.coursesList.course[cl].img;
         let courseName = json.coursesList.course[cl].title;
         let curseCategoryName = json.coursesList.course[cl].categoria.name;
-        let curseCategoryId = json.coursesList.course[cl].categoria.id;
+        // let curseCategoryId = json.coursesList.course[cl].categoria.id;
         let ysnPacote = json.coursesList.course[cl].ysnPacote;
+
+        //Create guidance for the Course Details page
+        for (let x = 0; x < pageLinksList.length; x++) {
+          if (pageLinksList[x].page === 'Curso') {
+            linkDetailCoursePage = `${initUrl}/pages/${pageLinksList[x].id}/Curso?courseId=${curseId}&ysnPacote=${ysnPacote}`;
+          }
+        }
 
         const cardCourse = document.createElement('div');
         cardCourse.classList.add('coursesCategoriesCard');
         cardCourse.id = curseId;
         cardCourse.innerHTML = `
           <div class="coursesCategoriesCardImg">
+            <a  href="${linkDetailCoursePage}" >
               <img
                 class="categoryCardImg"
                 src="${initUrl}${curseImg}"
                 alt="Image"
               />
+            </a>
             </div>
             <div class="coursesCategoriesCardContent">
               <p class="coursesCategoriesCardTitle">${courseName}</p>
               <p class="coursesCategoriesCardCategory">${curseCategoryName}</p>
-              <a class="coursesCategoriesCardsLink">Saiba mais →</a>
+              <a href="${linkDetailCoursePage}" class="coursesCategoriesCardsLink">Saiba mais →</a>
             </div>
           `;
         categoriesCourseCardsBox.appendChild(cardCourse);
@@ -377,24 +726,33 @@ function getSpecificCategory(json) {
       let curseImg = json.coursesList.course.img;
       let courseName = json.coursesList.course.title;
       let curseCategoryName = json.coursesList.course.categoria.name;
-      let curseCategoryId = json.coursesList.course.categoria.id;
+      // let curseCategoryId = json.coursesList.course.categoria.id;
       let ysnPacote = json.coursesList.course.ysnPacote;
+
+      //Create guidance for the Course Details page
+      for (let x = 0; x < pageLinksList.length; x++) {
+        if (pageLinksList[x].page === 'Curso') {
+          linkDetailCoursePage = `${initUrl}/pages/${pageLinksList[x].id}/Curso?courseId=${curseId}&ysnPacote=${ysnPacote}`;
+        }
+      }
 
       const cardCourse = document.createElement('div');
       cardCourse.classList.add('coursesCategoriesCard');
       cardCourse.id = curseId;
       cardCourse.innerHTML = `
           <div class="coursesCategoriesCardImg">
+            <a  href="${linkDetailCoursePage}" >
               <img
                 class="categoryCardImg"
                 src="${initUrl}${curseImg}"
                 alt="Image"
               />
+            </a>
             </div>
             <div class="coursesCategoriesCardContent">
               <p class="coursesCategoriesCardTitle">${courseName}</p>
               <p class="coursesCategoriesCardCategory">${curseCategoryName}</p>
-              <a class="coursesCategoriesCardsLink">Saiba mais →</a>
+              <a href="${linkDetailCoursePage}" class="coursesCategoriesCardsLink">Saiba mais →</a>
             </div>
           `;
       categoriesCourseCardsBox.appendChild(cardCourse);
@@ -409,7 +767,7 @@ function getSpecificCategory(json) {
     console.log('json.total  → ' + json.total);
 
     if (courseSpecificList.length < APICoursesListSize) {
-      showMoreCourseBtn.style.display = 'block';
+      showMoreCoursesButtonEvent();
     } else {
       showMoreCourseBtn.style.display = 'none';
     }
@@ -417,11 +775,179 @@ function getSpecificCategory(json) {
     console.warn(e);
   }
 }
+
+function getSearchCourse(json) {
+  try {
+    console.log(json);
+    if (json.coursesList === 0 || json.coursesList === false) {
+      showMessageNoHavingCourse();
+    }
+
+    let APICoursesListSize = json.total;
+
+    if (json.coursesList.course.length === undefined) {
+      let curseId = json.coursesList.course.id;
+      let curseImg = json.coursesList.course.img;
+      let courseName = json.coursesList.course.title;
+      let curseCategoryName = json.coursesList.course.categoria.name;
+      // let curseCategoryId = json.coursesList.course.categoria.id;
+      let ysnPacote = json.coursesList.course.ysnPacote;
+      let linkDetailCoursePage;
+
+      //Create guidance for the Course Details page
+      for (let x = 0; x < pageLinksList.length; x++) {
+        if (pageLinksList[x].page === 'Curso') {
+          linkDetailCoursePage = `${initUrl}/pages/${pageLinksList[x].id}/Curso?courseId=${curseId}&ysnPacote=${ysnPacote}`;
+        }
+      }
+
+      const cardCourse = document.createElement('div');
+      cardCourse.classList.add('coursesCategoriesCard');
+      cardCourse.id = curseId;
+      cardCourse.innerHTML = `
+      <div class="coursesCategoriesCardImg">
+         <a  href="${linkDetailCoursePage}" >
+          <img
+            class="categoryCardImg"
+            src="${initUrl}${curseImg}"
+            alt="Image"
+          />
+         </a>
+        </div>
+        <div class="coursesCategoriesCardContent">
+          <p class="coursesCategoriesCardTitle">${courseName}</p>
+          <p class="coursesCategoriesCardCategory">${curseCategoryName}</p>
+          <a href="${linkDetailCoursePage}"  class="coursesCategoriesCardsLink">Saiba mais →</a>
+        </div>
+      `;
+      categoriesCourseCardsBox.appendChild(cardCourse);
+      console.log(linkDetailCoursePage);
+
+      courseSpecificList.push(cardCourse);
+    } else if (json.coursesList.course.length) {
+      for (let cl = 0; cl < json.coursesList.course.length; cl++) {
+        let curseId = json.coursesList.course[cl].id;
+        let curseImg = json.coursesList.course[cl].img;
+        let courseName = json.coursesList.course[cl].title;
+        let curseCategoryName = json.coursesList.course[cl].categoria.name;
+        // let curseCategoryId = json.coursesList.course[cl].categoria.id;
+        let ysnPacote = json.coursesList.course[cl].ysnPacote;
+
+        //Create guidance for the Course Details page
+        for (let x = 0; x < pageLinksList.length; x++) {
+          if (pageLinksList[x].page === 'Curso') {
+            linkDetailCoursePage = `${initUrl}/pages/${pageLinksList[x].id}/Curso?courseId=${curseId}&ysnPacote=${ysnPacote}`;
+          }
+        }
+
+        const cardCourse = document.createElement('div');
+        cardCourse.classList.add('coursesCategoriesCard');
+        cardCourse.id = curseId;
+        cardCourse.innerHTML = `
+          <div class="coursesCategoriesCardImg">
+            <a  href="${linkDetailCoursePage}" >
+              <img
+                class="categoryCardImg"
+                src="${initUrl}${curseImg}"
+                alt="Image"
+              />
+            </a>
+            </div>
+            <div class="coursesCategoriesCardContent">
+              <p class="coursesCategoriesCardTitle">${courseName}</p>
+              <p class="coursesCategoriesCardCategory">${curseCategoryName}</p>
+              <a href="${linkDetailCoursePage}" class="coursesCategoriesCardsLink">Saiba mais →</a>
+            </div>
+          `;
+        categoriesCourseCardsBox.appendChild(cardCourse);
+        // testFunction(cardCourse);
+        courseSpecificList.push(cardCourse);
+        console.log(courseSpecificList.length);
+      }
+    } else {
+      let curseId = json.coursesList.course.id;
+      let curseImg = json.coursesList.course.img;
+      let courseName = json.coursesList.course.title;
+      let curseCategoryName = json.coursesList.course.categoria.name;
+      // let curseCategoryId = json.coursesList.course.categoria.id;
+      let ysnPacote = json.coursesList.course.ysnPacote;
+
+      //Create guidance for the Course Details page
+      for (let x = 0; x < pageLinksList.length; x++) {
+        if (pageLinksList[x].page === 'Curso') {
+          linkDetailCoursePage = `${initUrl}/pages/${pageLinksList[x].id}/Curso?courseId=${curseId}&ysnPacote=${ysnPacote}`;
+        }
+      }
+
+      const cardCourse = document.createElement('div');
+      cardCourse.classList.add('coursesCategoriesCard');
+      cardCourse.id = curseId;
+      cardCourse.innerHTML = `
+          <div class="coursesCategoriesCardImg">
+            <a  href="${linkDetailCoursePage}" >
+              <img
+                class="categoryCardImg"
+                src="${initUrl}${curseImg}"
+                alt="Image"
+              />
+            </a>
+            </div>
+            <div class="coursesCategoriesCardContent">
+              <p class="coursesCategoriesCardTitle">${courseName}</p>
+              <p class="coursesCategoriesCardCategory">${curseCategoryName}</p>
+              <a href="${linkDetailCoursePage}" class="coursesCategoriesCardsLink">Saiba mais →</a>
+            </div>
+          `;
+      categoriesCourseCardsBox.appendChild(cardCourse);
+
+      courseSpecificList.push(cardCourse);
+    }
+    // console.log(json);
+    console.log(
+      'json.coursesList.course.length → ' + courseSpecificList.length
+    );
+    // console.log(json.coursesList);
+    console.log('json.total  → ' + json.total);
+
+    if (courseSpecificList.length < APICoursesListSize) {
+      showMoreCoursesButtonEvent();
+      console.log('Local list is SMALLER then API list - 1');
+    } else {
+      showMoreCourseBtn.style.display = 'none';
+      console.log('Local list is BIGGER then API list');
+    }
+  } catch (e) {
+    console.warn(e);
+  }
+}
+
 //Show more button
-showMoreCourseBtn.addEventListener('click', () => {
-  fetchMoreSpecificCategory();
-  console.log(courseSpecificList.length);
-});
+// showMoreCourseBtn.addEventListener('click', () => {
+//   fetchMoreSpecificCategory();
+//   console.log(courseSpecificList.length);
+// });
+
+function showMoreCoursesButtonEvent() {
+  let box = document.querySelector('.coursesCategoriesContainer');
+  showMoreCourseBtn.style.display = 'block';
+  box.appendChild(showMoreCourseBtn);
+
+  if (arguments.callee.caller === getSpecificCategory) {
+    showMoreCourseBtn.addEventListener('click', (e) => {
+      e.stopImmediatePropagation();
+      fetchMoreSpecificCategory();
+      console.log('Chamada por: getSpecificCategory');
+    });
+    // return;
+  } else if (arguments.callee.caller === getSearchCourse) {
+    showMoreCourseBtn.addEventListener('click', (e) => {
+      e.stopImmediatePropagation();
+      countNextPageOfCoursesFromSearchInput();
+      console.log('Chamada por: getSearchCourse');
+    });
+    // return;
+  }
+}
 
 function fetchSpecificCategory(categoryId) {
   try {
@@ -446,6 +972,7 @@ function fetchMoreSpecificCategory() {
     let urlSearch = `${initUrl}/api/getJson.aspx?type=courses_list_app&page_total=12&page=${pageCounter}&tutor_id=${APICategoryId}`;
 
     console.log(urlSearch);
+    console.log('Number page → ' + pageCounter);
     fetch(urlSearch)
       .then((answer) => answer.json())
       .then((json) => {
@@ -454,6 +981,10 @@ function fetchMoreSpecificCategory() {
   } catch (e) {
     console.warn(e);
   }
+}
+function showMessageNoHavingCourse() {
+  let titleCategoryCourses = document.querySelector('.coursesCategoriesTitle');
+  titleCategoryCourses.innerHTML = 'Desculpe, ainda não temos o curso buscado.';
 }
 // End of Course categories
 
