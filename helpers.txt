@@ -1,0 +1,20 @@
+TAREFAS A FAZER:
+
+    OK → 1. FAZER COM QUE AO SELECIONAR UMA CATEGORIA, MESMO CLICANDO EM OUTRO ELEMENTO, NÃO TIRAR O DESTAQUE DO NOME DA CATEGORIA
+SELECIONADA;
+
+    OK → 2. CRIAR O DIRECIONAMENTO DO BOTÃO "SAIBA MAIS" DOS CARDS DAS CATEGORIAS PARA PUXAR OS CURSO DA MESMAS JUNTAMENTE DEIXANDO O NOME
+DA CATEGORIA NA PARTE DE CIMA DESTACADO;
+
+    3. BUSCAR CURSOS PELO INPUT, JUNTAMENTE COM A LÓGICA DA MENSAGEM DE ERRO E DO BOTÃO DE VOLTAR COM O TEXTO DIGITADO;
+
+    4. DEIXAR AS IMAGENS CLICÁVEIS, DIRECIONANDO PARA O MESMO LOCAL DO BOTÃO "SAIBA MAIS";
+
+    5. AJUSTAR O CSS DA DIV COM OS NOMES DA CATEGORIA.
+
+
+OBS: Test course name: Espec. em Gestão de Recursos Humanos com Ênfase em Treinamentos e Desenvolvimento
+    precisa diminuir o tamanho do nome dos cursos para não ficarem muito extenso e fazer os elemento pularem para fora.
+
+    Após pesquisar um curso que não existe, mostra a mensagem "Desculpe, ainda não temos o curso buscado.", porém, ao pesquisar outro que
+exista, a mensagem permanece. A mensagem precisa ser subistituida por "Todas as categorias", já que a pesquisa abrange todas elas. ACHO QUE JA AJUSTEI!
