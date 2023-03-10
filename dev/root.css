@@ -1,0 +1,23 @@
+:root{
+  --primary: #22d2b3;
+  --secundary: #003399;
+  --support: #199983;
+  --blackColor: #000;
+  --transparentdarkColor: #081018c4;
+  --whiteColor: #fff;
+  --grayColor: #5c6f82;
+  --iceColor: #f5f5f5;
+  --cardsBarColor: #cbcdce;
+  --findAppMaskColor: #0c162f;
+  --transparentWindow: #081018eb;
+  --findAppMasc: #081018;
+  --redColor: red;
+  --inputsBgLogin: #ffffff1f;
+  --defaultFont: "Montserrat";
+  --Oswald: "BIZ UDGothic", sans-serif;
+  --Garamond: "EB Garamond", serif;
+  --Baskerville: "Libre Baskerville", serif;
+  --Quicksand: "Quicksand", sans-serif;
+  --Raleway: "Raleway", sans-serif;
+  --Roboto: "Roboto", sans-serif;
+}
