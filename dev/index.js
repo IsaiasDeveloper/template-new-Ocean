@@ -44,8 +44,7 @@ function createNavBarInfo(json) {
     let linkToLogo = document.createElement('a');
     for (let i = 0; i < pageLinksList.length; i++) {
       if (pageLinksList[i].page === 'Home') {
-        let homePageId = pageLinksList[i].id;
-        linkToLogo.setAttribute('href', `${initUrl}/pages/${homePageId}/Home`);
+        linkToLogo.setAttribute('href', pageLinksList[i].id);
       }
     }
     navbarImgBox.appendChild(linkToLogo);
@@ -110,12 +109,7 @@ try {
   for (let i = 0; i < pageLinksList.length; i++) {
     for (let e = 0; e < navbarLinks.length; e++) {
       if (pageLinksList[i].page === navbarLinks[e].textContent) {
-        let pageId = pageLinksList[i].id;
-        let links = navbarLinks[e].textContent.replace(' ', '-');
-        navbarLinks[e].setAttribute(
-          'href',
-          `${initUrl}/pages/${pageId}/${links}`
-        );
+        navbarLinks[e].setAttribute('href', pageLinksList[i].id);
       }
     }
   }
@@ -126,20 +120,14 @@ try {
 let coletaLeadLogin = document.querySelector('.coletaLeadLogin');
 for (let i = 0; i < pageLinksList.length; i++) {
   if (pageLinksList[i].page === 'Login') {
-    coletaLeadLogin.setAttribute(
-      'href',
-      `${initUrl}/pages/${pageLinksList[i].id}/Login`
-    );
+    coletaLeadLogin.setAttribute('href', pageLinksList[i].id);
   }
 }
 //Register button
 let registerNavbarBtn = document.querySelector('.registerNavbarBtn');
 for (let i = 0; i < pageLinksList.length; i++) {
   if (pageLinksList[i].page === 'Registre-se') {
-    registerNavbarBtn.setAttribute(
-      'href',
-      `${initUrl}/pages/${pageLinksList[i].id}/Registre-se`
-    );
+    registerNavbarBtn.setAttribute('href', pageLinksList[i].id);
   }
 }
 // End of Navbar
@@ -585,7 +573,7 @@ function getEmphasis(json) {
       for (let i = 0; i < json.featuredCourses.courses.length; i++) {
         let courseId = json.featuredCourses.courses[i].id;
         count++;
-        //Eacth testimonies
+        //Eacth
         let discoverPackagesBoxes = document.createElement('div');
         discoverPackagesBoxes.classList.add('emphasisSlide-item');
         discoverPackagesBoxes.dataset.slide = 'emphasis-slide-item';
@@ -594,12 +582,12 @@ function getEmphasis(json) {
         discoverPackagesBoxes.addEventListener('click', () => {
           for (let x = 0; x < pageLinksList.length; x++) {
             if (pageLinksList[x].page === 'Curso') {
-              window.location.href = `${initUrl}/pages/${pageLinksList[x].id}/Detalhe Curso?courseId=${courseId}`;
+              window.location.href = `${pageLinksList[x].id}?courseId=${courseId}`;
             }
           }
         });
         discoverPackagesBox.appendChild(discoverPackagesBoxes);
-        //Testimonies content
+        //Content
         let courseImg = document.createElement('img');
         courseImg.setAttribute(
           'src',
@@ -1091,7 +1079,7 @@ function createCourseForCategory(allCategory) {
       imageBox.addEventListener('click', () => {
         for (let y = 0; y < pageLinksList.length; y++) {
           if (pageLinksList[y].page === 'Nossos Cursos') {
-            window.location.href = `${initUrl}/pages/${pageLinksList[y].id}/Nossos-Cursos?categoryId=${categoryId}`;
+            window.location.href = `${pageLinksList[y].id}?categoryId=${categoryId}`;
           }
         }
       });
@@ -1218,8 +1206,8 @@ function fecthSeachCourse(seachName) {
         imageBox.style.backgroundImage = `url(${initUrl}${categoryImg})`;
         imageBox.addEventListener('click', () => {
           for (let y = 0; y < pageLinksList.length; y++) {
-            if (pageLinksList[y].page === 'Nossos Cursos') {
-              window.location.href = `${initUrl}/pages/${pageLinksList[y].id}/Detalhe Curso?courseId=${courseId}&ysnPacote=${ysnPacote}`;
+            if (pageLinksList[y].page === 'Curso') {
+              window.location.href = `${pageLinksList[y].id}?courseId=${courseId}&ysnPacote=${ysnPacote}`;
             }
           }
         });
@@ -1262,8 +1250,8 @@ function fecthSeachCourse(seachName) {
           imageBox.style.backgroundImage = `url(${initUrl}${categoryImg})`;
           imageBox.addEventListener('click', () => {
             for (let y = 0; y < pageLinksList.length; y++) {
-              if (pageLinksList[y].page === 'Nossos Cursos') {
-                window.location.href = `${initUrl}/pages/${pageLinksList[y].id}/Detalhe Curso?courseId=${courseId}&ysnPacote=${ysnPacote}`;
+              if (pageLinksList[y].page === 'Curso') {
+                window.location.href = `${pageLinksList[y].id}?courseId=${courseId}&ysnPacote=${ysnPacote}`;
               }
             }
           });
@@ -1303,18 +1291,12 @@ let onlineClassLink = Array.prototype.slice.call(
 );
 for (let i = 0; i < pageLinksList.length; i++) {
   if (pageLinksList[i].page === 'Quem Somos') {
-    onlineClassLink[0].setAttribute(
-      'href',
-      `${initUrl}/pages/${pageLinksList[i].id}/Quem Somos`
-    );
+    onlineClassLink[0].setAttribute('href', pageLinksList[i].id);
   }
 }
 for (let i = 0; i < pageLinksList.length; i++) {
   if (pageLinksList[i].page === 'Nossos Cursos') {
-    onlineClassLink[1].setAttribute(
-      'href',
-      `${initUrl}/pages/${pageLinksList[i].id}/Nossos Cursos`
-    );
+    onlineClassLink[1].setAttribute('href', pageLinksList[i].id);
   }
 }
 // End of Why Choose Us section
@@ -2195,6 +2177,7 @@ const logoFooterBox = document.querySelector('.footerEnd');
 const socialMediaBox = document.querySelector('.footerSocialMediaIconBox');
 const footerInfoBox = document.querySelector('.footerInfoBox');
 
+$('.linksCreatedJs').remove();
 let footerLinkBox = document.createElement('div');
 footerLinkBox.classList.add('linksCreatedJs');
 footerInfoBox.appendChild(footerLinkBox);
@@ -2210,10 +2193,7 @@ let footerPolicyLinks = document.createElement('a');
 footerPolicyLinks.innerText = 'Política e Privacidade';
 for (let i = 0; i < pageLinksList.length; i++) {
   if (pageLinksList[i].page === 'Política de Privacidade') {
-    footerPolicyLinks.setAttribute(
-      'href',
-      `${initUrl}/pages/${pageLinksList[i].id}/Política de Privacidade`
-    );
+    footerPolicyLinks.setAttribute('href', pageLinksList[i].id);
   }
 }
 footerPolicyLinks.classList.add('OurCoursesLinks');
@@ -2223,10 +2203,7 @@ let footerUseTermsLink = document.createElement('a');
 footerUseTermsLink.innerText = 'Termos de Uso';
 for (let i = 0; i < pageLinksList.length; i++) {
   if (pageLinksList[i].page === 'Termos de Uso') {
-    footerUseTermsLink.setAttribute(
-      'href',
-      `${initUrl}/pages/${pageLinksList[i].id}/Termos de Uso`
-    );
+    footerUseTermsLink.setAttribute('href', pageLinksList[i].id);
   }
 }
 footerUseTermsLink.classList.add('OurCoursesLinks');
@@ -2236,15 +2213,10 @@ try {
   for (let i = 0; i < pageLinksList.length; i++) {
     for (let e = 0; e < navbarLinks.length; e++) {
       if (pageLinksList[i].page === navbarLinks[e].textContent) {
-        let pageId = pageLinksList[i].id;
         let links = navbarLinks[e].textContent;
-        let modifiedLink = links.replace(' ', '-');
         let navBarCopy = document.createElement('a');
         navBarCopy.innerHTML = links;
-        navBarCopy.setAttribute(
-          'href',
-          `${initUrl}/pages/${pageId}/${modifiedLink}`
-        );
+        navBarCopy.setAttribute('href', pageLinksList[i].id);
         infoBoxLeftFooter.appendChild(navBarCopy);
       }
     }
@@ -2260,8 +2232,7 @@ function getFooterInfo(json) {
     let linkToLogo = document.createElement('a');
     for (let i = 0; i < pageLinksList.length; i++) {
       if (pageLinksList[i].page === 'Home') {
-        let homePageId = pageLinksList[i].id;
-        linkToLogo.setAttribute('href', `${initUrl}/pages/${homePageId}/Home`);
+        linkToLogo.setAttribute('href', pageLinksList[i].id);
       }
     }
     logoFooterBox.prepend(linkToLogo);

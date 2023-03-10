@@ -8,15 +8,7 @@ let jsonCategories = '/api/getJson.aspx?type=tutors_app_new';
 let jsonSpecificCategory =
   '/api/getJson.aspx?type=courses_list_app&page_total=12&page=1&tutor_id=';
 
-// let initUrl = frontUrl;  //No Grape devo descomentar essa variável
-
-let initUrl = 'https://euestudo.com.vc'; //No Grape devo Comentar essa variável //https://espg.com.br/
-// let initUrl = 'https://catalogo.drmeducacao.com.br'; //No Grape devo Comentar essa variável //
-// let initUrl = 'https://espg.com.br'; //No Grape devo Comentar essa variável //
-// let initUrl = 'https://faculdadesucesso.edu.br'; //Tem 3 emphasis
-// let initUrl = 'https://uniflor.edu.br'; //Tem 9 emphasis
-// let initUrl = 'http://facigma.edu.br'; // SÓ ESSE ESTÁ DANDO ERRO! //
-// let initUrl = 'https://reboucasdigital.com.br'; // SÓ ESSE ESTÁ DANDO ERRO! //
+let initUrl = frontUrl;
 
 const pageLinksList = [
   { page: 'Home', id: '408098' },
@@ -55,8 +47,7 @@ function createNavBarInfo(json) {
     let linkToLogo = document.createElement('a');
     for (let i = 0; i < pageLinksList.length; i++) {
       if (pageLinksList[i].page === 'Home') {
-        let homePageId = pageLinksList[i].id;
-        linkToLogo.setAttribute('href', `${initUrl}/pages/${homePageId}/Home`);
+        linkToLogo.setAttribute('href', pageLinksList[i].id);
       }
     }
     navbarImgBox.appendChild(linkToLogo);
@@ -121,12 +112,7 @@ try {
   for (let i = 0; i < pageLinksList.length; i++) {
     for (let e = 0; e < navbarLinks.length; e++) {
       if (pageLinksList[i].page === navbarLinks[e].textContent) {
-        let pageId = pageLinksList[i].id;
-        let links = navbarLinks[e].textContent.replace(' ', '-');
-        navbarLinks[e].setAttribute(
-          'href',
-          `${initUrl}/pages/${pageId}/${links}`
-        );
+        navbarLinks[e].setAttribute('href', pageLinksList[i].id);
       }
     }
   }
@@ -137,20 +123,14 @@ try {
 let coletaLeadLogin = document.querySelector('.coletaLeadLogin');
 for (let i = 0; i < pageLinksList.length; i++) {
   if (pageLinksList[i].page === 'Login') {
-    coletaLeadLogin.setAttribute(
-      'href',
-      `${initUrl}/pages/${pageLinksList[i].id}/Login`
-    );
+    coletaLeadLogin.setAttribute('href', pageLinksList[i].id);
   }
 }
 //Register button
 let registerNavbarBtn = document.querySelector('.registerNavbarBtn');
 for (let i = 0; i < pageLinksList.length; i++) {
   if (pageLinksList[i].page === 'Registre-se') {
-    registerNavbarBtn.setAttribute(
-      'href',
-      `${initUrl}/pages/${pageLinksList[i].id}/Registre-se`
-    );
+    registerNavbarBtn.setAttribute('href', pageLinksList[i].id);
   }
 }
 // End of Navbar
@@ -212,7 +192,6 @@ seachInput.addEventListener('keyup', (e) => {
       let showMoreCourses = document.querySelector('.showMoreCourses');
       if (showMoreCourses) showMoreCourses.remove();
       fecthSeachCourse(seachName);
-      console.log(seachInput.value);
       seachInput.value = '';
       textWarn.innerHTML = '';
       coursesList.length = 0;
@@ -231,7 +210,6 @@ seachInputIcon.addEventListener('click', (e) => {
     let showMoreCourses = document.querySelector('.showMoreCourses');
     if (showMoreCourses) showMoreCourses.remove();
     fecthSeachCourse(seachName);
-    console.log(seachInput.value);
     seachInput.value = '';
     textWarn.innerHTML = '';
     coursesList.length = 0;
@@ -258,7 +236,6 @@ function fecthSeachCourse(seachName) {
       .then((resposta) => resposta.json())
       .then((json) => {
         categoriesCourseCardsBox.innerHTML = '';
-
         getSearchCourse(json);
       });
   } catch (e) {
@@ -268,7 +245,6 @@ function fecthSeachCourse(seachName) {
 function countNextPageOfCoursesFromSearchInput() {
   countSearchPage++;
   let searchString = document.querySelector('.backToStartLabel').textContent;
-
   fecthNewPageSeachCourse(searchString);
 }
 
@@ -279,7 +255,6 @@ function fecthNewPageSeachCourse(searchString) {
       .then((resposta) => resposta.json())
       .then((json) => {
         categoriesCourseCardsBox.innerHTML = '';
-        console.log(newPage);
         getSearchCourse(json);
       });
   } catch (e) {
@@ -304,13 +279,10 @@ function fetchJsonProductCategoryList() {
 
 function getCourseCategoriesName(json) {
   try {
-    // console.log(json);
-    // console.log(json.tutorsList.length);
     if (json.tutorsList) {
       for (let item = 0; item < json.tutorsList.length; item++) {
         let categoryId = json.tutorsList[item].id;
         let categoryName = json.tutorsList[item].name;
-
         //Create category names in the categories box
         let names = document.createElement('p');
         names.classList.add('categoryName');
@@ -337,7 +309,6 @@ function createSelectorOfOptions(json) {
     const selectorBox = document.querySelector(
       '[data-selector="categorySelectorBox"]'
     );
-    console.log(json);
     let modifyCategoryName;
     if (json.tutorsList) {
       for (let item = 0; item < json.tutorsList.length; item++) {
@@ -346,7 +317,6 @@ function createSelectorOfOptions(json) {
         categoryName.length >= 30
           ? (modifyCategoryName = `${categoryName.slice(0, 30)}...`)
           : (modifyCategoryName = categoryName);
-
         let option = document.createElement('option');
         option.setAttribute('data-selector-option', 'selector-option');
         option.setAttribute('value', `${categoryId}`);
@@ -384,8 +354,6 @@ categorySelector.onchange = function () {
 
 function getCourseCategoriesCards(json) {
   try {
-    // console.log(json);
-    // console.log(json.tutorsList);
     if (json.tutorsList) {
       for (let item = 0; item < json.tutorsList.length; item++) {
         let categoryId = json.tutorsList[item].id;
@@ -473,10 +441,6 @@ function showCoursesForCategory(categoryList) {
 
 function getSpecificCategory(json) {
   try {
-    let stringTest =
-      'Espec. em Gestão de Recursos Humanos com Ênfase em Treinamentos e Desenvolvimentodffvfdvdz fvfz vfzs';
-    console.log(stringTest.length);
-    console.log(json);
     if (json.coursesList === 0 || json.coursesList === false) {
       showMessageNoHavingCourse();
     }
@@ -495,10 +459,9 @@ function getSpecificCategory(json) {
       //Create guidance for the Course Details page
       for (let x = 0; x < pageLinksList.length; x++) {
         if (pageLinksList[x].page === 'Curso') {
-          linkDetailCoursePage = `${initUrl}/pages/${pageLinksList[x].id}/Curso?courseId=${curseId}&ysnPacote=${ysnPacote}`;
+          linkDetailCoursePage = `${pageLinksList[x].id}?courseId=${curseId}&ysnPacote=${ysnPacote}`;
         }
       }
-
       const cardCourse = document.createElement('div');
       cardCourse.classList.add('coursesCategoriesCard');
       cardCourse.id = curseId;
@@ -523,8 +486,6 @@ function getSpecificCategory(json) {
         </div>
       `;
       categoriesCourseCardsBox.appendChild(cardCourse);
-      console.log(linkDetailCoursePage);
-
       courseSpecificList.push(cardCourse);
     } else if (json.coursesList.course.length) {
       for (let cl = 0; cl < json.coursesList.course.length; cl++) {
@@ -532,16 +493,13 @@ function getSpecificCategory(json) {
         let curseImg = json.coursesList.course[cl].img;
         let courseName = json.coursesList.course[cl].title;
         let curseCategoryName = json.coursesList.course[cl].categoria.name;
-        // let curseCategoryId = json.coursesList.course[cl].categoria.id;
         let ysnPacote = json.coursesList.course[cl].ysnPacote;
-
         //Create guidance for the Course Details page
         for (let x = 0; x < pageLinksList.length; x++) {
           if (pageLinksList[x].page === 'Curso') {
-            linkDetailCoursePage = `${initUrl}/pages/${pageLinksList[x].id}/Curso?courseId=${curseId}&ysnPacote=${ysnPacote}`;
+            linkDetailCoursePage = `${pageLinksList[x].id}?courseId=${curseId}&ysnPacote=${ysnPacote}`;
           }
         }
-
         const cardCourse = document.createElement('div');
         cardCourse.classList.add('coursesCategoriesCard');
         cardCourse.id = curseId;
@@ -568,23 +526,19 @@ function getSpecificCategory(json) {
         categoriesCourseCardsBox.appendChild(cardCourse);
         // testFunction(cardCourse);
         courseSpecificList.push(cardCourse);
-        console.log(courseSpecificList.length);
       }
     } else {
       let curseId = json.coursesList.course.id;
       let curseImg = json.coursesList.course.img;
       let courseName = json.coursesList.course.title;
       let curseCategoryName = json.coursesList.course.categoria.name;
-      // let curseCategoryId = json.coursesList.course.categoria.id;
       let ysnPacote = json.coursesList.course.ysnPacote;
-
       //Create guidance for the Course Details page
       for (let x = 0; x < pageLinksList.length; x++) {
         if (pageLinksList[x].page === 'Curso') {
-          linkDetailCoursePage = `${initUrl}/pages/${pageLinksList[x].id}/Curso?courseId=${curseId}&ysnPacote=${ysnPacote}`;
+          linkDetailCoursePage = `${pageLinksList[x].id}?courseId=${curseId}&ysnPacote=${ysnPacote}`;
         }
       }
-
       const cardCourse = document.createElement('div');
       cardCourse.classList.add('coursesCategoriesCard');
       cardCourse.id = curseId;
@@ -612,13 +566,6 @@ function getSpecificCategory(json) {
 
       courseSpecificList.push(cardCourse);
     }
-    // console.log(json);
-    console.log(
-      'json.coursesList.course.length → ' + courseSpecificList.length
-    );
-    // console.log(json.coursesList);
-    console.log('json.total  → ' + json.total);
-
     if (courseSpecificList.length < APICoursesListSize) {
       showMoreCoursesButtonEvent();
     } else {
@@ -631,7 +578,6 @@ function getSpecificCategory(json) {
 
 function getSearchCourse(json) {
   try {
-    console.log(json);
     if (json.coursesList === 0 || json.coursesList === false) {
       showMessageNoHavingCourse();
     }
@@ -650,7 +596,7 @@ function getSearchCourse(json) {
       //Create guidance for the Course Details page
       for (let x = 0; x < pageLinksList.length; x++) {
         if (pageLinksList[x].page === 'Curso') {
-          linkDetailCoursePage = `${initUrl}/pages/${pageLinksList[x].id}/Curso?courseId=${curseId}&ysnPacote=${ysnPacote}`;
+          linkDetailCoursePage = `${pageLinksList[x].id}?courseId=${curseId}&ysnPacote=${ysnPacote}`;
         }
       }
 
@@ -674,8 +620,6 @@ function getSearchCourse(json) {
         </div>
       `;
       categoriesCourseCardsBox.appendChild(cardCourse);
-      console.log(linkDetailCoursePage);
-
       courseSpecificList.push(cardCourse);
     } else if (json.coursesList.course.length) {
       for (let cl = 0; cl < json.coursesList.course.length; cl++) {
@@ -685,14 +629,12 @@ function getSearchCourse(json) {
         let curseCategoryName = json.coursesList.course[cl].categoria.name;
         // let curseCategoryId = json.coursesList.course[cl].categoria.id;
         let ysnPacote = json.coursesList.course[cl].ysnPacote;
-
         //Create guidance for the Course Details page
         for (let x = 0; x < pageLinksList.length; x++) {
           if (pageLinksList[x].page === 'Curso') {
-            linkDetailCoursePage = `${initUrl}/pages/${pageLinksList[x].id}/Curso?courseId=${curseId}&ysnPacote=${ysnPacote}`;
+            linkDetailCoursePage = `${pageLinksList[x].id}?courseId=${curseId}&ysnPacote=${ysnPacote}`;
           }
         }
-
         const cardCourse = document.createElement('div');
         cardCourse.classList.add('coursesCategoriesCard');
         cardCourse.id = curseId;
@@ -715,7 +657,6 @@ function getSearchCourse(json) {
         categoriesCourseCardsBox.appendChild(cardCourse);
         // testFunction(cardCourse);
         courseSpecificList.push(cardCourse);
-        console.log(courseSpecificList.length);
       }
     } else {
       let curseId = json.coursesList.course.id;
@@ -728,10 +669,9 @@ function getSearchCourse(json) {
       //Create guidance for the Course Details page
       for (let x = 0; x < pageLinksList.length; x++) {
         if (pageLinksList[x].page === 'Curso') {
-          linkDetailCoursePage = `${initUrl}/pages/${pageLinksList[x].id}/Curso?courseId=${curseId}&ysnPacote=${ysnPacote}`;
+          linkDetailCoursePage = `${pageLinksList[x].id}?courseId=${curseId}&ysnPacote=${ysnPacote}`;
         }
       }
-
       const cardCourse = document.createElement('div');
       cardCourse.classList.add('coursesCategoriesCard');
       cardCourse.id = curseId;
@@ -752,22 +692,12 @@ function getSearchCourse(json) {
             </div>
           `;
       categoriesCourseCardsBox.appendChild(cardCourse);
-
       courseSpecificList.push(cardCourse);
     }
-    // console.log(json);
-    // console.log(
-    //   'json.coursesList.course.length → ' + courseSpecificList.length
-    // );
-    // console.log(json.coursesList);
-    // console.log('json.total  → ' + json.total);
-
     if (courseSpecificList.length < APICoursesListSize) {
       showMoreCoursesButtonEvent();
-      // console.log('Local list is SMALLER then API list - 1');
     } else {
       showMoreCourseBtn.style.display = 'none';
-      // console.log('Local list is BIGGER then API list');
     }
   } catch (e) {
     console.warn(e);
@@ -784,14 +714,12 @@ function showMoreCoursesButtonEvent() {
     showMoreCourseBtn.addEventListener('click', (e) => {
       e.stopImmediatePropagation();
       fetchMoreSpecificCategory();
-      console.log('Chamada por: getSpecificCategory');
     });
     // return;
   } else if (arguments.callee.caller === getSearchCourse) {
     showMoreCourseBtn.addEventListener('click', (e) => {
       e.stopImmediatePropagation();
       countNextPageOfCoursesFromSearchInput();
-      console.log('Chamada por: getSearchCourse');
     });
     // return;
   }
@@ -807,7 +735,6 @@ function fetchSpecificCategory(categoryId) {
         courseSpecificList.length = 0;
         categoriesCourseCardsBox.innerHTML = '';
         getSpecificCategory(json);
-        // console.log(json);
       });
   } catch (e) {
     console.warn(e);
@@ -818,9 +745,6 @@ function fetchMoreSpecificCategory() {
   try {
     pageCounter++;
     let urlSearch = `${initUrl}/api/getJson.aspx?type=courses_list_app&page_total=12&page=${pageCounter}&tutor_id=${APICategoryId}`;
-
-    console.log(urlSearch);
-    console.log('Number page → ' + pageCounter);
     fetch(urlSearch)
       .then((answer) => answer.json())
       .then((json) => {
@@ -842,6 +766,7 @@ const logoFooterBox = document.querySelector('.footerEnd');
 const socialMediaBox = document.querySelector('.footerSocialMediaIconBox');
 const footerInfoBox = document.querySelector('.footerInfoBox');
 
+$('.linksCreatedJs').remove();
 let footerLinkBox = document.createElement('div');
 footerLinkBox.classList.add('linksCreatedJs');
 footerInfoBox.appendChild(footerLinkBox);
@@ -857,10 +782,7 @@ let footerPolicyLinks = document.createElement('a');
 footerPolicyLinks.innerText = 'Política e Privacidade';
 for (let i = 0; i < pageLinksList.length; i++) {
   if (pageLinksList[i].page === 'Política de Privacidade') {
-    footerPolicyLinks.setAttribute(
-      'href',
-      `${initUrl}/pages/${pageLinksList[i].id}/Política de Privacidade`
-    );
+    footerPolicyLinks.setAttribute('href', pageLinksList[i].id);
   }
 }
 footerPolicyLinks.classList.add('OurCoursesLinks');
@@ -870,10 +792,7 @@ let footerUseTermsLink = document.createElement('a');
 footerUseTermsLink.innerText = 'Termos de Uso';
 for (let i = 0; i < pageLinksList.length; i++) {
   if (pageLinksList[i].page === 'Termos de Uso') {
-    footerUseTermsLink.setAttribute(
-      'href',
-      `${initUrl}/pages/${pageLinksList[i].id}/Termos de Uso`
-    );
+    footerUseTermsLink.setAttribute('href', pageLinksList[i].id);
   }
 }
 footerUseTermsLink.classList.add('OurCoursesLinks');
@@ -883,15 +802,10 @@ try {
   for (let i = 0; i < pageLinksList.length; i++) {
     for (let e = 0; e < navbarLinks.length; e++) {
       if (pageLinksList[i].page === navbarLinks[e].textContent) {
-        let pageId = pageLinksList[i].id;
         let links = navbarLinks[e].textContent;
-        let modifiedLink = links.replace(' ', '-');
         let navBarCopy = document.createElement('a');
         navBarCopy.innerHTML = links;
-        navBarCopy.setAttribute(
-          'href',
-          `${initUrl}/pages/${pageId}/${modifiedLink}`
-        );
+        navBarCopy.setAttribute('href', pageLinksList[i].id);
         infoBoxLeftFooter.appendChild(navBarCopy);
       }
     }
@@ -907,8 +821,7 @@ function getFooterInfo(json) {
     let linkToLogo = document.createElement('a');
     for (let i = 0; i < pageLinksList.length; i++) {
       if (pageLinksList[i].page === 'Home') {
-        let homePageId = pageLinksList[i].id;
-        linkToLogo.setAttribute('href', `${initUrl}/pages/${homePageId}/Home`);
+        linkToLogo.setAttribute('href', pageLinksList[i].id);
       }
     }
     logoFooterBox.prepend(linkToLogo);
