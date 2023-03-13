@@ -408,6 +408,216 @@ header .headerImg {
 }
 /* End of Boa Bolsa popup */
 
+/* Price section */
+.priceSection {
+  width: 100%;
+  background-color: var(--primary);
+  color: var(--whiteColor);
+}
+.priceContainer {
+  max-width: 1000px;
+  width: 90%;
+  margin: auto;
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 80px;
+}
+.priceLink {
+  background-color: var(--secundary);
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 120px;
+  width: auto;
+  padding: 8px 45px;
+  cursor: pointer;
+  transition: 0.8s;
+}
+.priceLink:hover {
+  color: var(--secundary);
+  background-color: var(--whiteColor);
+}
+.priceLink:active {
+  opacity: 0.8;
+}
+.oldPrice {
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 5px;
+}
+.oldPriceParcelsCoins {
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  align-items: center;
+  line-height: 17px;
+}
+.oldPriceParcels {
+  font-size: 16px;
+}
+.oldPriceValues {
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  position: relative;
+}
+.oldPriceRedBar {
+  border: none;
+  width: 95px;
+  height: 2px;
+  background-color: var(--redColor);
+  position: absolute;
+  top: 23px;
+  transform: rotate(16deg);
+}
+.oldPriceDec {
+  font-size: 40px;
+  font-weight: bold;
+}
+.oldPriceCent {
+  font-size: 17px;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+.correntPrice {
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 5px;
+}
+.correntPriceTextCoinsParcels {
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.correntPriceText {
+  font-size: 18px;
+  white-space: nowrap;
+}
+.correntPriceCoinsParcels {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  font-size: 28px;
+}
+.correntPriceValues {
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  font-weight: bold;
+}
+.correntPriceDec {
+  font-size: 65px;
+}
+.correntPriceCent {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+/* End of Price section */
+
+/* Form section */
+.formSection {
+  width: 100%;
+  background-color: var(--whiteColor);
+  color: var(--blackColor);
+  padding: 40px 0;
+}
+.formContainer {
+  max-width: 1000px;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+.formTextsLogoAddress,
+.formColetaLeadBox {
+  width: 48%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
+.formBar {
+  width: 120px;
+  border: none;
+  height: 3px;
+  background-color: var(--primary);
+  margin-bottom: 15px;
+}
+.formTitle {
+  font-size: 28px;
+  font-weight: bold;
+  max-width: 310px;
+  width: 100%;
+  margin-bottom: 5px;
+}
+.FormSubTitle {
+  font-size: 14px;
+  margin-bottom: 40px;
+}
+.formLogo {
+  width: 150px;
+  height: 45px;
+  border: 1px solid;
+  margin-bottom: 8px;
+}
+.formAddressBox p {
+  font-size: 12px;
+}
+.formColetaLeadBox div {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: start !important;
+  align-items: start !important;
+  row-gap: 6px !important;
+}
+.formColetaLeadBox input[type='text'] {
+  width: calc(100% - 15px) !important;
+  padding-left: 15px !important;
+  height: 35px !important;
+  border: 1px solid !important;
+  border-radius: 5px !important;
+  color: var(--blackColor) !important;
+  outline: none !important;
+}
+.formColetaLeadBox input[type='text']:last-of-type {
+  margin-bottom: 15px !important;
+}
+
+.formColetaLeadBox input::placeholder {
+  font-family: var(--defaultFont) !important;
+  color: var(--grayColor) !important;
+}
+.formColetaLeadBox label {
+  /* ???? Nunca usei com checkbox */
+}
+.formColetaLeadBox button {
+  width: auto !important;
+  font-weight: bold !important;
+  font-family: var(--defaultFont) !important;
+  text-transform: uppercase !important;
+  background-color: var(--secundary) !important;
+  border-radius: 15px !important;
+  border: none !important;
+  color: var(--whiteColor) !important;
+  padding: 8px 35px !important;
+  margin: 15px auto 0 !important;
+}
+/* End of Form section */
+
 /* Find the App */
 .findAppSection {
   /* .findAppContainer */
@@ -959,6 +1169,12 @@ footer {
 }
 
 @media (max-width: 992px) {
+  /* Price section */
+  .priceContainer {
+    column-gap: 50px;
+  }
+  /* End of Price section */
+
   /* Find the App */
   .findAppIconBtn {
     justify-content: center;
@@ -990,13 +1206,18 @@ footer {
   nav {
     border: none;
   }
-  .containerNavbar {
+  .subNavBarContainer {
     width: 90%;
+  }
+  .containerNavbar {
+    width: 85%;
   }
   /* End of NavBar*/
 
   /* Header section */
   header {
+    width: 90%;
+    margin: 99px auto 0;
     background-image: linear-gradient(
       to top,
       var(--transparentdarkColor) 1%,
@@ -1018,11 +1239,70 @@ footer {
   }
   /* End of Header section */
 
+  /* Price section */
+  .priceSection {
+    width: 90%;
+    margin: auto;
+  }
+  .priceContainer {
+    flex-direction: column;
+    row-gap: 15px;
+  }
+  .priceLink {
+    order: 3;
+    display: flex;
+    margin-bottom: 15px;
+  }
+  /* End of Price section */
+
+  /* Form section */
+  .formSection {
+    width: 90%;
+    margin: 0 auto;
+    border-left: 1px solid;
+    border-right: 1px solid;
+  }
+  .formContainer {
+    flex-direction: column;
+    position: relative;
+    height: 700px;
+    justify-content: start;
+  }
+  .formTitle {
+    text-align: center;
+  }
+  .formTextsLogoAddress {
+    width: 100%;
+    align-items: center;
+  }
+  .formColetaLeadBox {
+    width: 100%;
+  }
+
+  .formColetaLeadBox input[type='text'] {
+    max-width: 500px !important;
+    width: 100% !important;
+    margin: 3px auto !important;
+  }
+  .formAddressBox {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  /* End of Form section */
+
   /* Find the App */
   .findAppSection {
     background-image: none;
     background-color: var(--whiteColor);
     position: static;
+    width: 92%;
+    margin: 0 auto;
   }
 
   .findAppContainer {
@@ -1096,6 +1376,8 @@ footer {
   /* Footer section */
   footer {
     padding-top: 100px;
+    width: 90%;
+    margin: 0 auto;
   }
   /* Footer section */
 }
