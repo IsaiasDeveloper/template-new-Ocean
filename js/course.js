@@ -1,17 +1,55 @@
-//Global variable
+//Simular um link de curso para página de detalhe
+let pageUrl = '/page/397428/Agente Ambiental?courseId=242178&ysnPacote=1';
+
+//Get actually URL
 let siteProt = location.protocol + '//';
 let siteHost = location.host;
-const frontUrl = siteProt + siteHost;
 let jsonFile = '/api/getJson.aspx?type=home';
+let courseId = 241292; //idDoCurso;// TIRAR VALOR PARA O GRAPE, DEIXAR APENAS A VARIÁVEL CRIADA.
+let categoryId;
+
+//65075 → maquiagem-completa (false topic.resume)
+
+//258556 → Gestão Inovação
+//246873 → Asst. Infermagem //VERIFICAR PALAVRA CÂNCER
+
+//241988 → Aux. Almoxerif. com combo
+
+//64995 → assistente-administrativo (carga hor)
+//65052 → operador-de-caixa  ( carga hor)
+
+//101301 → especializacao-em-contabili.- FORM ON END (no carga Hor/false topic)
+//334739 → Esp.Téc. Enferm.(no carga Hor/false topic)
+//174635 → EJA - FORM ON END (no carga Hor/false topic)
+
+//84843 → Inglês (no topic)
+//244644 → retencao-de-talentos (no topic)
+//106808 → 365 dias (no topic)
+//242178 → Agente ambiental(no topic)
+
+//84828 → perito-contabil  (no topic / NÃO SEI ONDE ESTA O CONTÉUDO)
+//84846 → filosofoa (no topic / NÃO SEI ONDE ESTA O CONTÉUDO)
+//242001 → A lmoxarife (no topic / NÃO SEI ONDE ESTA O CONTÉUDO)
+//242019 → Web-designer (no topic / NÃO SEI ONDE ESTA O CONTÉUDO)
+//241997 → Auxiliar Contabil (no topic / NÃO SEI ONDE ESTA O CONTÉUDO)
+
+//100615 → grad. adm (no topic / no carga Hor)
+
+// const frontUrl = siteProt + siteHost;
+
+// let initUrl = frontUrl;  //No Grape devo descomentar essa variável
+
+//Global variable
+const frontUrl = siteProt + siteHost;
 let menuInfo = '/api/getJson.aspx?type=menu';
 
 // let initUrl = frontUrl;  //No Grape devo descomentar essa variável
 
-// let initUrl = 'https://euestudo.com.vc'; //No Grape devo Comentar essa variável //https://espg.com.br/
+let initUrl = 'https://euestudo.com.vc'; //No Grape devo Comentar essa variável //https://espg.com.br/
 // let initUrl = 'https://catalogo.drmeducacao.com.br'; //No Grape devo Comentar essa variável //
 // let initUrl = 'https://espg.com.br'; //No Grape devo Comentar essa variável //
 // let initUrl = 'https://faculdadesucesso.edu.br'; //Tem 3 emphasis
-let initUrl = 'https://uniflor.edu.br'; //Tem 9 emphasis
+// let initUrl = 'https://uniflor.edu.br'; //Tem 9 emphasis
 // let initUrl = 'http://facigma.edu.br'; // SÓ ESSE ESTÁ DANDO ERRO! //
 // let initUrl = 'https://reboucasdigital.com.br'; // SÓ ESSE ESTÁ DANDO ERRO! //
 
@@ -29,6 +67,28 @@ const pageLinksList = [
   { page: 'Registre-se', id: '408825' },
   { page: 'Login', id: '408826' },
 ];
+
+//Get type of fetch
+// let urlParams = window.location.search.substring(1).split('&');
+let urlParams = new URL(
+  `${initUrl}?courseId=244661&ysnPacote=0&categoryId=215485&novapap=454048`
+).search
+  .substring(1)
+  .split('&');
+let urlParamArray = {};
+for (let i = 0; i < urlParams.length; i++) {
+  let param = urlParams[i].split('=');
+  urlParamArray[param[0]] = param[1];
+  novapap = urlParamArray['novapap'];
+  courseId = urlParamArray['courseId'];
+  categoryId = urlParamArray['categoryId'];
+  boaBolsaUserId = urlParamArray['boaBolsaUserId'];
+  ysnPacote = urlParamArray['ysnPacote'];
+}
+
+//courseId=242178&ysnPacote=1
+// console.log(urlParamArray['ysnPacote']);
+// console.log(urlParamArray);
 
 // Navbar
 //Create all menu informations
@@ -146,22 +206,135 @@ function fetchMenuInfo() {
     fetch(`${initUrl}${jsonFile}`)
       .then((resposta) => resposta.json())
       .then((json) => {
-        //   getHeaderSlide(json);
         getSocialMediaFooter(json);
-        //   getEmphasis(json);
-        //   getDiscoverPackages(json);
         getTestimonials(json);
       });
   } catch (e) {
     console.warn(e);
   }
 }
-
 // End of Header section
+
+//Get parameters from Current URL
+function getCurrentUrl() {
+  let middleGetUrl;
+  if (urlParamArray['ysnPacote']) {
+    if (urlParamArray['ysnPacote'] === 0) {
+      middleGetUrl = '/api/getJson.aspx?type=course_details&courseId=';
+    } else {
+      middleGetUrl = '/api/getJson.aspx?type=combo_details&comboId=';
+    }
+  }
+  let detalNewPage = `${initUrl}${middleGetUrl}${courseId}`;
+
+  return detalNewPage;
+}
+let detailsData = getCurrentUrl();
+//End of get parameters from Current URL
+
+// Header section
+function fetchCoursesDetals() {
+  //tbm trás o video
+  try {
+    fetch(detailsData)
+      .then((answer) => answer.json())
+      .then((json) => {
+        getCoursesHeader(json);
+        // getCourseDetails(json);
+        // getCoursesPrice(json);
+      });
+  } catch (e) {
+    console.warn(e);
+  }
+}
+
+let headerSecton = document.querySelector('.headerSection');
+let headerTitle = document.querySelector('.headerTitle');
+let workload = document.querySelector('.workload');
+
+function getCoursesHeader(json) {
+  try {
+    console.log(json);
+    let headerImg = document.createElement('div');
+    headerImg.style.backgroundImage = `url(${initUrl}${json.intro.background})`;
+    headerImg.classList.add('headerImg');
+    headerSecton.appendChild(headerImg);
+
+    headerTitle.innerHTML = json.intro.title;
+    workload.innerHTML = json.intro.specs.workload;
+
+    if (json.intro.embed) {
+      videoBtn.style.display = 'flex';
+      videoBtn.addEventListener('click', () => {
+        videoWindow.style.display = 'flex';
+        fetchApiVideo();
+      });
+    } else {
+      videoBtn.style.display = 'none';
+    }
+  } catch (e) {
+    console.warn(e);
+  }
+}
+// End of Header section
+
+//Video popup
+let videoBtn = document.querySelector('[data-show-video="show-video"]');
+let videoWindow = document.querySelector('.videoWindow');
+let videoClosedIcon = document.querySelector('.videoClosedBtnBox div');
+let closedBtnTitleVideo = document.querySelector('.videoClosedBtnBox');
+let popupVideo = document.querySelector('.contentVideoWindow');
+
+function fetchApiVideo() {
+  try {
+    fetch(detailsData)
+      .then((answer) => answer.json())
+      .then((json) => {
+        createVideoComponet(json);
+      });
+  } catch (e) {
+    console.warn(e);
+  }
+}
+
+videoClosedIcon.addEventListener('click', () => {
+  document.querySelector('.courseVideoTitle').innerHTML = '';
+  videoWindow.style.display = 'none';
+  popupVideo.innerHTML = '';
+  let video = document.querySelector('.video');
+  video.parentNode.removeChild(video);
+});
+
+function createVideoComponet(json) {
+  try {
+    //Video box
+    //To not show the videos on the page
+    let APIVideo = json.intro.embed;
+    //Title
+    let courseVideoTitle = document.createElement('p');
+    courseVideoTitle.classList.add('courseVideoTitle');
+    courseVideoTitle.innerHTML = 'Faça uma aula demonstrativa';
+    closedBtnTitleVideo.prepend(courseVideoTitle);
+    //Video div
+    let videoBox = document.createElement('div');
+    videoBox.classList.add('videoBox');
+    popupVideo.appendChild(videoBox);
+    //Video
+    let video = document.createElement('embed');
+    video.setAttribute('src', APIVideo);
+    video.setAttribute('allowfullscreen', 'true');
+    video.classList.add('video');
+    videoBox.appendChild(video);
+
+    console.log('foi...');
+  } catch (e) {
+    console.warn(e);
+  }
+}
+// End of Video popup
 
 //Testimonials section
 function getTestimonials(json) {
-  console.log(json);
   try {
     let testimoniesSection = document.querySelector('.testimonialSection');
     // let whoDo = document.querySelector('.testimonialsTitle');
@@ -223,7 +396,6 @@ function getTestimonials(json) {
           footerBox.appendChild(courseName);
         }
       } else if (!json.testimonies) {
-        console.log(testimoniesSection);
         testimoniesSection.style.display = 'none';
       }
     testimonioalSlideEvents();
@@ -672,4 +844,5 @@ function getSocialMediaFooter(json) {
 //Call functions
 fetchJsonNavbarLinks();
 fetchMenuInfo();
+fetchCoursesDetals();
 // fetchallJsonCourseCategories();
