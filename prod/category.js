@@ -11,18 +11,18 @@ let jsonSpecificCategory =
 let initUrl = frontUrl;
 
 const pageLinksList = [
-  { page: 'Home', id: '408098' },
-  { page: 'Nossos Cursos', id: '408816' },
-  { page: 'Quem Somos', id: '408817' },
-  { page: 'Como Funciona', id: '408818' },
-  { page: 'FAQ', id: '408819' },
-  { page: 'Seja Parceiro', id: '408820' },
-  { page: 'Contato', id: '408821' },
-  { page: 'Curso', id: '408822' },
-  { page: 'Política de Privacidade', id: '408823' },
-  { page: 'Termos de Uso', id: '408824' },
-  { page: 'Registre-se', id: '408825' },
-  { page: 'Login', id: '408826' },
+  { page: 'Home', id: '/' },
+  { page: 'Nossos Cursos', id: '/cursos' },
+  { page: 'Quem Somos', id: '/quem-somos' },
+  { page: 'Como Funciona', id: '/como-funciona' },
+  { page: 'FAQ', id: '/faq' },
+  { page: 'Seja Parceiro', id: '/seja-parceiro' },
+  { page: 'Contato', id: '/contato' },
+  { page: 'Curso', id: 'detalhes-curso' },
+  { page: 'Política de Privacidade', id: '/politica-de-privacidade' },
+  { page: 'Termos de Uso', id: '/termos-de-uso' },
+  { page: 'Registre-se', id: '/matricule-se' },
+  { page: 'Login', id: '/login' },
 ];
 
 // Navbar
@@ -47,8 +47,7 @@ function createNavBarInfo(json) {
     let linkToLogo = document.createElement('a');
     for (let i = 0; i < pageLinksList.length; i++) {
       if (pageLinksList[i].page === 'Home') {
-        linkToLogo.setAttribute('href', `/page/${pageLinksList[i].id}`);
-        console.log(pageLinksList[i].id);
+        linkToLogo.setAttribute('href', pageLinksList[i].id);
       }
     }
     navbarImgBox.appendChild(linkToLogo);
@@ -112,7 +111,7 @@ try {
   for (let i = 0; i < pageLinksList.length; i++) {
     for (let e = 0; e < navbarLinks.length; e++) {
       if (pageLinksList[i].page === navbarLinks[e].textContent) {
-        navbarLinks[e].setAttribute('href', `/page/${pageLinksList[i].id}`);
+        navbarLinks[e].setAttribute('href', pageLinksList[i].id);
       }
     }
   }
@@ -123,14 +122,14 @@ try {
 let coletaLeadLogin = document.querySelector('.coletaLeadLogin');
 for (let i = 0; i < pageLinksList.length; i++) {
   if (pageLinksList[i].page === 'Login') {
-    coletaLeadLogin.setAttribute('href', `/page/${pageLinksList[i].id}`);
+    coletaLeadLogin.setAttribute('href', pageLinksList[i].id);
   }
 }
 //Register button
 let registerNavbarBtn = document.querySelector('.registerNavbarBtn');
 for (let i = 0; i < pageLinksList.length; i++) {
   if (pageLinksList[i].page === 'Registre-se') {
-    registerNavbarBtn.setAttribute('href', `/page/${pageLinksList[i].id}`);
+    registerNavbarBtn.setAttribute('href', pageLinksList[i].id);
   }
 }
 // End of Navbar
@@ -819,7 +818,7 @@ let footerPolicyLinks = document.createElement('a');
 footerPolicyLinks.innerText = 'Política e Privacidade';
 for (let i = 0; i < pageLinksList.length; i++) {
   if (pageLinksList[i].page === 'Política de Privacidade') {
-    footerPolicyLinks.setAttribute('href', `/page/${pageLinksList[i].id}`);
+    footerPolicyLinks.setAttribute('href', pageLinksList[i].id);
   }
 }
 footerPolicyLinks.classList.add('OurCoursesLinks');
@@ -829,7 +828,7 @@ let footerUseTermsLink = document.createElement('a');
 footerUseTermsLink.innerText = 'Termos de Uso';
 for (let i = 0; i < pageLinksList.length; i++) {
   if (pageLinksList[i].page === 'Termos de Uso') {
-    footerUseTermsLink.setAttribute('href', `/page/${pageLinksList[i].id}`);
+    footerUseTermsLink.setAttribute('href', pageLinksList[i].id);
   }
 }
 footerUseTermsLink.classList.add('OurCoursesLinks');
@@ -842,7 +841,7 @@ try {
         let links = navbarLinks[e].textContent;
         let navBarCopy = document.createElement('a');
         navBarCopy.innerHTML = links;
-        navBarCopy.setAttribute('href', `/page/${pageLinksList[i].id}`);
+        navBarCopy.setAttribute('href', pageLinksList[i].id);
         infoBoxLeftFooter.appendChild(navBarCopy);
       }
     }
@@ -859,7 +858,7 @@ function getFooterInfo(json) {
     for (let i = 0; i < pageLinksList.length; i++) {
       if (pageLinksList[i].page === 'Home') {
         let homePageId = pageLinksList[i].id;
-        linkToLogo.setAttribute('href', `/page/${pageLinksList[i].id}`);
+        linkToLogo.setAttribute('href', pageLinksList[i].id);
       }
     }
     logoFooterBox.prepend(linkToLogo);

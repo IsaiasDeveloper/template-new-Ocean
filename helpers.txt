@@ -26,6 +26,6 @@ TAREFAS A FAZER:
 
     OK → 7. Preparar a págian de Categoria para categoria acessada via página Home;
 
-    8. Subir a página Categoria no Grape;
+    OK → 8. Subir a página Categoria no Grape;
 
     9. Verificar se os curso que exitem no carrossel de destaque, realmente não tem o parâmetro "ysnPacote", para usar "&ysnPacote=${ysnPacote}" em seu caminho;
