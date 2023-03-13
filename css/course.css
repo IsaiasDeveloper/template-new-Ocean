@@ -346,6 +346,68 @@ header .headerImg {
 }
 /* End of Video window  */
 
+/* Boa Bolsa popup */
+.boaBolsaSection {
+  position: fixed;
+  top: -62px;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 10;
+  background-color: var(--transparentdarkColor);
+  /* display: block; */
+  display: none;
+  text-align: center;
+}
+.boaBolsaContainer {
+  width: auto;
+  height: 100%;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.boaBolsaHeaderImg {
+  width: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -175px;
+}
+.boaBolsaHatImg {
+  width: 100px;
+}
+.boaBolsaHeaderUserImgBox {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-position: center center;
+  background-size: cover;
+}
+.nameUser {
+  color: var(--whiteColor);
+  font-weight: bold;
+  margin: 10px auto 5px;
+  text-align: center;
+  font-size: 17px;
+}
+.boaBolsaText {
+  font-size: 11px;
+  color: var(--whiteColor);
+  margin: 0;
+  text-align: center;
+}
+.scholarshipImg {
+  max-width: 400px;
+  width: 95%;
+}
+/* End of Boa Bolsa popup */
+
 /* Find the App */
 .findAppSection {
   /* .findAppContainer */
