@@ -69,12 +69,14 @@ const pageLinksList = [
 ];
 
 //Get type of fetch
-// let urlParams = window.location.search.substring(1).split('&');
+//NO GRAPE EXCLUIR A PRÓXIMA LINHA ↓
 let urlParams = new URL(
   `${initUrl}?courseId=244661&ysnPacote=0&categoryId=215485&novapap=454048`
 ).search
   .substring(1)
   .split('&');
+
+// let urlParams = window.location.search.substring(1).split('&');
 let urlParamArray = {};
 for (let i = 0; i < urlParams.length; i++) {
   let param = urlParams[i].split('=');
@@ -332,6 +334,61 @@ function createVideoComponet(json) {
   }
 }
 // End of Video popup
+
+// Boa Bolsa popup
+//Get Html elements
+let boaBolsaWindow = document.querySelector('.boaBolsaSection');
+let userName = document.querySelector('.nameUser');
+let userImage = document.querySelector('.boaBolsaHeaderUserImgBox');
+
+if (urlParamArray['novapap']) {
+  let novapap = urlParamArray['novapap'];
+  fetchInfoBoaBolsaPopup(novapap);
+}
+
+function fetchInfoBoaBolsaPopup(novapap) {
+  try {
+    fetch(
+      `${initUrl}/online/cs/html5/ConectorSQL.aspx?IdObj=51&idNegocio=1&request=7&IdSQL=906&type=2&Param=${novapap}`
+    )
+      .then((resposta) => resposta.text())
+      .then((str) => {
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(str, 'text/xml');
+        createBoaBolsaPopup(xmlDoc);
+      });
+  } catch (e) {
+    console.warn(e);
+  }
+}
+
+function createBoaBolsaPopup(xmlDoc) {
+  try {
+    // acessando os elementos do XML
+    const nome = xmlDoc.getElementsByTagName('strNome')[0].textContent;
+    const foto = xmlDoc.getElementsByTagName('urlFoto')[0].textContent;
+
+    boaBolsaWindow.style.display = 'block';
+    userImage.style.backgroundImage = `url(${foto})`;
+    userName.innerHTML = nome;
+    closedBoaBolsaWindow(boaBolsaWindow);
+    if (boaBolsaWindow.style.display === 'block') {
+      setTimeout(timeForClosed, 8000);
+    }
+  } catch (e) {
+    console.warn(e);
+  }
+}
+
+function closedBoaBolsaWindow(boaBolsaWindow) {
+  boaBolsaWindow.addEventListener('click', () => {
+    boaBolsaWindow.style.display = 'none';
+  });
+}
+function timeForClosed() {
+  boaBolsaWindow.style.display = 'none';
+}
+// End of Boa Bolsa popup
 
 //Testimonials section
 function getTestimonials(json) {
