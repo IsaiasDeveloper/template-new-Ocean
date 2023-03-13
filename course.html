@@ -89,7 +89,7 @@
     <!-- End Navbar -->
 
     <!-- Header section -->
-    <header>
+    <header class="headerSection">
       <div class="headerContainer">
         <hr class="headerBar" />
         <h1 class="headerTitle">Course name</h1>
@@ -99,15 +99,26 @@
               src="https://www.euestudo.com.vc/Loja/Imagens/iconhoras133202310463650.png"
               alt="Clock image"
             />
-            Carga hprária
+            <span class="workload">Carga horária</span>
           </p>
-          <p class="showVideoBtn">
+          <p data-show-video="show-video" class="showVideoBtn">
             <i class="fas fa-play"></i> Assistir aula demonstrativa
           </p>
         </div>
       </div>
     </header>
     <!-- End of Header section -->
+
+    <!-- Video window -->
+    <section class="videoWindow">
+      <div class="containerVideoWindow">
+        <div class="videoClosedBtnBox">
+          <div class=""><i class="fa-solid fa-xmark videoClosedIcon"></i></div>
+        </div>
+        <div class="contentVideoWindow"></div>
+      </div>
+    </section>
+    <!-- End of Video window -->
 
     <!-- Find the App -->
     <section class="findAppSection">

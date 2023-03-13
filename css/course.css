@@ -166,6 +166,186 @@ li {
 }
 /* End of Navbar */
 
+/* Header section */
+header {
+  width: 100%;
+  height: 360px;
+  margin-top: 99px;
+  background-image: linear-gradient(
+    to right,
+    var(--transparentdarkColor) 1%,
+    transparent,
+    transparent
+  );
+  position: relative;
+}
+header .headerImg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-position: center center;
+  background-size: cover;
+}
+.headerContainer {
+  max-width: 1000px;
+  width: 90%;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: start;
+  padding-bottom: 40px;
+  color: var(--whiteColor);
+}
+.headerBar {
+  border: none;
+  width: 150px;
+  height: 3px;
+  background-color: var(--whiteColor);
+  margin-bottom: 15px;
+}
+.headerTitle {
+  font-size: 28px;
+  margin-bottom: 20px;
+  width: 60%;
+}
+.infoIconVideoBtnBox {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  column-gap: 50px;
+}
+.infoIconText {
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.infoIconText img {
+  width: 20px;
+  margin-right: 5px;
+}
+.showVideoBtn {
+  width: auto;
+  background-color: var(--primary);
+  padding: 4px 25px;
+  border-radius: 15px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 15px;
+  /* display: flex; */
+  display: none;
+  justify-content: center;
+  align-items: center;
+  column-gap: 8px;
+  transition: 0.8s;
+  cursor: pointer;
+}
+.showVideoBtn:hover {
+  background-color: var(--whiteColor);
+  color: var(--primary);
+  border: 1px solid;
+}
+.showVideoBtn:active {
+  opacity: 0.8;
+}
+/* End of Header section */
+
+/* Video window  */
+.videoWindow {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: start;
+  background-color: var(--transparentWindow);
+  z-index: 3;
+  padding-top: 15px;
+}
+
+.containerVideoWindow {
+  max-width: 1000px;
+  width: 95%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.contentVideoWindow {
+  width: 100%;
+  height: auto;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.videoBox #main {
+  padding-top: 0 !important;
+}
+.videoClosedBtnBox {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* position: absolute;
+  top: 0; */
+}
+.videoClosedBtnBox .courseVideoTitle {
+  color: var(--whiteColor);
+  font-size: 18px;
+  font-weight: bold;
+  padding-right: 10px;
+}
+.videoClosedBtnBox i {
+  color: var(--whiteColor);
+  font-size: 20px;
+  display: flex;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.videoClosedBtnBox i:hover {
+  transform: scale(1.2);
+}
+.videoClosedBtnBox i:active {
+  transform: rotate(90deg);
+  transform: scale(0.1);
+  transition: 0;
+}
+.contentVideoWindow .courseVideoTitle {
+  color: var(--whiteColor);
+  font-size: 25px;
+  font-weight: bold;
+  margin: 0;
+  text-align: center;
+}
+.contentVideoWindow .videoBox {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  margin-top: -7px;
+}
+.contentVideoWindow .video {
+  width: 100%;
+  height: 650px;
+}
+.videoBox embed #main {
+  padding: 0;
+}
+/* End of Video window  */
+
 /* Find the App */
 .findAppSection {
   /* .findAppContainer */
@@ -753,6 +933,29 @@ footer {
   }
   /* End of NavBar*/
 
+  /* Header section */
+  header {
+    background-image: linear-gradient(
+      to top,
+      var(--transparentdarkColor) 1%,
+      transparent,
+      transparent
+    );
+  }
+  .headerContainer {
+    align-items: center;
+  }
+  .headerTitle {
+    text-align: center;
+    width: 100%;
+  }
+  .infoIconVideoBtnBox {
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 20px;
+  }
+  /* End of Header section */
+
   /* Find the App */
   .findAppSection {
     background-image: none;
@@ -908,6 +1111,16 @@ footer {
     top: 115px;
   }
   /* End of Navbar section  */
+
+  /* Header section */
+  header {
+    margin-top: 119px;
+  }
+  .showVideoBtn {
+    font-size: 13px;
+    width: 186px;
+  }
+  /* End of Header section */
 
   /* Testimonial section */
   .depoimentosSlide-list {
