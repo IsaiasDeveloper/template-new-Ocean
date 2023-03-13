@@ -243,7 +243,7 @@ function fetchCoursesDetals() {
       .then((json) => {
         getCoursesHeader(json);
         // getCourseDetails(json);
-        // getCoursesPrice(json);
+        getCoursesPrice(json);
       });
   } catch (e) {
     console.warn(e);
@@ -389,6 +389,39 @@ function timeForClosed() {
   boaBolsaWindow.style.display = 'none';
 }
 // End of Boa Bolsa popup
+
+// End of Price section
+const priceSection = document.querySelector('.priceSection');
+const oldPriceValues = document.querySelector('.oldPrice');
+let priceLink = document.querySelector('.priceLink');
+let parceals = document.querySelectorAll('[data-parcels="parcels"]');
+let oldPriceInt = document.querySelector('.oldPriceDec');
+let oldPriceDec = document.querySelector('.oldPriceCent');
+let correntPriceInt = document.querySelector('.correntPriceDec');
+let correntPriceDec = document.querySelector('.correntPriceCent');
+console.log(parceals);
+function getCoursesPrice(json) {
+  try {
+    if (json.intro.price) {
+      priceLink.innerHTML = json.intro.titleIcon4;
+      parceals.forEach((e) => (e.innerHTML = json.intro.price.parcials));
+      correntPriceInt.innerHTML = json.intro.price.now.int;
+      correntPriceDec.innerHTML = `,${json.intro.price.now.dec}`;
+      if (json.intro.price.old) {
+        oldPriceInt.innerHTML = json.intro.price.old.int;
+        oldPriceDec.innerHTML = `,${json.intro.price.old.dec}`;
+      } else {
+        oldPriceValues.style.display = 'none';
+      }
+    } else {
+      priceSection.style.display = 'none';
+    }
+  } catch (e) {
+    console.warn(e);
+  }
+}
+
+// Price section
 
 //Testimonials section
 function getTestimonials(json) {
