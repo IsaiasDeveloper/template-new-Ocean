@@ -31,3 +31,7 @@ TAREFAS A FAZER:
     9. Verificar se os curso que exitem no carrossel de destaque, realmente não tem o parâmetro "ysnPacote", para usar "&ysnPacote=${ysnPacote}" em seu caminho;
 
     10. Ajustar margens laterais das páginas Home e Categoria para dispositivos mobile (no mobile existe um espaço nas laterais);
+
+    11. Ajustar formulário após subir no Grape (no titulo, usar a classe criada para quando houver formulário ter width de 100%, caso contrário 48%);
+
+    12. Criar estilização quando for "topics" (ysnPacote = 0) e quando não for (ysnPacote = 1);

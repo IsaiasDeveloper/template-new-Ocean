@@ -42,6 +42,7 @@ let categoryId;
 //Global variable
 const frontUrl = siteProt + siteHost;
 let menuInfo = '/api/getJson.aspx?type=menu';
+let formLogo = document.querySelector('.formLogo');
 
 // let initUrl = frontUrl;  //No Grape devo descomentar essa variável
 
@@ -69,9 +70,9 @@ const pageLinksList = [
 ];
 
 //Get type of fetch
-//NO GRAPE EXCLUIR A PRÓXIMA LINHA ↓
+//NO GRAPE EXCLUIR A PRÓXIMA LINHA ↓ &ysnPacote=1
 let urlParams = new URL(
-  `${initUrl}?courseId=244661&ysnPacote=0&categoryId=215485&novapap=454048`
+  `${initUrl}?courseId=241981&categoryId=215485&novapap=454048`
 ).search
   .substring(1)
   .split('&');
@@ -122,6 +123,11 @@ function createNavBarInfo(json) {
     logoImg.setAttribute('src', `${initUrl + logoSite}`);
     logoImg.setAttribute('alt', 'Logo image');
     linkToLogo.appendChild(logoImg);
+    // Form section logo
+    let logoForm = document.createElement('img');
+    logoForm.setAttribute('src', `${initUrl + logoSite}`);
+    logoForm.setAttribute('alt', 'Logo image');
+    formLogo.appendChild(logoForm);
   } catch (e) {
     console.warn(e);
   }
@@ -221,11 +227,14 @@ function fetchMenuInfo() {
 function getCurrentUrl() {
   let middleGetUrl;
   if (urlParamArray['ysnPacote']) {
-    if (urlParamArray['ysnPacote'] === 0) {
-      middleGetUrl = '/api/getJson.aspx?type=course_details&courseId=';
-    } else {
+    if (urlParamArray['ysnPacote'] === 1) {
       middleGetUrl = '/api/getJson.aspx?type=combo_details&comboId=';
     }
+    //  else {
+    //   middleGetUrl = '/api/getJson.aspx?type=combo_details&comboId=';
+    // }
+  } else {
+    middleGetUrl = '/api/getJson.aspx?type=course_details&courseId=';
   }
   let detalNewPage = `${initUrl}${middleGetUrl}${courseId}`;
 
@@ -242,8 +251,9 @@ function fetchCoursesDetals() {
       .then((answer) => answer.json())
       .then((json) => {
         getCoursesHeader(json);
-        // getCourseDetails(json);
         getCoursesPrice(json);
+        getCourseDetails(json);
+        console.log(detailsData);
       });
   } catch (e) {
     console.warn(e);
@@ -252,18 +262,19 @@ function fetchCoursesDetals() {
 
 let headerSecton = document.querySelector('.headerSection');
 let headerTitle = document.querySelector('.headerTitle');
-let workload = document.querySelector('.workload');
+let workload = [...document.querySelectorAll('[data-workload="workload"]')];
 
 function getCoursesHeader(json) {
   try {
-    console.log(json);
     let headerImg = document.createElement('div');
     headerImg.style.backgroundImage = `url(${initUrl}${json.intro.background})`;
     headerImg.classList.add('headerImg');
     headerSecton.appendChild(headerImg);
 
     headerTitle.innerHTML = json.intro.title;
-    workload.innerHTML = json.intro.specs.workload;
+    workload.forEach((e) => {
+      e.innerHTML = json.intro.specs.workload;
+    });
 
     if (json.intro.embed) {
       videoBtn.style.display = 'flex';
@@ -399,7 +410,7 @@ let oldPriceInt = document.querySelector('.oldPriceDec');
 let oldPriceDec = document.querySelector('.oldPriceCent');
 let correntPriceInt = document.querySelector('.correntPriceDec');
 let correntPriceDec = document.querySelector('.correntPriceCent');
-console.log(parceals);
+
 function getCoursesPrice(json) {
   try {
     if (json.intro.price) {
@@ -420,8 +431,160 @@ function getCoursesPrice(json) {
     console.warn(e);
   }
 }
-
 // Price section
+
+//Course Details section
+function getCourseDetails(json) {
+  try {
+    console.log(json);
+    const coursesDetailsTitle = document.querySelector('.coursesDetailsTitle');
+    const detailsBox = document.querySelector('.courseDetailsContent');
+    const courseDetailsTopicsTitle = document.querySelector(
+      '.courseDetailsTopicsTitle'
+    );
+    const topicsBox = document.querySelector('.courseDetailsTopicsContent');
+    let moduleCount = 0;
+
+    //Coleta lead form
+    try {
+      let detailLeadBtn = document.querySelector('#btnEnviarLead');
+      let nameErrorMsg = document.querySelector('#nome');
+      let emailErrorMsg = document.querySelector('#email');
+      let phoneErrorMsg = document.querySelector('#celular');
+      detailLeadBtn.addEventListener('click', () => {
+        if (nameErrorMsg.value && emailErrorMsg.value && phoneErrorMsg.value) {
+          window.location.href = `${initUrl}${json.intro.storeLink}`;
+        }
+      });
+    } catch (e) {
+      console.warne;
+    }
+    //End of Coleta lead form
+
+    // console.log(json.titleDetails);
+    coursesDetailsTitle.innerHTML = json.titleDetails;
+    detailsBox.innerHTML = json.details;
+    courseDetailsTopicsTitle.innerHTML = json.titleTopics;
+    if (json.topics) {
+      console.log(json.topics);
+      console.log(json.topics.length);
+      for (let x = 0; x < json.topics.length; x++) {
+        moduleCount++;
+        let eachModule = document.createElement('div');
+        eachModule.classList.add('eachSubjectBox');
+        eachModule.innerHTML = `<div class="subjectTitleIconsBox">
+              <p class="subjectTitle">
+                <span class="numberSubject">${moduleCount} </span> ${json.topics[x].title}
+              </p>
+              <div class="subjectIconsBox">
+                <i data-icons="pluss" class="fa-solid fa-plus plussIcon"></i>
+                <i data-icons="less" class="fa-solid fa-minus lessIcon"  style="display: none;"></i>
+              </div>
+            </div>
+            <div class="subjectContent"  style="display: none;">
+              <p class="subjectContentText">${json.topics[x].resume}</p>
+            </div>`;
+        topicsBox.appendChild(eachModule);
+      }
+    }
+    if (json.courses) {
+      console.log(json.courses);
+      console.log(json.courses.length);
+
+      for (let x = 0; x < json.courses.length; x++) {
+        moduleCount++;
+        let eachModule = document.createElement('div');
+        eachModule.classList.add('eachSubjectBox');
+        eachModule.innerHTML = `<div class="subjectTitleIconsBox">
+              <p class="subjectTitle">
+                <span class="numberSubject">${moduleCount} </span> ${json.courses[x].title}
+              </p>
+              <div class="subjectIconsBox">
+                <i data-icons="pluss" class="fa-solid fa-plus plussIcon"></i>
+                <i data-icons="less" class="fa-solid fa-minus lessIcon"  style="display: none;"></i>
+              </div>
+            </div>
+            <div class="subjectContent"  style="display: none;">
+              <p class="subjectContentText">${json.courses[x].resume}</p>
+            </div>`;
+        topicsBox.appendChild(eachModule);
+      }
+    }
+    subjectContentEvent();
+  } catch (e) {
+    console.warne;
+  }
+}
+
+function subjectContentEvent() {
+  try {
+    document.addEventListener('click', (e) => {
+      const elCkd = e.target;
+
+      // const eachSubjectBox = Array.from(
+      //   document.querySelectorAll('.eachSubjectBox')
+      // );
+      // const topicsResume = Array.from(
+      //   document.querySelectorAll('.subjectContent')
+      // );
+      // const titleList = Array.from(document.querySelectorAll('.subjectTitle'));
+
+      // const iconsPlussList = Array.from(
+      //   document.querySelectorAll('[data-icons="pluss"]')
+      // );
+      // const iconsLessList = Array.from(
+      //   document.querySelectorAll('[data-icons="less"]')
+      // );
+
+      let eachSubjectBox = [...document.querySelectorAll('.eachSubjectBox')];
+      let topicsResume = [...document.querySelectorAll('.subjectContent')];
+      let titleList = [...document.querySelectorAll('.subjectTitle')];
+
+      let iconsPlussList = [
+        ...document.querySelectorAll('[data-icons="pluss"]'),
+      ];
+      let iconsLessList = [...document.querySelectorAll('[data-icons="less"]')];
+
+      for (let i = 0; i < iconsPlussList.length; i++) {
+        if (elCkd === iconsPlussList[i]) {
+          titleList.filter((e, idx) => {
+            idx === i
+              ? e.classList.add('defaultColor')
+              : e.classList.remove('defaultColor');
+          });
+          eachSubjectBox.filter((e, idx) => {
+            idx === i
+              ? e.classList.add('defaultColor')
+              : e.classList.remove('defaultColor');
+          });
+          iconsPlussList.filter((e, idx) => {
+            idx === i
+              ? (e.style.display = 'none')
+              : (e.style.display = 'block');
+          });
+          iconsLessList.filter((e, idx) => {
+            idx === i
+              ? (e.style.display = 'block')
+              : (e.style.display = 'none');
+          });
+          topicsResume.filter((e, idx) => {
+            idx === i ? (e.style.display = 'flex') : (e.style.display = 'none');
+          });
+        }
+        if (elCkd === iconsLessList[i]) {
+          iconsLessList[i].style.display = 'none';
+          iconsPlussList[i].style.display = 'block';
+          topicsResume[i].style.display = 'none';
+          titleList[i].classList.remove('defaultColor');
+          eachSubjectBox[i].classList.remove('defaultColor');
+        }
+      }
+    });
+  } catch (e) {
+    console.warn(e);
+  }
+}
+// End of Course Details section
 
 //Testimonials section
 function getTestimonials(json) {
