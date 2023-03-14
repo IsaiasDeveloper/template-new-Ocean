@@ -629,6 +629,18 @@ header .headerImg {
   color: var(--whiteColor) !important;
   padding: 8px 35px !important;
   margin: 15px auto 0 !important;
+  cursor: pointer !important;
+  transition: 0.6s !important;
+}
+.formColetaLeadBox button:hover {
+  color: var(--secundary) !important;
+  background-color: var(--whiteColor) !important;
+  border: 1px solid !important;
+}
+.formColetaLeadBox button:active {
+  color: var(--whiteColor) !important;
+  background-color: var(--secundary) !important;
+  border: none !important;
 }
 /* End of Form section */
 
@@ -1336,7 +1348,9 @@ footer {
 @media (max-width: 768px) {
   /* NavBar*/
   nav {
-    border: none;
+    width: 90%;
+    right: 5%;
+    left: 5%;
   }
   .subNavBarContainer {
     width: 90%;

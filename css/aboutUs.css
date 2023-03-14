@@ -169,359 +169,407 @@ li {
 /* Header section */
 header {
   width: 100%;
-  height: 300px;
-  background-image: url(https://catalogo.drmeducacao.com.br/Loja/Imagens/comofuncionaimgbackgroundmobile2722023172016175.jpg);
+  height: 360px;
+  background-image: url(https://www.euestudo.com.vc/Loja/Imagens/quemsomos1432023155622688.jpg);
   background-size: cover;
-  background-repeat: no-repeat;
   background-position: center center;
-  margin-top: 100px;
+  margin-top: 99px;
   color: var(--whiteColor);
 }
 .headerContainer {
   max-width: 1000px;
-  width: 98%;
-  margin: auto;
-  height: 100%;
+  width: 90%;
+  margin: 0 auto;
+  padding-top: 80px;
   display: flex;
   flex-direction: column;
   justify-content: start;
-  align-items: center;
-  padding-top: 70px;
+  align-items: start;
 }
-.headerBar {
+.titleBar {
   border: none;
   background-color: var(--whiteColor);
+
   height: 3px;
-  width: 150px;
-  margin: 0 auto 15px;
+  width: 120px;
+  margin-bottom: 15px;
 }
 .headerTitle {
+  font-size: 35px;
+  margin-bottom: 5px;
+}
+.headerSubtitle {
   font-size: 30px;
-  text-align: center;
 }
 /* End of Header section */
 
-/* Courses Categories */
-.coursesCategories {
+/* End of Our Story section */
+.ourStorySection {
   width: 100%;
-  background-color: var(--iceColor);
-  padding-bottom: 70px;
-}
-.coursesCategoriesContainer {
-  max-width: 1000px;
-  width: 98%;
-  margin: auto;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-}
-.categoryNamesInputBox {
-  max-width: 720px;
-  width: 90%;
-  height: auto;
-  box-shadow: 0px 0px 21px -3px var(--transparentdarkColor);
   background-color: var(--whiteColor);
-  color: var(--blackColor);
-  border-radius: 15px;
-  margin: -100px auto 50px;
+  padding-bottom: 50px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 30px 0 40px;
 }
-.categoryNameContent {
-  width: 75%;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  row-gap: 20px;
-}
-.categoryNamesBox {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  row-gap: 15px;
-  column-gap: 30px;
-}
-.categoryNamesBox .categoryName {
-  font-size: 14px;
-  cursor: pointer;
-  transition: 0.5s;
-}
-.categoryNamesBox .categoryName:hover {
-  border-bottom: 1px solid;
-  padding-bottom: 1px;
-}
-.categoryNamesBox .categoryName:active {
-  font-weight: bold;
-}
-.categoryNamesBox .activedCategory {
-  font-weight: bold;
-  border-bottom: 2px solid;
-  padding-bottom: 1px;
-}
-.categorySelectorBox {
-  width: 100%;
-  /* display: block; */
-  display: none;
-  text-align: center;
-}
-.selectorCategoryList {
-  max-width: 390px;
+.ourStoryContainer {
+  max-width: 1000px;
   width: 90%;
-  border: none;
-  font-size: 15px;
-  font-family: var(--defaultFont);
-  color: var(--blackColor);
-  outline: none;
-  padding-left: 10px;
+  margin: -120px auto 0;
+  padding: 50px 0;
+  background-color: var(--whiteColor);
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  box-shadow: 0px 0px 21px -3px var(--transparentdarkColor);
 }
-.eachOption {
-  font-size: 14px;
-}
-.allCategoriesInputBtnBox {
-  width: 100%;
+.ourStoryContent {
+  width: 85%;
   height: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.inputBox {
-  width: 100%;
-  height: 40px;
-  position: relative;
-  display: flex;
-  /* flex-direction: column; */
-  justify-content: center;
-  align-items: center;
-}
-.inputBox input {
-  color: var(--grayColor);
-  border: 1px solid;
-  width: 100%;
-  height: 100%;
-  padding-left: 45px;
-  border-radius: 20px;
-  outline: none;
-}
-.inputBox i {
-  position: absolute;
-  left: 20px;
-  top: 13px;
-}
-.textWarn {
-  color: var(--secundary);
-  font-size: 12px;
-  font-weight: bold;
-  text-align: center;
-  margin: 5px auto;
-}
-.backToStartBtn {
-  width: auto;
-  white-space: nowrap;
-  padding: 4px 15px;
-  /* display: flex; */
-  display: none;
-  column-gap: 10px;
-  justify-content: center;
-  align-items: center;
-  color: var(--whiteColor);
-  background-color: var(--primary);
+  align-items: start;
+  justify-content: start;
   border-radius: 15px;
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: bold;
-  margin-top: 10px;
 }
-.coursesCategoriesTitle {
-  color: var(--primary);
-  font-weight: bold;
-  font-size: 25px;
-  margin-bottom: 40px;
-  text-align: center;
+.ourStoryText {
+  font-size: 16px;
+  margin-bottom: 50px;
+  text-align: justify;
+  line-height: 22px;
 }
-.coursesCategoriesCardsBox {
+.ourStoryIconsBox {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  row-gap: 40px;
-  column-gap: 25px;
   justify-content: center;
-  align-items: center;
+  align-items: start;
+  column-gap: 40px;
+  row-gap: 50px;
   margin-bottom: 50px;
 }
-.coursesCategoriesCardsBox .coursesCategoriesCard {
-  width: 230px;
-  height: 285px;
+.ourStoryIconTextBox {
+  width: 182px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: start;
+}
+.ourStoryIconTextBox img {
+  width: 53px;
+  height: 53px;
+  margin-bottom: 5px;
+}
+.ourStoryIconTextBox img:nth-child(1) {
+  width: 60px;
+  height: 53px;
+}
+.ourStoryIconTitle {
+  color: var(--primary);
+  font-size: 35px;
+  font-weight: bold;
+  text-align: center;
+}
+.ourStoryIconText {
+  font-size: 13px;
+  text-align: center;
+}
+.ourStoryFooter {
+  width: 100%;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+}
+.ourStoryFooterTextBtn {
+  width: 48%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+}
+.ourStoryBar {
+  border: none;
+  height: 3px;
+  width: 120px;
+  background-color: var(--primary);
+  margin-bottom: 15px;
+}
+.ourStoryFooterTitle {
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+.ourStoryFooterText {
+  font-size: 16px;
+  max-width: 355px;
+  width: 100%;
+  margin-bottom: 20px;
+  line-height: 25px;
+}
+.ourStoryRegisterBtn {
+  font-size: 14px;
+  color: var(--whiteColor);
+  background-color: var(--primary);
+  border-radius: 20px;
+  padding: 6px 0;
+  width: 240px;
+  border: 1px solid;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  transition: 0.6s;
+  cursor: pointer;
+}
+.ourStoryRegisterBtn:hover {
+  color: var(--primary);
+  background-color: var(--whiteColor);
+  border: 1px solid;
+}
+.ourStoryRegisterBtn:active {
+  color: var(--whiteColor);
+  background-color: var(--primary);
+}
+.ourStoryCoursesBtn {
+  font-size: 14px;
+  color: var(--primary);
+  background-color: var(--whiteColor);
+  border: 1px solid;
+  border-radius: 20px;
+  padding: 6px 0;
+  width: 240px;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  transition: 0.6s;
+  cursor: pointer;
+}
+.ourStoryCoursesBtn:hover {
+  color: var(--whiteColor);
+  background-color: var(--primary);
+}
+.ourStoryCoursesBtn:active {
+  color: var(--primary);
+  background-color: var(--whiteColor);
+}
+.ourStoryFooterVideo {
+  width: 48%;
+  height: 305px;
+  display: flex;
+  justify-content: center;
   align-items: center;
   overflow: hidden;
-  border-radius: 10px;
-  background-color: var(--whiteColor);
-  box-shadow: 0px 0px 21px -3px var(--transparentdarkColor);
+  border-radius: 15px;
 }
-.coursesCategoriesCardsBox .coursesCategoriesCardImg {
+/* Our Story section */
+
+/* Testimonial section */
+.testimonialSection {
   width: 100%;
-  height: 50%;
-  overflow: hidden;
+  height: 555px;
+  padding: 70px 0;
+  background-color: var(--iceColor);
+  color: var(--blackColor);
+  position: relative;
 }
-.coursesCategoriesCardsBox .categoryCardImg {
-  width: 100%;
-  height: 100%;
-  transition: 0.6s;
-}
-.coursesCategoriesCardsBox .categoryCardImg:hover {
-  transform: scale(1.05);
-}
-.coursesCategoriesCardsBox .coursesCategoriesCardContent {
-  width: 85%;
-  height: 50%;
+.containerTestimonial {
+  max-width: 1000px;
+  width: 90%;
   margin: auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: start;
-  padding: 15px 0;
-}
-.coursesCategoriesCardsBox .coursesCategoriesCardTitle {
-  font-size: 13px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-.coursesCategoriesCardsBox .coursesCategoriesCardCategory {
-  font-size: 10px;
-  color: var(--primary);
-  border: 1px solid;
-  border-radius: 15px;
-  padding: 1px 10px;
-  width: auto;
-  margin-bottom: 10px;
-}
-.coursesCategoriesCardsBox .coursesCategoriesCardsLink {
-  font-size: 12px;
-  color: var(--whiteColor);
-  background-color: var(--primary);
-  border-radius: 15px;
-  font-weight: bold;
-  text-decoration: none;
-  padding: 3px 8px;
-  transition: 0.5s;
-  cursor: pointer;
-}
-.coursesCategoriesCardsBox .coursesCategoriesCardsLink:hover {
-  color: var(--primary);
-  background-color: var(--whiteColor);
-  border: 1px solid;
 }
 
-.showMoreCourses {
-  color: var(--whiteColor);
-  background-color: var(--primary);
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 15px;
-  padding: 5px 45px;
-  cursor: pointer;
-  transition: 0.6s;
-  text-transform: uppercase;
-  display: none;
-}
-.showMoreCourses:hover {
-  background-color: var(--whiteColor);
-  color: var(--primary);
-  border: 1px solid;
-}
-/* End of Courses Categories */
-
-/* Find the App */
-.findAppSection {
-  /* .findAppContainer */
+.headerTestimonial {
   width: 100%;
-  padding: 0;
-  background-image: url(https://wing.com.br/Loja/Imagens/backgroundcelular1811202217304104.png);
-  background-size: cover;
-  position: relative;
-}
-.findAppMasc {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background-color: var(--findAppMaskColor);
-  z-index: -1;
-}
-/* .findAppMascContainer {
-    display: none;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-color: var(--findAppMaskColor);
-    z-index: -1;
-  } */
-.findAppContainer {
-  max-width: 900px;
-  width: 98%;
-  margin: auto;
-  margin-top: 0px;
-  padding-top: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
-}
-.findAppTextBtnBox {
-  width: 45%;
   height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  position: relative;
+  z-index: 1;
+  background-color: var(--whiteColor);
+}
+.testimonialBar {
+  height: 3px;
+  width: 120px;
+  border: none;
+  background-color: var(--primary);
+  margin-bottom: 15px;
+}
+.testimonialTitle {
+  font-size: 30px;
+}
+.testimonialChangeBtnBox {
+  position: absolute;
+  bottom: 21px;
+  right: 0;
+  left: 0;
+  height: 50px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  column-gap: 40px;
+}
+/* Slide ↓  */
+.slideDepoimentos-wrapper {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: auto;
+  left: 0;
+  right: 0;
+  bottom: 40px;
+}
+.depoimentosSlide-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+  padding-bottom: 30px;
+}
+
+.depoimentosSlide-list {
+  display: flex;
+  /* column-gap: 10px; */
+}
+.depoimentosSlide-list .depoimentosSlide-item {
+  flex-shrink: 0;
+  padding: 20px 20px;
+  width: 325px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+}
+.depoimentosSlide-list .internBox {
+  flex-shrink: 0;
+  padding: 0 10px;
+  width: 280px;
+  height: 265px;
+  cursor: grab;
+  margin-top: 30px;
+  box-shadow: 0px 0px 23px -3px var(--transparentdarkColor);
+  border-radius: 12px;
+}
+.depoimentosSlide-list .depoimentosSlide-content {
+  background-color: var(--whiteColor);
+  height: 200px;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: start;
-  row-gap: 20px;
-  padding-top: 35px;
+  position: relative;
 }
-.findAppTitle {
-  font-size: 50px;
-  color: var(--whiteColor);
-  font-weight: bold;
-  line-height: 50px;
-  margin-bottom: 10px;
-}
-.findAppIconBtn {
-  width: 100%;
+.depoimentosSlide-list .contentTextBox {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  height: 100%;
+  row-gap: 5px;
+  padding-top: 70px;
+  padding-bottom: 20px;
 }
-
-.findAppIconBtn img {
-  width: 180px;
-  transition: 0.8s;
+.depoimentosSlide-list .depoimentosSlide-content img {
+  margin-top: -55px;
+  width: 90px;
+  border-radius: 50%;
 }
-.findAppIconBtn img:hover {
-  transform: scale(1.05);
+.depoimentosSlide-list .aspasDepoimentos {
+  position: absolute;
+  top: 26px;
+  left: 6%;
+  font-size: 69px;
+  color: var(--primary);
+  transform: rotate(180deg);
+  font-family: var(--Oswald);
+  margin-top: 0px;
+  margin-right: auto;
+  margin-bottom: 0px;
+  margin-left: auto;
+  font-weight: 600;
+  font-style: normal;
 }
-.findAppImg {
-  width: 45%;
-  display: block;
-  margin-top: -31px;
-  text-align: right;
-  /* margin-bottom: -35px; */
+.depoimentosSlide-list .txtDepoimentos {
+  font-size: 11px;
+  line-height: 15px;
+  text-align: left;
+  width: 85%;
+  margin: 0 auto;
 }
-.findAppImg img {
-  width: 210px;
-  z-index: 2;
-  position: relative;
-  margin-bottom: -40px;
+.depoimentosSlide-list .footerBox {
+  width: 85%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 20px;
 }
-/* End Find the App */
+.depoimentosSlide-list .nomeAutorDepoimento {
+  font-size: 12px;
+  color: var(--blackColor);
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+.depoimentosSlide-list .redeScAutorDepoimento {
+  width: 75%;
+  text-align: center;
+  margin: 0 auto;
+  font-size: 11px;
+  color: var(--primary);
+}
+.depoimentosSlide-button {
+  color: var(--primary);
+  background-color: var(--whiteColor);
+  font-size: 25px;
+  z-index: 1;
+  cursor: pointer;
+  border: none;
+  border-radius: 50%;
+  padding: 8px 12px;
+  box-shadow: 0px 0px 21px -5px var(--transparentWindow);
+}
+.depoimentosSlide-button:hover {
+  color: var(--whiteColor);
+  background-color: var(--primary);
+}
+.depoimentosSlide-button:active {
+  opacity: 0.8;
+}
+/* .depoimentosSlide-previous {
+      left: 290px;
+    }
+    .depoimentosSlide-next {
+      right: 290px;
+    } */
+.depoimentosSlide-controls {
+  margin: 20px auto 0;
+  display: none;
+}
+/* Criar esse no JS ↓*/
+.depoimentosSlide-controls .depoimentosSlide-control-button {
+  background-color: transparent;
+  color: transparent;
+  font-size: 10px;
+  margin: 0 5px;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  padding: 0;
+  margin-bottom: 30px;
+}
+.depoimentosSlide-controls .depoimentosSlide-control-button.activeDepoimentos {
+  color: var(--whiteColor);
+  background-color: var(--whiteColor);
+  border-radius: 50%;
+}
+/* Criar esse no JS ↑*/
+/* End of Testimonial section */
 
 /* Footer Section */
 footer {
@@ -687,9 +735,42 @@ footer {
 
 /*
 
-     MEDIA QUERY
+         MEDIA QUERY
 
-*/
+    */
+
+@media (max-width: 1800px) {
+  /* Testimonials section  */
+  .depoimentosSlide-previous {
+    left: 225px;
+  }
+  .depoimentosSlide-next {
+    right: 225px;
+  }
+  /* End Testimonials section  */
+}
+
+@media (max-width: 1600px) {
+  /* Testimonials section  */
+  .depoimentosSlide-previous {
+    left: 115px;
+  }
+  .depoimentosSlide-next {
+    right: 115px;
+  }
+  /* End Testimonials section  */
+}
+
+@media (max-width: 1400px) {
+  /* Testimonials section  */
+  .depoimentosSlide-previous {
+    left: 35px;
+  }
+  .depoimentosSlide-next {
+    right: 35px;
+  }
+  /* End Testimonials section  */
+}
 
 @media (max-width: 1106px) {
   /* Navbar */
@@ -713,18 +794,18 @@ footer {
     margin-top: 0px;
   }
   /* .navbarMenu::before {
-      content: '';
-      background-image: url(https://images.pexels.com/photos/1341279/pexels-photo-1341279.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
-      background-repeat: no-repeat;
-      background-size: cover;
-      opacity: 0.9;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      position: absolute;
-      z-index: -1;
-    } */
+          content: '';
+          background-image: url(https://images.pexels.com/photos/1341279/pexels-photo-1341279.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+          background-repeat: no-repeat;
+          background-size: cover;
+          opacity: 0.9;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          position: absolute;
+          z-index: -1;
+        } */
 
   .coletaLeadLogin,
   .navbarMenu .itemsMenuNavbar,
@@ -750,17 +831,20 @@ footer {
     display: block;
   }
   /* End of Navbar */
+
+  /* Our Story section */
+  .ourStoryIconsBox {
+    column-gap: 8px;
+  }
+  /* End of Our Story section */
 }
+
 @media (max-width: 992px) {
-  /* Find the App */
-  .findAppIconBtn {
-    justify-content: center;
-    column-gap: 25px;
+  /* Our Story section */
+  .ourStoryIconsBox {
+    column-gap: 110px;
   }
-  .findAppImg {
-    width: 50%;
-  }
-  /* End Find the App */
+  /* End of Our Story section */
 
   /* Footer Section */
   .footerHeader {
@@ -785,87 +869,112 @@ footer {
     right: 5%;
     left: 5%;
   }
+
+  .subNavBarContainer {
+    /* width: 90%; */
+  }
   .containerNavbar {
-    width: 90%;
+    width: 85%;
   }
   /* End of NavBar*/
 
-  /* Find the App */
-  .findAppSection {
-    background-image: none;
-    background-color: var(--whiteColor);
-    position: static;
+  /* Header section */
+  header {
+    width: 90%;
+    height: 520px;
+    margin: 99px auto 0;
+    background-image: url(https://www.euestudo.com.vc/Loja/Imagens/bannermobile143202318247649.jpg);
   }
+  .headerContainer {
+    align-items: center;
+    padding-top: 130px;
+  }
+  .headerTitle,
+  .headerSubtitle {
+    text-align: center;
+  }
+  /* End of Header section */
 
-  .findAppContainer {
-    background-color: var(--findAppMaskColor);
+  /* Our Story section */
+  .ourStorySection {
+    width: 90%;
+    margin: 0 auto;
+    border-right: 1px solid;
+    border-left: 1px solid;
+  }
+  .ourStoryIconsBox {
+    column-gap: 50px;
+  }
+  .ourStoryFooter {
     flex-direction: column;
-    row-gap: 55px;
-    padding-top: 40px;
-    position: relative;
-    padding: -1;
   }
-  .findAppMasc {
-    display: none;
-  }
-  .findAppMascContainer {
-    background-image: url(https://wing.com.br/Loja/Imagens/backgroundcelular1811202217304104.png);
-    background-size: cover;
-    position: absolute;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 0;
-  }
-  .findAppTextBtnBox {
+  .ourStoryFooterTextBtn {
     width: 100%;
     align-items: center;
-    z-index: 1;
+    margin-bottom: 30px;
   }
-  .findAppIconBtn {
-    flex-direction: column;
-    row-gap: 25px;
-  }
-  .findAppTitle {
+  .ourStoryText,
+  .ourStoryFooterTitle,
+  .ourStoryFooterText {
     text-align: center;
-    font-size: 33px;
-    line-height: 36px;
   }
-  .findAppImg {
+  .ourStoryFooterVideo {
     width: 100%;
-    text-align: center;
-    margin-bottom: -35px;
   }
-  /* End Find the App */
+  /* End of Our Story section */
+
+  /* Testimonials Section */
+  .testimonialSection {
+    padding: 120px 0 50px 0;
+  }
+  .testimonialTitle {
+    text-align: center;
+  }
+  .headerTestimonial {
+    width: 100%;
+    align-items: center;
+    height: 485px;
+    z-index: 0;
+  }
+  .slideDepoimentos-wrapper {
+    left: 0;
+    top: 175px;
+    width: 100%;
+    height: 350px;
+  }
+  .depoimentosSlide-wrapper {
+    padding-bottom: 0;
+  }
+  .testimonialChangeBtnBox {
+    justify-content: center;
+  }
+  /* End Testimonials Section */
+
   /* Footer section */
   footer {
     padding-top: 100px;
+    width: 90%;
+    margin: 0 auto;
   }
   /* Footer section */
 }
 
 @media (max-width: 576px) {
-  /* Find the App */
-  .findAppBtn {
-    max-width: 289px;
-    width: 100%;
-    padding: 10px 0;
-    text-align: center;
-    font-size: 11px;
+  /* Testimonials section  */
+  .testimonialsTitle {
+    font-size: 30px;
   }
-  /* End Find the App */
+  .teachingContainer .blueClassicBtn {
+    font-size: 13px;
+  }
+  .depoimentosSlide-wrapper {
+    padding-bottom: 0px;
+  }
+  .testimonialChangeBtnBox {
+    justify-content: center;
+  }
 
-  /* Courses Categories */
-  .categoryNamesInputBox {
-    margin-top: -50px;
-  }
-  .categoryNamesBox {
-    display: none;
-  }
-  .categorySelectorBox {
-    display: block;
-  }
-  /* End of Courses Categories */
+  /* End Testimonials section  */
 
   /* Footer Section */
   .footerTextBox {
@@ -913,4 +1022,25 @@ footer {
     top: 115px;
   }
   /* End of Navbar section  */
+
+  /* Header section */
+  header {
+    margin-top: 120px;
+  }
+  /* End of Header section */
+
+  /* Our Story section */
+  .ourStoryFooterVideo {
+    height: 200px;
+  }
+  /* End of Our Story section */
+
+  /* Testimonial section */
+  .depoimentosSlide-list {
+    column-gap: 0px;
+  }
+  .depoimentosSlide-list .depoimentosSlide-item {
+    width: 280px;
+  }
+  /* End of Testimonial section */
 }

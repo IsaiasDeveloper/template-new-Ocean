@@ -1902,7 +1902,9 @@ footer {
 @media (max-width: 768px) {
   /* NavBar*/
   nav {
-    border: none;
+    width: 90%;
+    right: 5%;
+    left: 5%;
   }
   .containerNavbar {
     width: 90%;
